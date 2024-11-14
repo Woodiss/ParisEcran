@@ -1,0 +1,14 @@
+{
+    "name": "steph/parisecran",
+    "autoload": {
+        "psr-4": {
+            "Steph\\parisecran\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Woodis"
+        }
+    ],
+    "require": {}
+}
