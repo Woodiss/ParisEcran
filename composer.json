@@ -1,8 +1,8 @@
 {
-    "name": "steph/parisecran",
+    "name": "hetic/parisecran",
     "autoload": {
         "psr-4": {
-            "Steph\\parisecran\\": "src/"
+            "parisecran\\": "src/"
         }
     },
     "authors": [
