@@ -2,7 +2,7 @@
     "name": "steph/parisecran",
     "autoload": {
         "psr-4": {
-            "Steph\\parisecran\\": "src/"
+            "Narut\\parisecran\\": "src/"
         }
     },
     "authors": [
