@@ -1,6 +1,6 @@
 <?php 
 
-namespace Steph\parisecran\Entity;
+namespace parisecran\Entity;
 
 class Film
 {

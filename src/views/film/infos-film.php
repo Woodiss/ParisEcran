@@ -1,7 +1,7 @@
 <?php 
 
-use Steph\parisecran\Entity\Film;
-use Steph\parisecran\DBAL\Connector;
+use parisecran\Entity\Film;
+use parisecran\DBAL\Connector;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 

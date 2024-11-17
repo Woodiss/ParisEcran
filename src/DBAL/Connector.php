@@ -1,6 +1,6 @@
 <?php
 
-namespace Narut\parisecran\DBAL;
+namespace parisecran\DBAL;
 
 class Connector
 {
