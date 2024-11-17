@@ -20,6 +20,47 @@ class Film
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function createFilm($post, $files)
+    {
+        $folder = __DIR__ . "/public/images_film/";;
+
+        // créer le dossier si besoin
+        if (!is_dir($folder)) {
+            mkdir($folder, 0755, true);
+        }
+
+        $path = $folder . $files['image']['name'];
+        
+        $tmpName = $files['image']['tmp_name'];
+        if (move_uploaded_file($tmpName, $path)) {
+            extract($post);
+            $image = $files['image']['name'];
+
+            $query = "INSERT INTO `film`(`title`, `image`, `synopsis`, `duration`, `price`, `language`, `genre_id`) 
+            VALUES (:title, :image, :synopsis, :duration, :price, :language, :genre_id)";
+            $stmt = $this->connector->prepare($query);
+            $stmt->bindParam(":title", $title);
+            $stmt->bindParam(":image", $image);
+            $stmt->bindParam(":synopsis", $synopsis);
+            $stmt->bindParam(":duration", $duration);
+            $stmt->bindParam(":price", $price);
+            $stmt->bindParam(":language", $language);
+            $stmt->bindParam(":genre_id", $genre_id);
+    
+            $stmt->execute();
+        };
+    }
+
+    public function selectAllGenre()
+    {
+        $query = "SELECT * FROM `genre`";
+        $stmt = $this->connector->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function selectFilmById($id_film)
     {
         $query = "SELECT *
