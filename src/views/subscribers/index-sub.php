@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
 
+
     $updateSuccess = $subscribers->updateSubscribers($id_sub, $username, $email, $password, $birthdate, $first_name, $last_name);
 
     if ($updateSuccess) {

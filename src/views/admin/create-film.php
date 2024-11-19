@@ -10,9 +10,15 @@ $dbh = new Connector();
 $filmModel = new Film($dbh->dbConnector);
 $genres = $filmModel->selectAllGenre();
 
-if (!empty($_POST) && !empty($_FILES['image']['name'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['image']['name'])) {
     echo 'post et files remplie';
-    if (!empty($_POST['title']) && !empty($_POST['synopsis']) && !empty($_POST['duration']) && !empty($_POST['price']) && !empty($_POST['language']) && !empty($_POST['genre_id'])) {
+    if (!empty($_POST['title']) && 
+        !empty($_POST['synopsis']) && 
+        !empty($_POST['duration']) && 
+        !empty($_POST['price']) && 
+        !empty($_POST['language']) && 
+        !empty($_POST['genre_id'])) {
+            
         $filmModel->createFilm($_POST, $_FILES);
     } else {
         echo 'champs vides?';

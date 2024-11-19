@@ -20,7 +20,6 @@ if (!empty($_GET["id_film"])){
     header("Location: index-film.php");
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
