@@ -11,13 +11,22 @@ $subscribers = new Subscribers($dbh->dbConnector);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
-    $id_sub = $_POST['id'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $birthdate = $_POST['birthdate'];
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
+    if (!empty($_POST['username']) && 
+    !empty($_POST['email']) && 
+    !empty($_POST['password']) && 
+    !empty($_POST['birthdate']) && 
+    !empty($_POST['first_name']) && 
+    !empty($_POST['last_name'])) {
+    $updateSuccess->updateSubscribers($_POST);
+    }
+    // $id_sub = $_POST['id'];
+    // $username = $_POST['username'];
+    // $email = $_POST['email'];
+    // $password = $_POST['password'];
+    // $birthdate = $_POST['birthdate'];
+    // $first_name = $_POST['first_name'];
+    // $last_name = $_POST['last_name'];
+
 
     // $updateSuccess = $subscribers->updateSubscribers($id_sub, $username, $email, $password, $birthdate, $first_name, $last_name);
 
