@@ -8,3 +8,9 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 
 test update read me
+
+
+// coucou je suis encore moi 
+
+apprentissage de github avec les potes sur Merge etcc...
+bla bla bla  crocodile
