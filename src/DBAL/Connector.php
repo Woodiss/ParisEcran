@@ -5,7 +5,7 @@ namespace parisecran\DBAL;
 class Connector
 {
     // const DSN = "mysql:dbname=parisecran;host=localhost";
-    const DSN = "mysql:dbname=spectacledb;host=localhost";
+    const DSN = "mysql:dbname=parisecran;host=localhost";
 
     public \PDO $dbConnector;
 

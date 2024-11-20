@@ -23,6 +23,8 @@ class Subscribers
 
     public function updateSubscribers($post)
     {
+
+        extract($post);
         $query = "UPDATE subscriber
               SET email = :email, username = :username , password = :password, birthdate = :birthdate, first_name = :first_name, last_name = :last_name
               WHERE id = :id";
