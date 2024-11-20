@@ -1,6 +1,6 @@
 <?php
 
-namespace Narut\parisecran\Entity;
+namespace parisecran\Entity;
 
 
 class Subscribers 

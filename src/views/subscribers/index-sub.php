@@ -1,7 +1,7 @@
 <?php 
 
-use Narut\parisecran\DBAL\Connector;
-use Narut\parisecran\Entity\Subscribers;
+use parisecran\DBAL\Connector;
+use parisecran\Entity\Subscribers;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
