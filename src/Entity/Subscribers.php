@@ -30,7 +30,8 @@ class Subscribers
               WHERE id = :id";
          $stmt = $this->connector->prepare($query);
 
-         $stmt->bindParam(":id", $id_sub);
+         extract($post);
+         $stmt->bindParam(":id", $id);
          $stmt->bindParam(":username", $username);
          $stmt->bindParam(":email", $email);
          $stmt->bindParam(":password", $password);
@@ -39,9 +40,20 @@ class Subscribers
          $stmt->bindParam(":last_name", $last_name);
 
         $stmt->execute();
-
+        
         return $stmt->fetch();
     }
+
+    public function deleteSubscribers($id_sub)
+{
+    $query = "DELETE FROM subscriber WHERE id = :id";
+    $stmt = $this->connector->prepare($query);
+
+    $stmt->bindParam(":id", $id_sub, \PDO::PARAM_INT);
+
+    return $stmt->execute(); 
+}
+
 }
 
 
