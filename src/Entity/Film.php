@@ -22,7 +22,8 @@ class Film
 
     public function createFilm($post, $files)
     {
-        $folder = __DIR__ . "/public/images_film/";;
+        // dirname(__DIR__, 2) remonte de deux dossier
+        $folder = dirname(__DIR__, 2) . "/public/images_film/";
 
         // créer le dossier si besoin
         if (!is_dir($folder)) {
@@ -112,6 +113,37 @@ class Film
             WHERE film_id = :id";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    // 2. Afficher les spectacles par arrondissement
+    public function getFilmByBorough()
+    {
+        $query = "SELECT * 
+            FROM film AS f 
+            JOIN representation AS re ON f.id = re.film_id 
+            JOIN room AS ro ON re.room_id = ro.id 
+            JOIN cinema AS c ON ro.cinema_id = c.id 
+            ORDER BY c.borough DESC;";
+        $stmt = $this->connector->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    // 5. Afficher le nombre de spectacles par catégorie
+    public function getNumberFilmByGenre()
+    {
+        $query = "SELECT g.name AS genre, COUNT(f.id) AS nombre_de_films
+            FROM genre g
+            LEFT JOIN film f ON g.id = f.genre_id
+            GROUP BY g.id, g.name
+            ORDER BY nombre_de_films DESC;";
+        $stmt = $this->connector->prepare($query);
 
         $stmt->execute();
 
