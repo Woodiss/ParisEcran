@@ -8,7 +8,7 @@ require_once __DIR__ . "/../../../vendor/autoload.php";
 $dbh = new Connector();
 
 $filmModel = new Film($dbh->dbConnector);
-$allFilms = $filmModel->getAllFilms();
+$filmModel->createRoom();
 
 ?>
 <!DOCTYPE html>
