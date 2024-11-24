@@ -1,0 +1,97 @@
+/* Appliquer une police globale */
+body {
+    background-color: #f2f2f2; /* Couleur de fond claire */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Centrer verticalement */
+    font-family: 'Roboto', sans-serif; /* Police Roboto */
+}
+
+.form {
+    background-color: #fff; /* Couleur de fond du formulaire */
+    width: 600px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    display: flex;
+    flex-direction: column; /* Organisation verticale */
+    gap: 20px; /* Espacement entre les champs */
+    align-items: center; /* Centrer les éléments */
+}
+
+.form h1 {
+    margin: 0 0 20px; /* Espacement en bas */
+    font-size: 28px; /* Taille du texte */
+    color: #000; /* Texte noir */
+    text-align: center;
+}
+
+.form .row {
+    display: flex;
+    gap: 10px; /* Espacement horizontal entre les champs */
+    width: 100%; /* Prendre toute la largeur disponible */
+}
+
+.form .row input {
+    flex: 1; /* Faire en sorte que les champs prennent la même largeur */
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"],
+.form input[type="date"] {
+    width: 100%; /* Largeur totale */
+    height: 47px;
+    padding: 10px;
+    border: 1px solid #ccc; /* Bordure légère */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px;
+    box-sizing: border-box; /* Inclure padding dans la largeur totale */
+}
+
+.form input[type="text"]::placeholder,
+.form input[type="email"]::placeholder,
+.form input[type="password"]::placeholder,
+.form input[type="date"]::placeholder {
+    color: red; /* Placeholder en rouge */
+    font-size: 14px;
+}
+
+.form p {
+    font-size: 14px;
+    color: red; /* Texte rouge pour correspondre à vos besoins */
+    display: flex; /* Alignement du texte avec la case à cocher */
+    align-items: center;
+    justify-content: center; /* Centrer horizontalement */
+    margin: 0;
+}
+
+.form input[type="checkbox"] {
+    margin-right: 10px; /* Espacement entre la case et le texte */
+}
+
+.form input[type="button"] {
+    background-color: red;
+    color: white;
+    width: 144px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+.form input[type="button"]:hover {
+    background-color: darkred; /* Couleur plus foncée au survol */
+}
+
+.form p:last-of-type {
+    font-size: 12px;
+    color: red; /* Texte rouge pour indiquer les champs obligatoires */
+    text-align: center;
+    margin-top: 10px;
+}
