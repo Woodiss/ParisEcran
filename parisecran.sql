@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 19 nov. 2024 à 22:15
+-- Généré le : mer. 20 nov. 2024 à 17:06
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -30,11 +30,11 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `casting`;
 CREATE TABLE IF NOT EXISTS `casting` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `biography` text,
+  `firstName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `lastName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `biography` text COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `casting`
@@ -55,23 +55,23 @@ INSERT INTO `casting` (`id`, `firstName`, `lastName`, `biography`) VALUES
 DROP TABLE IF EXISTS `cinema`;
 CREATE TABLE IF NOT EXISTS `cinema` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `presentation` text,
-  `address` text,
-  `borough` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `presentation` text COLLATE utf8mb4_general_ci,
+  `address` text COLLATE utf8mb4_general_ci,
+  `borough` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `geolocation` point DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `cinema`
 --
 
 INSERT INTO `cinema` (`id`, `name`, `presentation`, `address`, `borough`, `geolocation`, `phone`, `email`) VALUES
-(1, 'Grand Théâtre', 'Un grand théâtre situé au centre-ville.', '123 Rue Principale', 'Centre', NULL, '1234567890', 'contact@grandtheatre.com'),
-(2, 'Petit Théâtre', 'Un théâtre intime pour les petits spectacles.', '45 Rue des Artistes', 'Nord', NULL, '0987654321', 'info@petittheatre.com');
+(1, 'Grand Théâtre', 'Un grand théâtre situé au centre-ville.', '123 Rue Principale', '1', NULL, '1234567890', 'contact@grandtheatre.com'),
+(2, 'Petit Théâtre', 'Un théâtre intime pour les petits spectacles.', '45 Rue des Artistes', '3', NULL, '0987654321', 'info@petittheatre.com');
 
 -- --------------------------------------------------------
 
@@ -82,16 +82,16 @@ INSERT INTO `cinema` (`id`, `name`, `presentation`, `address`, `borough`, `geolo
 DROP TABLE IF EXISTS `film`;
 CREATE TABLE IF NOT EXISTS `film` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `synopsis` text,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `synopsis` text COLLATE utf8mb4_general_ci,
   `duration` time DEFAULT NULL,
   `price` float DEFAULT NULL,
-  `language` enum('français','VO','surtitré','audio') DEFAULT NULL,
+  `language` enum('français','VO','surtitré','audio') COLLATE utf8mb4_general_ci DEFAULT NULL,
   `genre_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`genre_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `film`
@@ -101,14 +101,14 @@ INSERT INTO `film` (`id`, `title`, `image`, `synopsis`, `duration`, `price`, `la
 (1, 'Roméo et Juliette', '', 'Une tragédie romantique classique.', '02:30:00', 20, 'français', 1),
 (2, 'Le Comédien', '', 'Un spectacle humoristique plein de surprises.', '01:45:00', 15, 'français', 2),
 (3, 'Concert Symphonique', '', 'Une performance orchestrale.', '02:00:00', 30, 'VO', 3),
-(4, 'Woodis', 'woodis.jpg', 'Woodis, un héros intrépide, découvre un artefact magique lui permettant de voyager entre les mondes. Sa mission : sauver l’espace-temps menacé par une force obscure. À travers des univers fascinants et dangereux, il doit restaurer l’équilibre avant que tout ne sombre dans le chaos.', '01:55:00', 21, 'français', 2),
-(5, 'DP', 'dp.jpg', 'Dans une petite ville ivoirienne, DP, un personnage farfelu et imprévisible, transforme chaque situation banale en une aventure hilarante. Entre quiproquos, idées absurdes et gags inattendus, rien ni personne n’échappe à son humour décalé. Préparez-vous à pleurer de rire dans cette comédie où l’ordinaire devient extraordinaire !', '02:05:00', 20, 'français', 2),
-(6, 'Willex', 'willex.jpg', 'Lorsqu’une menace imminente met en danger la sécurité mondiale, l’élite de l’armée de l’air lance l’opération Willex. Avec courage et précision, une escouade de pilotes d’élite mène une mission à haut risque pour neutraliser l’ennemi. Entre combats aériens spectaculaires et décisions héroïques, l’avenir repose entre leurs mains.', '02:26:00', 23, 'français', 4),
-(7, 'Leyn', 'leyn.jpg', 'Dans une petite ville paisible, Leyn, un individu troublant et insaisissable, sème la terreur. Manipulateur et méthodique, il plonge ses victimes dans des jeux psychologiques pervers, où la frontière entre réalité et cauchemar s’efface. Alors que la tension monte, chacun devra affronter ses propres démons pour espérer survivre.', '01:19:00', 18, 'français', 3),
-(8, 'Deva', 'deva.jpg', 'Deva, un jeune danseur passionné, tombe sous le charme de Meera, une belle et talentueuse indienne. Entre chansons envoûtantes et chorégraphies éclatantes, il devra prouver que l’amour, tout comme la danse, demande courage et détermination. Une comédie musicale bollywoodienne pleine de rires, de romance et de rythmes enflammés !', '03:05:00', 24, 'français', 1),
-(9, 'Magus', 'magus.jpg', 'Dans un monde où magie et ténèbres cohabitent, Arion, un jeune sorcier en quête de vérité, libère accidentellement une horde de démons scellés depuis des siècles. Pour sauver son royaume, il doit maîtriser un pouvoir ancien tout en affrontant des forces surnaturelles redoutables. Une aventure épique où le courage et la magie s’unissent pour triompher du mal.', '02:31:00', 25, 'français', 1),
-(10, 'nexus', 'nexus.jpg', 'Dans un futur où l’humanité dépend d’un réseau énergétique interdimensionnel, une faille catastrophique menace de détruire la réalité. Kael, un ingénieur rebelle, découvre que cette rupture est liée à un secret enfoui dans sa propre mémoire. Entre courses-poursuites dans des mégalopoles et incursions dans des dimensions inconnues, il devra affronter des ennemis autant humains qu’extraterrestres pour sauver l’univers.', '02:10:00', 21, 'français', 1),
-(11, 'Hoalbdek', 'hoalbdek.jpg', 'Lorsqu’un groupe d’amis décide d\'explorer la légendaire maison HOALBDEK, connue pour avoir englouti ses visiteurs dans des phénomènes surnaturels, ils découvrent rapidement que les rumeurs étaient bien en-deçà de la réalité. La maison, hantée par une force maléfique ancienne, joue avec leurs peurs les plus profondes, les piégeant dans un cauchemar sans fin. Survivre signifie non seulement échapper à la maison, mais aussi affronter les sombres secrets qu’ils y découvrent.', '01:40:00', 35, 'français', 1);
+(4, 'Woodis', 'woodis.webp', 'Woodis, un héros intrépide, découvre un artefact magique lui permettant de voyager entre les mondes. Sa mission : sauver l’espace-temps menacé par une force obscure. À travers des univers fascinants et dangereux, il doit restaurer l’équilibre avant que tout ne sombre dans le chaos.', '01:55:00', 21, 'français', 2),
+(5, 'DP', 'dp.webp', 'Dans une petite ville ivoirienne, DP, un personnage farfelu et imprévisible, transforme chaque situation banale en une aventure hilarante. Entre quiproquos, idées absurdes et gags inattendus, rien ni personne n’échappe à son humour décalé. Préparez-vous à pleurer de rire dans cette comédie où l’ordinaire devient extraordinaire !', '02:05:00', 20, 'français', 2),
+(6, 'Willex', 'willex.webp', 'Lorsqu’une menace imminente met en danger la sécurité mondiale, l’élite de l’armée de l’air lance l’opération Willex. Avec courage et précision, une escouade de pilotes d’élite mène une mission à haut risque pour neutraliser l’ennemi. Entre combats aériens spectaculaires et décisions héroïques, l’avenir repose entre leurs mains.', '02:26:00', 23, 'français', 4),
+(7, 'Leyn', 'leyn.webp', 'Dans une petite ville paisible, Leyn, un individu troublant et insaisissable, sème la terreur. Manipulateur et méthodique, il plonge ses victimes dans des jeux psychologiques pervers, où la frontière entre réalité et cauchemar s’efface. Alors que la tension monte, chacun devra affronter ses propres démons pour espérer survivre.', '01:19:00', 18, 'français', 3),
+(8, 'Deva', 'deva.webp', 'Deva, un jeune danseur passionné, tombe sous le charme de Meera, une belle et talentueuse indienne. Entre chansons envoûtantes et chorégraphies éclatantes, il devra prouver que l’amour, tout comme la danse, demande courage et détermination. Une comédie musicale bollywoodienne pleine de rires, de romance et de rythmes enflammés !', '03:05:00', 24, 'français', 1),
+(9, 'Magus', 'magus.webp', 'Dans un monde où magie et ténèbres cohabitent, Arion, un jeune sorcier en quête de vérité, libère accidentellement une horde de démons scellés depuis des siècles. Pour sauver son royaume, il doit maîtriser un pouvoir ancien tout en affrontant des forces surnaturelles redoutables. Une aventure épique où le courage et la magie s’unissent pour triompher du mal.', '02:31:00', 25, 'français', 1),
+(10, 'nexus', 'nexus.webp', 'Dans un futur où l’humanité dépend d’un réseau énergétique interdimensionnel, une faille catastrophique menace de détruire la réalité. Kael, un ingénieur rebelle, découvre que cette rupture est liée à un secret enfoui dans sa propre mémoire. Entre courses-poursuites dans des mégalopoles et incursions dans des dimensions inconnues, il devra affronter des ennemis autant humains qu’extraterrestres pour sauver l’univers.', '02:10:00', 21, 'français', 1),
+(11, 'Hoalbdek', 'hoalbdek.webp', 'Lorsqu’un groupe d’amis décide d\'explorer la légendaire maison HOALBDEK, connue pour avoir englouti ses visiteurs dans des phénomènes surnaturels, ils découvrent rapidement que les rumeurs étaient bien en-deçà de la réalité. La maison, hantée par une force maléfique ancienne, joue avec leurs peurs les plus profondes, les piégeant dans un cauchemar sans fin. Survivre signifie non seulement échapper à la maison, mais aussi affronter les sombres secrets qu’ils y découvrent.', '01:40:00', 35, 'français', 1);
 
 -- --------------------------------------------------------
 
@@ -119,11 +119,11 @@ INSERT INTO `film` (`id`, `title`, `image`, `synopsis`, `duration`, `price`, `la
 DROP TABLE IF EXISTS `genre`;
 CREATE TABLE IF NOT EXISTS `genre` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) NOT NULL,
-  `helpText` text,
+  `name` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
+  `helpText` text COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `genre`
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `representation` (
   PRIMARY KEY (`id`),
   KEY `spectacle_id` (`film_id`),
   KEY `room_id` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `representation`
@@ -171,12 +171,12 @@ INSERT INTO `representation` (`id`, `first_date`, `last_date`, `film_id`, `room_
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
-  `role` varchar(100) NOT NULL,
+  `role` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `casting_id` int NOT NULL,
   `film_id` int NOT NULL,
   PRIMARY KEY (`casting_id`,`film_id`,`role`),
   KEY `spectacle_id` (`film_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `role`
@@ -197,12 +197,12 @@ INSERT INTO `role` (`role`, `casting_id`, `film_id`) VALUES
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE IF NOT EXISTS `room` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `gauge` int DEFAULT NULL,
   `cinema_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `theatre_id` (`cinema_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `room`
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   `booked` int DEFAULT '0',
   `paid` tinyint(1) DEFAULT '0',
   `amount` float DEFAULT NULL,
-  `comment` text,
+  `comment` text COLLATE utf8mb4_general_ci,
   `notation` int DEFAULT NULL,
   `reactions` json DEFAULT NULL,
   `representation_id` int NOT NULL,
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   PRIMARY KEY (`id`),
   KEY `spectacle_id` (`representation_id`),
   KEY `subscriber_id` (`subscriber_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `schedule`
@@ -253,15 +253,15 @@ INSERT INTO `schedule` (`id`, `date`, `booked`, `paid`, `amount`, `comment`, `no
 DROP TABLE IF EXISTS `subscriber`;
 CREATE TABLE IF NOT EXISTS `subscriber` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(191) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `username` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` datetime DEFAULT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `subscriber`

@@ -22,7 +22,7 @@ class Film
 
     public function createFilm($post, $files)
     {
-        $folder = __DIR__ . "/public/images_film/";;
+        $folder = __DIR__ . "/public/images_film/";
 
         // créer le dossier si besoin
         if (!is_dir($folder)) {
