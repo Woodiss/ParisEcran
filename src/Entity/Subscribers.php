@@ -41,7 +41,7 @@ class Subscribers
 
         $stmt->execute();
         
-        return $stmt->fetch();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function deleteSubscribers($id_sub)
