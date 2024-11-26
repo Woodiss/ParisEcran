@@ -20,6 +20,19 @@ class Film
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getAllFilmsByGenre($genre_id)
+    {
+        $query = "SELECT * 
+                FROM film
+                WHERE genre_id = :genre_id
+                AND CURRENT_DATE BETWEEN first_date AND last_date;";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":genre_id", $genre_id);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function createFilm($post, $files)
     {
         // dirname(__DIR__, 2) remonte de deux dossier
@@ -67,8 +80,6 @@ class Film
         $query = "SELECT *
             FROM film AS f
             JOIN genre AS g ON f.genre_id = g.id
-            JOIN role AS r ON r.film_id = f.id
-            JOIN casting AS c ON c.id = r.casting_id
             WHERE f.id = :id";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
@@ -80,10 +91,13 @@ class Film
 
     public function selectRoleByIdFilm($id_film)
     {
-        $query = "SELECT *
-            FROM role AS r
-            JOIN casting AS c ON r.casting_id = c.id
-            WHERE r.film_id = :id";
+        $query = "SELECT f.id AS film_id,f.*, g.*,
+                 ROUND((SELECT AVG(notation) 
+                  FROM schedule 
+                  WHERE f.id = f.id)) AS average
+          FROM film AS f
+          JOIN genre AS g ON f.genre_id = g.id
+          WHERE f.id = :id";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
 
