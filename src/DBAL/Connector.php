@@ -2,15 +2,25 @@
 
 namespace parisecran\DBAL;
 
+use PDO;
+use PDOException;
+
 class Connector
 {
-    // const DSN = "mysql:dbname=parisecran;host=localhost";
-    const DSN = "mysql:dbname=parisecran;host=localhost";
-
-    public \PDO $dbConnector;
+    private $pdo;
 
     public function __construct()
     {
-       $this->dbConnector = new \PDO(self::DSN, 'root', '');
+        $dsn = 'mysql:host=localhost;dbname=parisecran;charset=utf8mb4';
+        $username = 'root';
+        $password = '';
+        
+        $this->pdo = new \PDO($dsn, $username, $password);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+
+    public function getPdo(): PDO
+    {
+        return $this->pdo;
     }
 }
