@@ -11,24 +11,31 @@ $subscribers = new Subscribers($dbh->dbConnector);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
-    $id_sub = $_POST['id'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $birthdate = $_POST['birthdate'];
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-
-
-    $updateSuccess = $subscribers->updateSubscribers($id_sub, $username, $email, $password, $birthdate, $first_name, $last_name);
-
-    if ($updateSuccess) {
-        echo " Sub a modifé avec succès";
-    } else {
-        echo "Erreur 404";
+    if (!empty($_POST['username']) && 
+    !empty($_POST['email']) && 
+    !empty($_POST['password']) && 
+    !empty($_POST['birthdate']) && 
+    !empty($_POST['first_name']) && 
+    !empty($_POST['last_name'])) {
+    $updateSuccess->updateSubscribers($_POST);
     }
-}     else {
-    echo "ERROR 40404040400404404";
+    // $id_sub = $_POST['id'];
+    // $username = $_POST['username'];
+    // $email = $_POST['email'];
+    // $password = $_POST['password'];
+    // $birthdate = $_POST['birthdate'];
+    // $first_name = $_POST['first_name'];
+    // $last_name = $_POST['last_name'];
+
+    // $updateSuccess = $subscribers->updateSubscribers($id_sub, $username, $email, $password, $birthdate, $first_name, $last_name);
+
+//     if ($updateSuccess) {
+//         echo " Sub a modifé avec succès";
+//     } else {
+//         echo "Erreur 404";
+//     }
+// }     else {
+//     echo "ERROR 404";
 }
 
 ?>
@@ -53,6 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         <input type="text" name="last_name" placeholder="Nom" required><br>
         <button type="submit">Mettre à jour</button>
     </form>
+    <p> 
+        <a href="index-del.php">Supprimer un abonné</a>
+    </p>
+
 
 </body>
 </html>

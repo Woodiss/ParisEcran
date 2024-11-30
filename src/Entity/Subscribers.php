@@ -21,6 +21,27 @@ class Subscribers
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function connexionSubcriber($post)
+    {
+        extract($post);
+        $query = "SELECT * FROM subscriber WHERE email = :email";
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['password'])) {
+
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['last_name'] = $user['last_name'];
+            $_SESSION['role'] = $user['role'];
+
+            header("Location: ../film/index-film.php");
+        } else {
+            echo "Email et/ou mot de passe incorrect.";
+        }
+    }
+
     public function updateSubscribers($post)
     {
 
@@ -30,7 +51,8 @@ class Subscribers
               WHERE id = :id";
          $stmt = $this->connector->prepare($query);
 
-         $stmt->bindParam(":id", $id_sub);
+         extract($post);
+         $stmt->bindParam(":id", $id);
          $stmt->bindParam(":username", $username);
          $stmt->bindParam(":email", $email);
          $stmt->bindParam(":password", $password);
@@ -39,9 +61,20 @@ class Subscribers
          $stmt->bindParam(":last_name", $last_name);
 
         $stmt->execute();
-
-        return $stmt->fetch();
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function deleteSubscribers($id_sub)
+{
+    $query = "DELETE FROM subscriber WHERE id = :id";
+    $stmt = $this->connector->prepare($query);
+
+    $stmt->bindParam(":id", $id_sub, \PDO::PARAM_INT);
+
+    return $stmt->execute(); 
+}
+
 }
 
 
