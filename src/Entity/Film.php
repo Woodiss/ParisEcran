@@ -107,9 +107,11 @@ class Film
 
     public function averageNotation($id_film)
     {
+        // J'ai modifier la query SQL car elle ne fonctionnait pas
         $query = "SELECT AVG(notation) AS average
-            FROM schedule 
-            WHERE film_id = :id";
+            FROM schedule AS s
+            JOIN representation AS r ON r.id = s.representation_id
+            WHERE r.film_id = :id";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
 
@@ -118,5 +120,7 @@ class Film
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }
+
+
 
 ?>

@@ -14,7 +14,7 @@ $allFilms = $filmModel->getAllFilms();
 
 // Déclaration de la variable pour le titre de la page
 $titlePage = "Films";
-require_once __DIR__ . "/../../../src/views/header.html.php"
+require_once __DIR__ . "/../../../src/views/header.html.php";
 ?>
 <main class="film-index">
     <section class="film-section">
@@ -106,9 +106,6 @@ require_once __DIR__ . "/../../../src/views/header.html.php"
         <li><?= $film['duration'] ?></li>
     <?php } ?>
 </ul>
-<p>
-
-</p>
 <?php require_once __DIR__ . "/../../../src/views/footer.html.php" ?>
 
 <!-- </body>
