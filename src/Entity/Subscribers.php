@@ -21,6 +21,27 @@ class Subscribers
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function connexionSubcriber($post)
+    {
+        extract($post);
+        $query = "SELECT * FROM subscriber WHERE email = :email";
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['password'])) {
+
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['last_name'] = $user['last_name'];
+            $_SESSION['role'] = $user['role'];
+
+            header("Location: ../film/index-film.php");
+        } else {
+            echo "Email et/ou mot de passe incorrect.";
+        }
+    }
+
     public function updateSubscribers($post)
     {
 

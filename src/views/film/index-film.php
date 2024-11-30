@@ -3,6 +3,8 @@
 use parisecran\Entity\Film;
 use parisecran\DBAL\Connector;
 
+session_start();
+
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dbh = new Connector();
@@ -15,7 +17,8 @@ $FilmsByBorough = $filmModel->getFilmByBorough();
 
 // Déclaration de la variable pour le titre de la page
 $titlePage = "Films";
-require_once __DIR__ . "/../../../src/views/header.html.php"
+require_once __DIR__ . "/../../../src/views/header.html.php";
+
 ?>
 
 <main class="film-index">
