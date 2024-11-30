@@ -15,21 +15,33 @@ class User
     private string $password;
     private DateTime $birthdate;
 
-    public function __construct(
-        string $first_name,
-        string $last_name,
-        string $username,
-        string $email,
-        string $password,
-        string $birthdate
-    ){
-        $this->setFirstName($first_name);
-        $this->setLastName($last_name);
-        $this->setUsername($username);
-        $this->setEmail($email);
-        $this->setPassword($password);
-        $this->setBirthdate($birthdate);
+    private \PDO $connector;
+
+    public function __construct(\PDO $connector)
+    {
+        $this->connector = $connector;
     }
+
+    function registerUser($post): bool 
+    {
+        extract($post);
+        
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO subscriber (first_name, last_name, username, email, password, birthdate)
+                VALUES (:first_name, :last_name, :username, :email, :password, :birthdate)";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":first_name", $first_name);
+        $stmt->bindParam(":last_name", $last_name);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":password", $password);
+        $stmt->bindParam(":birthdate", $birthdate);
+        
+        return $stmt->execute();
+    }
+
 
     public function getId(): ?int
     {
