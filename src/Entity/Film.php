@@ -67,7 +67,13 @@ class Film
 
     public function selectAllGenre()
     {
-        $query = "SELECT * FROM `genre`";
+        $query = "SELECT 
+                    g.id,
+                    g.name,
+                    COUNT(f.id) AS film_count
+                FROM genre AS g
+                LEFT JOIN film AS f ON g.id = f.genre_id
+                GROUP BY g.id, g.name";
         $stmt = $this->connector->prepare($query);
 
         $stmt->execute();
@@ -120,33 +126,26 @@ class Film
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function averageNotation($id_film)
-    {
-        $query = "SELECT AVG(notation) AS average
-            FROM schedule 
-            WHERE film_id = :id";
-        $stmt = $this->connector->prepare($query);
-        $stmt->bindParam(":id", $id_film);
-
-        $stmt->execute();
-
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
-
     // 2. Afficher les spectacles par arrondissement
     public function getFilmByBorough()
     {
-        $query = "SELECT * 
-            FROM film AS f 
-            JOIN representation AS re ON f.id = re.film_id 
-            JOIN room AS ro ON re.room_id = ro.id 
-            JOIN cinema AS c ON ro.cinema_id = c.id 
-            ORDER BY c.borough DESC;";
+        $query = "SELECT 
+                f.id,
+                f.title,
+                f.image,
+                c.borough
+            FROM film AS f
+            JOIN seance AS s ON s.film_id = f.id
+            JOIN room AS r ON r.id = s.room_id
+            JOIN cinema AS c ON c.id = r.cinema_id
+            WHERE c.borough IS NOT NULL
+            GROUP BY f.id
+            ORDER BY c.borough ASC;";
         $stmt = $this->connector->prepare($query);
 
         $stmt->execute();
 
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     // 5. Afficher le nombre de spectacles par catégorie
