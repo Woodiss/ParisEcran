@@ -65,6 +65,7 @@ class Film
         };
     }
 
+    // 5. Afficher le nombre de spectacles par catégorie
     public function selectAllGenre()
     {
         $query = "SELECT 
@@ -83,10 +84,29 @@ class Film
 
     public function selectFilmById($id_film)
     {
-        $query = "SELECT *
-            FROM film AS f
-            JOIN genre AS g ON f.genre_id = g.id
-            WHERE f.id = :id";
+        $query = "SELECT 
+                    f.*,
+                    g.name AS genre,
+                    ROUND((
+                        SELECT AVG(sch.notation)
+                        FROM schedule AS sch
+                        JOIN seance AS s ON sch.seance_id = s.id
+                        WHERE s.film_id = f.id
+                    ), 0) AS average,
+                    -- Réalisateur
+                    (SELECT CONCAT(c.firstName, ' ', c.lastName)
+                    FROM role AS r
+                    JOIN casting AS c ON c.id = r.casting_id
+                    WHERE r.film_id = f.id AND r.role = 'realisateur'
+                    LIMIT 1) AS realisateur,
+                    -- Acteurs
+                    (SELECT GROUP_CONCAT(CONCAT(c.firstName, ' ', c.lastName) SEPARATOR ', ')
+                    FROM role AS r
+                    JOIN casting AS c ON c.id = r.casting_id
+                    WHERE r.film_id = f.id AND r.role = 'acteur') AS acteurs
+                FROM film AS f
+                JOIN genre AS g ON f.genre_id = g.id
+                WHERE f.id = :id";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
 
@@ -114,10 +134,13 @@ class Film
     
     public function selectCommentByIdFilm($id_film)
     {
-        $query = "SELECT * 
-            FROM `schedule` AS sc
-            JOIN subscriber AS s ON s.id = sc.subscriber_id
-            WHERE representation_id = :id";
+        $query = "SELECT s.comment, s.notation, s.reactions, su.first_name, su.last_name, su.username
+            FROM schedule AS s 
+            JOIN seance AS se ON s.seance_id = se.id 
+            JOIN subscriber AS su ON su.id = s.subscriber_id 
+            WHERE s.comment IS NOT NULL AND se.film_id = :id
+            ORDER BY RAND()
+            LIMIT 30";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
 
@@ -140,7 +163,7 @@ class Film
             JOIN cinema AS c ON c.id = r.cinema_id
             WHERE c.borough IS NOT NULL
             GROUP BY f.id
-            ORDER BY c.borough ASC;";
+            ORDER BY c.borough ASC";
         $stmt = $this->connector->prepare($query);
 
         $stmt->execute();
@@ -155,7 +178,7 @@ class Film
             FROM genre g
             LEFT JOIN film f ON g.id = f.genre_id
             GROUP BY g.id, g.name
-            ORDER BY nombre_de_films DESC;";
+            ORDER BY nombre_de_films DESC";
         $stmt = $this->connector->prepare($query);
 
         $stmt->execute();

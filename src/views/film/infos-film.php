@@ -13,9 +13,11 @@ if (!empty($_GET["id_film"])){
     $id_film = $_GET["id_film"];
 
     $film = $filmModel->selectFilmById($id_film);
+    $acteurs = $film['acteurs'];
+    $listeActeurs = explode(', ', $acteurs);
+    
     $comments = $filmModel->selectCommentByIdFilm($id_film);
-    $castings = $filmModel->selectRoleByIdFilm($id_film);
-    $average = $filmModel->selectRoleByIdFilm($id_film);
+    // $castings = $filmModel->selectRoleByIdFilm($id_film);
 } else {
     header("Location: index-film.php");
 }
@@ -38,12 +40,6 @@ if (!empty($_GET["id_film"])){
      
      ?>
 
-    <?php foreach ($castings as $casting) { ?>
-        <br>
-        <span><?= $casting['role'] ?></span>
-        <span><?= $casting['firstName'] ?></span>
-        <span><?= $casting['lastName'] ?></span>
-    <?php } ?>
     <section>
         <h2>Critiques du film</h2>
         <?php foreach ($comments as $comment) { ?>
