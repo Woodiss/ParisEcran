@@ -21,6 +21,26 @@ class Subscribers
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    function registerUser($post): bool 
+    {
+        extract($post);
+        
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO subscriber (first_name, last_name, username, email, password, birthdate)
+                VALUES (:first_name, :last_name, :username, :email, :password, :birthdate)";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":first_name", $first_name);
+        $stmt->bindParam(":last_name", $last_name);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":password", $password);
+        $stmt->bindParam(":birthdate", $birthdate);
+        
+        return $stmt->execute();
+    }
+
     public function connexionSubcriber($post)
     {
         extract($post);
