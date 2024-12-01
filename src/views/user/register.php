@@ -45,32 +45,29 @@
 </html>
 <?php
 
-use parisecran\Entity\User;
+use parisecran\Entity\Subscribers;
 use parisecran\DBAL\Connector;
 
-require_once __DIR__ . '/../../DBAL/Connector.php';
-require_once __DIR__ . '/../../Entity/User.php';
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
-
-    $connector = new Connector();
-    $user = new User($connector->dbConnector);
+$dbh = new Connector();
+$user = new Subscribers($dbh->dbConnector);
     
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        if (!empty($_POST['first_name']) &&
-            !empty($_POST['last_name']) && 
-            !empty($_POST['username']) &&
-            !empty($_POST['email']) &&
-            !empty($_POST['password']) &&
-            !empty($_POST['birthdate'])
-        ) { 
-            if($_POST['password'] !== $_POST['confirm_password']){
-                $user->registerUser($_POST);
-            }
-         }
-        
-    }
+    if (!empty($_POST['first_name']) &&
+        !empty($_POST['last_name']) && 
+        !empty($_POST['username']) &&
+        !empty($_POST['email']) &&
+        !empty($_POST['password']) &&
+        !empty($_POST['birthdate'])
+    ) { 
+        if($_POST['password'] == $_POST['confirm_password']){
+            $user->registerUser($_POST);
+        }
+        }
+    
+}
 
 ?>
 
