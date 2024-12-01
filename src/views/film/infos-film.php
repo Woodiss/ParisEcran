@@ -20,7 +20,6 @@ if (!empty($_GET["id_film"])){
     header("Location: index-film.php");
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +29,14 @@ if (!empty($_GET["id_film"])){
     <title>Document</title>
 </head>
 <body>
-    <?php echo $film['title'] ?>
+    <?php
+    if ($film) {
+        echo $film['title'] ;
+    } else {
+        echo "Pas de représentaion pour ce film";
+    }
+     
+     ?>
 
     <?php foreach ($castings as $casting) { ?>
         <br>
