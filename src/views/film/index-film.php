@@ -62,7 +62,7 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
         <?php } ?>
         
         <section class="film-section">
-            <h2> <img src="../../../public/svgs/film.svg" alt="logo category"></h2>
+            <h2> <img src="../../../public/svgs/film.svg" alt="logo category"> Film par arondissement</h2>
             <div class="container-card-film">
                 <button>
                     <span>

@@ -117,7 +117,7 @@ class Film
         $query = "SELECT * 
             FROM `schedule` AS sc
             JOIN subscriber AS s ON s.id = sc.subscriber_id
-            WHERE representation_id = :id";
+            WHERE seance_id = :id";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);
 

@@ -442,6 +442,7 @@ main#single-film {
 }
 
 .film-reservation select {
+  font-family: "Roboto Flex", sans-serif;
   width: 100%;
   padding: 10px 20px;
   background: var(--primary-color);

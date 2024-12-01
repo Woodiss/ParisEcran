@@ -15,7 +15,10 @@ if (!empty($_GET["id_film"])) {
     $film = $filmModel->selectFilmById($id_film);
     $comments = $filmModel->selectCommentByIdFilm($id_film);
     $castings = $filmModel->selectRoleByIdFilm($id_film);
-    $averageFilmNotation = $filmModel->averageNotation($id_film);
+    // $averageFilmNotation = $filmModel->averageNotation($id_film);
+    // print_r($film);
+    // print_r($castings);
+    // print_r($comments);
 } else {
     header("Location: index-film.php");
 }
