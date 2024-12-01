@@ -14,7 +14,7 @@ if (!empty($_GET["id_film"])) {
 
     $film = $filmModel->selectFilmById($id_film);
     $acteurs = $film['acteurs'];
-    $listeActeurs = explode(', ', $acteurs);
+    $listActors = explode(', ', $acteurs);
     
     $comments = $filmModel->selectCommentByIdFilm($id_film);
     // $castings = $filmModel->selectRoleByIdFilm($id_film);
@@ -28,8 +28,6 @@ if ($film) {
 }
 require_once __DIR__ . "/../../../src/views/header.html.php";
 
-$roundedNotation = round($averageFilmNotation["average"]);
-
 // Formatage de la durée du film
 $filmDuration = new DateTime($film["duration"]);
 $formatedFilmDuration = $filmDuration->format("G:i");
@@ -42,9 +40,9 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                 <h1><?= $film["title"] ?? "Nom inconnu" ?></h1>
                 <div class="film-rating">
                     <?php
-                    if ($roundedNotation != 0) {
+                    if ($film['average'] != 0) {
                         for ($i = 0; $i < 5; $i++) {
-                            if ($i < $roundedNotation) { ?>
+                            if ($i < $film['average']) { ?>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_24_1239)">
                                         <path d="M7.99998 1.86667L10.1333 5.86667L15.2 6.66667L11.7333 9.86667L12.2666 14.6667L7.73332 12.5333L3.73332 14.6667L3.99998 9.86667L1.06665 6.4L5.59998 5.86667L7.99998 1.86667Z" fill="#FF0020" stroke="black" />
@@ -75,23 +73,14 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                     <?php } ?>
                 </div>
                 <h3><?= $formatedFilmDuration ?>
-                    <span><?= $film["name"] ?? "pas de genre" ?></span>
+                    <span><?= $film["genre"] ?? "pas de genre" ?></span>
                 </h3>
                 <h3>Réalisé par :
-                    <span id="realisator"><?php foreach ($castings as $casting) {
-                                                if ($casting["role"] === "realisateur") {
-                                                    echo $casting["firstName"] . " " . $casting["lastName"];
-                                                }
-                                            } ?></span>
+                    <span id="realisator"><?= $film['realisateur'] ?></span>
                 </h3>
                 <h3>Avec : <span>
-                        <?php foreach ($castings as $key => $casting) {
-                            if ($casting["role"] !== "realisateur") {
-                                echo $casting["firstName"] . " " . $casting["lastName"];
-                                if ($key + 1 < count($castings)) {
-                                    echo ", ";
-                                }
-                            }
+                        <?php foreach ($listActors as $key => $actor) {
+                            echo $actor . ', ';
                         } ?>
                     </span></h3>
                 <h3>Synopsis :</h3>
@@ -184,7 +173,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                     <form action="" method="" class="comment-reactions">
                         <div class="comment-reaction">
                             <span><?= $reactions['likes'] ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="like" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="like" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2499 3.75002C13.2499 2.50002 12.0149 1.66669 11.0499 1.66669C10.3783 1.66669 10.3258 2.17669 10.2224 3.18335C10.1766 3.62502 10.1216 4.16169 9.99992 4.79169C9.67825 6.46002 8.56659 8.59169 7.50325 9.22919V14.1667C7.49992 16.0417 8.12492 16.6667 10.8333 16.6667H13.9774C15.7908 16.6667 16.2299 15.4725 16.3933 15.03L16.4041 15C16.4991 14.745 16.7024 14.5442 16.9358 14.3167C17.1941 14.0617 17.4891 13.7725 17.7083 13.3334C17.9674 12.8142 17.9333 12.3525 17.9024 11.9417C17.8833 11.6925 17.8658 11.4625 17.9166 11.25C17.9699 11.025 18.0383 10.8542 18.1041 10.6909C18.2233 10.3942 18.3333 10.1192 18.3333 9.58335C18.3333 8.33335 17.7099 7.50169 16.4041 7.50169H12.9166C12.9166 7.50169 13.2499 5.00002 13.2499 3.75002ZM4.58325 8.33335C4.25173 8.33335 3.93379 8.46505 3.69937 8.69947C3.46495 8.93389 3.33325 9.25183 3.33325 9.58335V15.4167C3.33325 15.7482 3.46495 16.0661 3.69937 16.3006C3.93379 16.535 4.25173 16.6667 4.58325 16.6667C4.91477 16.6667 5.23272 16.535 5.46714 16.3006C5.70156 16.0661 5.83325 15.7482 5.83325 15.4167V9.58335C5.83325 9.25183 5.70156 8.93389 5.46714 8.69947C5.23272 8.46505 4.91477 8.33335 4.58325 8.33335Z" fill="#8D8D8D" />
                                 </svg>
@@ -192,7 +181,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                         </div>
                         <div class="comment-reaction">
                             <span><?= $reactions['dislikes'] ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="dislike" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="dislike" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2499 16.25C13.2499 17.5 12.0149 18.3333 11.0499 18.3333C10.3783 18.3333 10.3258 17.8233 10.2224 16.8167C10.1766 16.375 10.1216 15.8383 9.99992 15.2083C9.67825 13.54 8.56659 11.4083 7.50325 10.7708V5.83334C7.49992 3.95834 8.12492 3.33334 10.8333 3.33334H13.9774C15.7908 3.33334 16.2299 4.52751 16.3933 4.97001L16.4041 5.00001C16.4991 5.25501 16.7024 5.45584 16.9358 5.68334C17.1941 5.93834 17.4891 6.22751 17.7083 6.66668C17.9674 7.18584 17.9333 7.64751 17.9024 8.05834C17.8833 8.30751 17.8658 8.53751 17.9166 8.75001C17.9699 8.97501 18.0383 9.14584 18.1041 9.30918C18.2233 9.60584 18.3333 9.88084 18.3333 10.4167C18.3333 11.6667 17.7099 12.4983 16.4041 12.4983H12.9166C12.9166 12.4983 13.2499 15 13.2499 16.25ZM4.58325 11.6667C4.25173 11.6667 3.93379 11.535 3.69937 11.3006C3.46495 11.0661 3.33325 10.7482 3.33325 10.4167V4.58334C3.33325 4.25182 3.46495 3.93388 3.69937 3.69946C3.93379 3.46504 4.25173 3.33334 4.58325 3.33334C4.91477 3.33334 5.23272 3.46504 5.46714 3.69946C5.70156 3.93388 5.83325 4.25182 5.83325 4.58334V10.4167C5.83325 10.7482 5.70156 11.0661 5.46714 11.3006C5.23272 11.535 4.91477 11.6667 4.58325 11.6667Z" fill="#8D8D8D" />
                                 </svg>
@@ -201,7 +190,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                         <div class="comment-reaction">
                             <span><?= $reactions['supriseds'] ?? 0 ?></span>
 
-                            <button type="submit" name="reaction" value="suprised" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="suprised" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_23_149)">
                                         <path d="M7.08325 9.16666C7.77361 9.16666 8.33325 8.60699 8.33325 7.91666C8.33325 7.2263 7.77361 6.66666 7.08325 6.66666C6.39289 6.66666 5.83325 7.2263 5.83325 7.91666C5.83325 8.60699 6.39289 9.16666 7.08325 9.16666Z" fill="#8D8D8D" />
@@ -219,7 +208,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                         </div>
                         <div class="comment-reaction">
                             <span><?= $reactions['dubious'] ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="dubious" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="dubious" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_23_361)">
                                         <path d="M15 3L10 1.5L7 2.5L3.5 4.5L2 8V13.5L5.5 17.5L11 18.5L15 16.8209L18 13V7.5L15 3Z" stroke="#8D8D8D" />

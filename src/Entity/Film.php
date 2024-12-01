@@ -134,7 +134,7 @@ class Film
     
     public function selectCommentByIdFilm($id_film)
     {
-        $query = "SELECT s.comment, s.notation, s.reactions, su.first_name, su.last_name, su.username
+        $query = "SELECT s.id AS comment_id, s.comment, s.notation, s.reactions, su.first_name, su.last_name, su.username
             FROM schedule AS s 
             JOIN seance AS se ON s.seance_id = se.id 
             JOIN subscriber AS su ON su.id = s.subscriber_id 
