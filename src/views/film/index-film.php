@@ -97,6 +97,3 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
         </section>
 
 <?php require_once __DIR__ . "/../../../src/views/footer.html.php" ?>
-
-<!-- </body>
-</html> -->
