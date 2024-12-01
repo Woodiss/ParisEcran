@@ -10,6 +10,6 @@ class Connector
 
     public function __construct()
     {
-       $this->dbConnector = new \PDO(self::DSN, 'root', '');
+       $this->dbConnector = new \PDO(self::DSN, 'root', 'root');
     }
 }
