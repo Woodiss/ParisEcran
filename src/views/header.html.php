@@ -9,6 +9,7 @@
     <script src="../../../public/js/navBar.js" defer></script>
     <script src="../../../public/js/scrollContainerFilm.js" defer></script>
     <script src="../../../public/js/cinemas.js" defer></script>
+    <script src="../../../public/js/schedule.js" defer></script>
 
 </head>
 
