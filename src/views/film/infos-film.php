@@ -36,22 +36,6 @@ if (!empty($_GET["id_film"])) {
     header("Location: index-film.php");
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if ($_POST['cinema'] !== '#') {
-        $_POST['id_film'] = $id_film;
-        $dates = $schedulenModel->getSeanceDateByCinemaAndFilm($_POST);
-
-        if (isset($_POST['date'])) {
-            $_POST['id_film'] = $id_film;
-            $hours = $schedulenModel->getSeanceDateByCinemaAndFilmAndDate($_POST);
-
-            print_r($hours);
-        }
-    }
-} else {
-    echo "post vide";
-}
 
 require_once __DIR__ . "/../../../src/views/header.html.php";
 ?>
@@ -123,18 +107,7 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
                 </select>
                 <div class="reservation-container">
                     <h3>Date de la séance</h3>
-                    <div class="input-container" id="date-container">
-                        <?php if (isset($dates)) {
-                            foreach ($dates as $key => $date) { 
-                                $dateSeances = new DateTime($date["time_slot"]);
-                                $formatedDateSeances = $dateSeances->format('d F'); ?>
-
-                                <input type="radio" id="date-<?= $key ?>" name="date" value="<?= $date["time_slot"] ?>" required>
-                                <label for="date-<?= $key ?>" class="date-reservation"><?= $formatedDateSeances ?></label>
-                            <?php } 
-                        } else {
-                            echo "<h3>Selection un cinéma</h3>";
-                        } ?>
+                    <div class="input-container" id="date-container">       
                         <!-- <input type="radio" id="date-2" name="date">
                         <label for="date-2" class="date-reservation">25 Novembre</label> -->
                     </div>
@@ -142,18 +115,12 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
                 <div class="resevation-container">
                     <h3>Séances disponibles</h3>
                     <div class="input-container" id="hour-container">
-                        <input type="radio" name="hour" id="hour-1" required>
-                        <label for="hour-1" class="hour-reservation">
-                            <h4>16:00</h4>
-                            <span>Salle 2</span>
-                            <span>VF</span>
-                        </label>
-                        <input type="radio" name="hour" id="hour-2">
+                        <!-- <input type="radio" name="hour" id="hour-2">
                         <label for="hour-2" class="hour-reservation">
                             <h4>17:00</h4>
                             <span>Salle 4</span>
                             <span>VOSTFR</span>
-                        </label>
+                        </label> -->
                     </div>
                 </div>
                 <button type="submit"><svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
