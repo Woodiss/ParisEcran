@@ -9,6 +9,7 @@
     <script src="../../../public/js/navBar.js" defer></script>
     <script src="../../../public/js/scrollContainerFilm.js" defer></script>
     <script src="../../../public/js/cinemas.js" defer></script>
+    <script src="../../../public/js/actor.js" defer></script>
     <script src="../../../public/js/schedule.js" defer></script>
 
 </head>
@@ -23,7 +24,7 @@
         <div class="navlinks-container">
             <a href="../film/index-film.php">Films</a>
             <a href="../cinema/cinemas.html.php">Cinémas</a>
-            <a href="#">Acteurs</a>
+            <a href="../actor/actor.html.php">Acteurs</a>
             <form action="#">
 
                 <label for="search" class="search">

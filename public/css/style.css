@@ -385,7 +385,6 @@ main#single-film {
   gap: 20px;
   background: var(--background-color2);
   border-radius: 15px;
-
 }
 .film img {
   width: 400px;
@@ -425,7 +424,6 @@ main#single-film {
 }
 .film-info p {
   line-height: 1.4em;
-  
 }
 
 .film-reservation {
@@ -433,7 +431,6 @@ main#single-film {
   background: var(--background-color2);
   border-radius: 15px;
   padding: 20px;
-
 }
 
 .film-reservation h3 {
@@ -477,7 +474,7 @@ main#single-film {
   display: none;
 }
 
-.input-container input:checked+label {
+.input-container input:checked + label {
   border: 2px solid var(--secondary-color);
   color: var(--secondary-color);
   span {
@@ -519,12 +516,12 @@ main#single-film {
 }
 
 section.comments {
-    background: var(--background-color2);
-    padding: 20px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px ;
+  background: var(--background-color2);
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 section.comments h2 {
   font-size: var(--fz20);
@@ -538,7 +535,6 @@ section.comments h2 {
   flex-direction: column;
   gap: 10px;
   box-shadow: 0 4px 4px #00000025;
-
 }
 .comment-reactions {
   display: flex;
@@ -573,7 +569,8 @@ section.comments h2 {
   .container-info-film {
     flex-direction: column;
   }
-  .film, .film-reservation {
+  .film,
+  .film-reservation {
     width: 100%;
   }
 }
@@ -602,7 +599,6 @@ section.comments h2 {
   .input-container {
     gap: 10px;
   }
-  
 }
 
 /* END SINGLE FILM */
@@ -617,8 +613,6 @@ main#cinema {
   display: flex;
   padding-top: 80px;
   /* border: 2px solid blue; */
-
-
 }
 
 .map {
@@ -683,7 +677,6 @@ main#cinema {
   flex-direction: column;
   gap: 20px;
   box-shadow: 0 4px 4px #00000025;
-
 }
 
 .cinema:last-of-type {
@@ -694,7 +687,6 @@ main#cinema {
   font-size: var(--fz24);
   font-weight: var(--fwSemiBold);
   color: var(--secondary-color);
-
 }
 
 cinema p {
@@ -730,7 +722,7 @@ cinema p {
     border-radius: 0;
     position: absolute;
     left: -100%;
-    transition: transform .2s ease-out;
+    transition: transform 0.2s ease-out;
   }
 
   .section-cinema.active {
@@ -747,7 +739,6 @@ cinema p {
 
   .section-cinema.active button#collapse-cinema svg {
     transform: rotateY(180deg);
-
   }
 
   .section-cinema h2 {
@@ -760,6 +751,109 @@ cinema p {
 }
 
 /* END CINEMA */
+/* ACTORS */
+main#actors {
+  width: 75%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+section.actors {
+  background: var(--background-color2);
+  padding: 20px;
+  border-radius: 15px;
+}
+section.actors h2 {
+  font-size: var(--fz24);
+  font-weight: var(--fwSemiBold);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+section.actors h2 svg {
+  min-width: 30px;
+}
+#actor-select {
+  font-family: "Roboto Flex", sans-serif;
+  width: 300px;
+  padding: 10px 20px;
+  background: var(--primary-color);
+  border: 2px solid var(--fourth-color);
+  border-radius: 15px;
+  font-size: var(--fz16);
+  font-weight: var(--fwSemiBold);
+  margin: 20px 0 0 20px;
+}
+section.actors h4 {
+  font-size: var(--fz20);
+  font-weight: var(--fwSemiBold);
+  margin: 20px 0 0 20px;
+}
+section.actors h4 span {
+  color: var(--secondary-color);
+}
+.container-actors {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.actor {
+  background: var(--primary-color);
+  box-shadow: 0 4px 4px #00000025;
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.actor img {
+  width: 180px;
+  height: 223px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.actor a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: var(--fwSemiBold);
+  margin-top: 10px;
+}
+@media (max-width: 1000px) {
+  main#actors {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+}
+@media (max-width: 550px) {
+  main#actors {
+    padding: 10px;
+  }
+  section.actors h2 {
+    font-size: var(--fz20);
+  }
+  .container-actors {
+    gap: 10px;
+    padding: 20px 10px;
+    justify-content: center;
+  }
+  .actor {
+    width: 100%;
+  }
+  .actor img {
+    width: 100%;
+    height: auto;
+  }
+  #actor-select {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+/* END ACTORS */
 /* FOOTER */
 footer {
   display: flex;
