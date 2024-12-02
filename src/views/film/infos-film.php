@@ -116,13 +116,14 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
             <form action="" method="post">
 
                 <select name="cinema" id="select-cinema">
+                    <option value="#">Sélectionner un cinéma</option>
                     <?php foreach ($cinemas as $cinema) {?>
                         <option value="<?= $cinema['id'] ?>"><?= $cinema['name'] ?></option>
                     <?php } ?>
                 </select>
                 <div class="reservation-container">
                     <h3>Date de la séance</h3>
-                    <div class="input-container">
+                    <div class="input-container" id="date-container">
                         <?php if (isset($dates)) {
                             foreach ($dates as $key => $date) { 
                                 $dateSeances = new DateTime($date["time_slot"]);
@@ -140,17 +141,13 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
                 </div>
                 <div class="resevation-container">
                     <h3>Séances disponibles</h3>
-                    <div class="input-container">
-                        <?php if isset($hours) { 
-                            foreach ($hours as $hour) { ?>
-                                <input type="radio" name="hour" id="hour-1" required>
-                                <label for="hour-1" class="hour-reservation">
-                                    <h4>16:00</h4>
-                                    <span>Salle 2</span>
-                                    <span>VF</span>
-                                </label>
-                            <?php }
-                        } ?>
+                    <div class="input-container" id="hour-container">
+                        <input type="radio" name="hour" id="hour-1" required>
+                        <label for="hour-1" class="hour-reservation">
+                            <h4>16:00</h4>
+                            <span>Salle 2</span>
+                            <span>VF</span>
+                        </label>
                         <input type="radio" name="hour" id="hour-2">
                         <label for="hour-2" class="hour-reservation">
                             <h4>17:00</h4>
