@@ -1,6 +1,7 @@
 <?php
 
 use parisecran\Entity\Film;
+use parisecran\Entity\Schedule;
 use parisecran\DBAL\Connector;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
@@ -8,32 +9,35 @@ require_once __DIR__ . "/../../../vendor/autoload.php";
 $dbh = new Connector();
 
 $filmModel = new Film($dbh->dbConnector);
+$schedulenModel = new Schedule($dbh->dbConnector);
 
 if (!empty($_GET["id_film"])) {
     $id_film = $_GET["id_film"];
 
     $film = $filmModel->selectFilmById($id_film);
-    $comments = $filmModel->selectCommentByIdFilm($id_film);
-    $castings = $filmModel->selectRoleByIdFilm($id_film);
-    // $averageFilmNotation = $filmModel->averageNotation($id_film);
-    // print_r($film);
-    // print_r($castings);
-    // print_r($comments);
+
+    if ($film) {
+
+        $acteurs = $film['acteurs'];
+        $listActors = explode(', ', $acteurs);
+        
+        $comments = $filmModel->selectCommentByIdFilm($id_film);
+        $cinemas = $schedulenModel->getAllCinemas();
+
+        // Formatage de la durée du film
+        $filmDuration = new DateTime($film["duration"]);
+        $formatedFilmDuration = $filmDuration->format('G\h i');
+
+        $titlePage = "Film " . $film["title"];
+    } else {
+        $titlePage = "Film";
+    }
 } else {
     header("Location: index-film.php");
 }
-if ($film) {
-    $titlePage = "Film " . $film["title"];
-} else {
-    $titlePage = "Film";
-}
+
+
 require_once __DIR__ . "/../../../src/views/header.html.php";
-
-$roundedNotation = round($averageFilmNotation["average"]);
-
-// Formatage de la durée du film
-$filmDuration = new DateTime($film["duration"]);
-$formatedFilmDuration = $filmDuration->format("G:i");
 ?>
 <main id="single-film">
     <div class="container-info-film">
@@ -43,9 +47,9 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                 <h1><?= $film["title"] ?? "Nom inconnu" ?></h1>
                 <div class="film-rating">
                     <?php
-                    if ($roundedNotation != 0) {
+                    if ($film['average'] != 0) {
                         for ($i = 0; $i < 5; $i++) {
-                            if ($i < $roundedNotation) { ?>
+                            if ($i < $film['average']) { ?>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_24_1239)">
                                         <path d="M7.99998 1.86667L10.1333 5.86667L15.2 6.66667L11.7333 9.86667L12.2666 14.6667L7.73332 12.5333L3.73332 14.6667L3.99998 9.86667L1.06665 6.4L5.59998 5.86667L7.99998 1.86667Z" fill="#FF0020" stroke="black" />
@@ -76,23 +80,14 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                     <?php } ?>
                 </div>
                 <h3><?= $formatedFilmDuration ?>
-                    <span><?= $film["name"] ?? "pas de genre" ?></span>
+                    <span><?= $film["genre"] ?? "pas de genre" ?></span>
                 </h3>
                 <h3>Réalisé par :
-                    <span id="realisator"><?php foreach ($castings as $casting) {
-                                                if ($casting["role"] === "realisateur") {
-                                                    echo $casting["firstName"] . " " . $casting["lastName"];
-                                                }
-                                            } ?></span>
+                    <span id="realisator"><?= $film['realisateur'] ?></span>
                 </h3>
                 <h3>Avec : <span>
-                        <?php foreach ($castings as $key => $casting) {
-                            if ($casting["role"] !== "realisateur") {
-                                echo $casting["firstName"] . " " . $casting["lastName"];
-                                if ($key + 1 < count($castings)) {
-                                    echo ", ";
-                                }
-                            }
+                        <?php foreach ($listActors as $key => $actor) {
+                            echo $actor . ', ';
                         } ?>
                     </span></h3>
                 <h3>Synopsis :</h3>
@@ -102,39 +97,33 @@ $formatedFilmDuration = $filmDuration->format("G:i");
             </div>
         </div>
         <div class="film-reservation">
-            <form action="#" method="post">
-
+            <form action="" method="post">
 
                 <select name="cinema" id="select-cinema">
-                    <option value="#">Sélectionner votre cinéma</option>
+                    <option value="#">Sélectionner un cinéma</option>
+                    <?php foreach ($cinemas as $cinema) {?>
+                        <option value="<?= $cinema['id'] ?>"><?= $cinema['name'] ?></option>
+                    <?php } ?>
                 </select>
                 <div class="reservation-container">
                     <h3>Date de la séance</h3>
-                    <div class="input-container">
-                        <input type="radio" id="date-1" name="date" required>
-                        <label for="date-1" class="date-reservation">24 Novembre</label>
-                        <input type="radio" id="date-2" name="date">
-                        <label for="date-2" class="date-reservation">25 Novembre</label>
+                    <div class="input-container" id="date-container">       
+                        <!-- <input type="radio" id="date-2" name="date">
+                        <label for="date-2" class="date-reservation">25 Novembre</label> -->
                     </div>
                 </div>
                 <div class="resevation-container">
                     <h3>Séances disponibles</h3>
-                    <div class="input-container">
-                        <input type="radio" name="hour" id="hour-1" required>
-                        <label for="hour-1" class="hour-reservation">
-                            <h4>16:00</h4>
-                            <span>Salle 2</span>
-                            <span>VF</span>
-                        </label>
-                        <input type="radio" name="hour" id="hour-2">
+                    <div class="input-container" id="hour-container">
+                        <!-- <input type="radio" name="hour" id="hour-2">
                         <label for="hour-2" class="hour-reservation">
                             <h4>17:00</h4>
                             <span>Salle 4</span>
                             <span>VOSTFR</span>
-                        </label>
+                        </label> -->
                     </div>
                 </div>
-                <button><svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button type="submit"><svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.03 4.113C18.316 3.827 18.703 3.667 19.108 3.667C19.513 3.667 19.9 3.827 20.186 4.113L22.352 6.282C22.623 6.552 22.782 6.915 22.798 7.297C22.814 7.681 22.684 8.057 22.435 8.349L22.433 8.352C22.276 8.536 22.193 8.772 22.202 9.014C22.211 9.256 22.311 9.484 22.481 9.655C22.652 9.825 22.881 9.925 23.123 9.933C23.365 9.941 23.601 9.859 23.784 9.701L23.788 9.697C24.08 9.448 24.456 9.318 24.84 9.334C25.223 9.35 25.585 9.51 25.855 9.781L25.858 9.784L28.021 11.947C28.307 12.233 28.468 12.621 28.468 13.025C28.468 13.429 28.307 13.817 28.022 14.103L24.568 17.557C24.315 17.81 24.01 18.006 23.675 18.131C23.55 18.467 23.355 18.773 23.101 19.028L14.241 27.887C13.955 28.173 13.567 28.333 13.163 28.333C12.759 28.333 12.371 28.172 12.085 27.887L9.91898 25.721C9.64798 25.451 9.48798 25.088 9.47198 24.706C9.45598 24.322 9.58598 23.946 9.83498 23.654L9.83798 23.651C9.99598 23.467 10.078 23.231 10.069 22.99C10.06 22.749 9.95998 22.519 9.78898 22.348C9.61798 22.177 9.38898 22.077 9.14698 22.068C8.90498 22.059 8.66898 22.141 8.48498 22.299L8.48198 22.302C8.18998 22.551 7.81398 22.681 7.42998 22.665C7.04698 22.649 6.68498 22.489 6.41498 22.218L6.41198 22.215L4.24898 20.052C3.96298 19.766 3.80298 19.378 3.80298 18.974C3.80298 18.57 3.96298 18.182 4.24898 17.896L13.108 9.039C13.361 8.786 13.667 8.59 14.002 8.465C14.127 8.128 14.323 7.822 14.577 7.568L18.03 4.113ZM13.973 8.543L14.134 8.597L14.135 8.599L13.972 8.545L13.973 8.543ZM14.137 8.599L14.136 8.597L15.238 8.964L14.137 8.599ZM14.504 9.701L14.871 10.803L14.874 10.806L14.504 9.701ZM14.875 10.807L14.872 10.804L14.926 10.965L14.928 10.964L14.875 10.807ZM14.964 10.952L6.94198 18.972L7.66798 19.698C8.16198 19.484 8.70098 19.38 9.24798 19.401C10.162 19.436 11.028 19.814 11.675 20.46C12.322 21.106 12.7 21.973 12.734 22.887C12.755 23.434 12.651 23.974 12.437 24.467L13.163 25.193L21.185 17.171C21.308 16.819 21.509 16.499 21.773 16.235C22.037 15.971 22.358 15.768 22.711 15.643L25.329 13.025L24.604 12.3C24.111 12.514 23.572 12.618 23.026 12.598C22.113 12.565 21.246 12.188 20.599 11.543L21.54 10.598L20.597 11.541C19.951 10.895 19.573 10.028 19.538 9.115C19.517 8.568 19.62 8.028 19.835 7.534L19.108 6.806L16.49 9.424C16.367 9.776 16.166 10.095 15.903 10.36C15.638 10.625 15.318 10.828 14.965 10.952H14.964ZM22.748 15.63L23.171 16.894L22.75 15.629L22.748 15.63ZM23.538 17.996L22.437 17.631L23.539 17.998L23.538 17.996ZM23.541 17.999L23.54 17.996L23.703 18.05L23.702 18.052L23.541 17.999Z" fill="white" />
                         <path d="M14.5829 9.043C14.8429 8.783 15.2649 8.783 15.5259 9.043L16.3369 9.854C16.5969 10.114 16.5969 10.536 16.3369 10.797C16.0769 11.058 15.6549 11.057 15.3939 10.797L14.5829 9.986C14.3229 9.726 14.3229 9.304 14.5829 9.043ZM17.0149 11.475C17.2749 11.215 17.6969 11.214 17.9579 11.475L18.4989 12.015C18.7589 12.275 18.7599 12.697 18.4989 12.958C18.2379 13.219 17.8169 13.219 17.5559 12.958L17.0149 12.418C16.7539 12.158 16.7539 11.736 17.0149 11.475ZM19.1769 13.637C19.4369 13.377 19.8599 13.377 20.1199 13.637L20.6599 14.178C20.9199 14.438 20.9199 14.861 20.6599 15.121C20.3999 15.381 19.9769 15.381 19.7169 15.121L19.1769 14.58C18.9169 14.319 18.9169 13.897 19.1769 13.637ZM21.3389 15.799C21.5989 15.539 22.0219 15.539 22.2819 15.799L23.0929 16.61C23.3529 16.87 23.3529 17.292 23.0929 17.553C22.8329 17.814 22.4109 17.813 22.1499 17.553L21.3389 16.742C21.0789 16.482 21.0789 16.06 21.3389 15.799Z" fill="white" />
                     </svg>
@@ -185,7 +174,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                     <form action="" method="" class="comment-reactions">
                         <div class="comment-reaction">
                             <span><?= $reactions['likes'] ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="like" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="like" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2499 3.75002C13.2499 2.50002 12.0149 1.66669 11.0499 1.66669C10.3783 1.66669 10.3258 2.17669 10.2224 3.18335C10.1766 3.62502 10.1216 4.16169 9.99992 4.79169C9.67825 6.46002 8.56659 8.59169 7.50325 9.22919V14.1667C7.49992 16.0417 8.12492 16.6667 10.8333 16.6667H13.9774C15.7908 16.6667 16.2299 15.4725 16.3933 15.03L16.4041 15C16.4991 14.745 16.7024 14.5442 16.9358 14.3167C17.1941 14.0617 17.4891 13.7725 17.7083 13.3334C17.9674 12.8142 17.9333 12.3525 17.9024 11.9417C17.8833 11.6925 17.8658 11.4625 17.9166 11.25C17.9699 11.025 18.0383 10.8542 18.1041 10.6909C18.2233 10.3942 18.3333 10.1192 18.3333 9.58335C18.3333 8.33335 17.7099 7.50169 16.4041 7.50169H12.9166C12.9166 7.50169 13.2499 5.00002 13.2499 3.75002ZM4.58325 8.33335C4.25173 8.33335 3.93379 8.46505 3.69937 8.69947C3.46495 8.93389 3.33325 9.25183 3.33325 9.58335V15.4167C3.33325 15.7482 3.46495 16.0661 3.69937 16.3006C3.93379 16.535 4.25173 16.6667 4.58325 16.6667C4.91477 16.6667 5.23272 16.535 5.46714 16.3006C5.70156 16.0661 5.83325 15.7482 5.83325 15.4167V9.58335C5.83325 9.25183 5.70156 8.93389 5.46714 8.69947C5.23272 8.46505 4.91477 8.33335 4.58325 8.33335Z" fill="#8D8D8D" />
                                 </svg>
@@ -193,7 +182,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                         </div>
                         <div class="comment-reaction">
                             <span><?= $reactions['dislikes'] ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="dislike" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="dislike" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2499 16.25C13.2499 17.5 12.0149 18.3333 11.0499 18.3333C10.3783 18.3333 10.3258 17.8233 10.2224 16.8167C10.1766 16.375 10.1216 15.8383 9.99992 15.2083C9.67825 13.54 8.56659 11.4083 7.50325 10.7708V5.83334C7.49992 3.95834 8.12492 3.33334 10.8333 3.33334H13.9774C15.7908 3.33334 16.2299 4.52751 16.3933 4.97001L16.4041 5.00001C16.4991 5.25501 16.7024 5.45584 16.9358 5.68334C17.1941 5.93834 17.4891 6.22751 17.7083 6.66668C17.9674 7.18584 17.9333 7.64751 17.9024 8.05834C17.8833 8.30751 17.8658 8.53751 17.9166 8.75001C17.9699 8.97501 18.0383 9.14584 18.1041 9.30918C18.2233 9.60584 18.3333 9.88084 18.3333 10.4167C18.3333 11.6667 17.7099 12.4983 16.4041 12.4983H12.9166C12.9166 12.4983 13.2499 15 13.2499 16.25ZM4.58325 11.6667C4.25173 11.6667 3.93379 11.535 3.69937 11.3006C3.46495 11.0661 3.33325 10.7482 3.33325 10.4167V4.58334C3.33325 4.25182 3.46495 3.93388 3.69937 3.69946C3.93379 3.46504 4.25173 3.33334 4.58325 3.33334C4.91477 3.33334 5.23272 3.46504 5.46714 3.69946C5.70156 3.93388 5.83325 4.25182 5.83325 4.58334V10.4167C5.83325 10.7482 5.70156 11.0661 5.46714 11.3006C5.23272 11.535 4.91477 11.6667 4.58325 11.6667Z" fill="#8D8D8D" />
                                 </svg>
@@ -202,7 +191,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                         <div class="comment-reaction">
                             <span><?= $reactions['supriseds'] ?? 0 ?></span>
 
-                            <button type="submit" name="reaction" value="suprised" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="suprised" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_23_149)">
                                         <path d="M7.08325 9.16666C7.77361 9.16666 8.33325 8.60699 8.33325 7.91666C8.33325 7.2263 7.77361 6.66666 7.08325 6.66666C6.39289 6.66666 5.83325 7.2263 5.83325 7.91666C5.83325 8.60699 6.39289 9.16666 7.08325 9.16666Z" fill="#8D8D8D" />
@@ -220,7 +209,7 @@ $formatedFilmDuration = $filmDuration->format("G:i");
                         </div>
                         <div class="comment-reaction">
                             <span><?= $reactions['dubious'] ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="dubious" data-comment-id="<?= $comment['id'] ?>">
+                            <button type="submit" name="reaction" value="dubious" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_23_361)">
                                         <path d="M15 3L10 1.5L7 2.5L3.5 4.5L2 8V13.5L5.5 17.5L11 18.5L15 16.8209L18 13V7.5L15 3Z" stroke="#8D8D8D" />

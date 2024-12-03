@@ -1,10 +1,38 @@
+<?php
+
+use parisecran\Entity\Subscribers;
+use parisecran\DBAL\Connector;
+
+require_once __DIR__ . "/../../../vendor/autoload.php";
+
+$dbh = new Connector();
+$user = new Subscribers($dbh->dbConnector);
+    
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (!empty($_POST['first_name']) &&
+        !empty($_POST['last_name']) && 
+        !empty($_POST['username']) &&
+        !empty($_POST['email']) &&
+        !empty($_POST['password']) &&
+        !empty($_POST['birthdate'])
+    ) { 
+        if($_POST['password'] == $_POST['confirm_password']){
+            $user->registerUser($_POST);
+        }
+        }
+    
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/register.css">
+    <link rel="stylesheet" href="../../public/css/register.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -13,7 +41,7 @@
     <title>Inscription</title>
 </head>
 <body>
-    <form class="form">
+    <form class="form" method="POST">
         <h1>Inscription</h1>
 
         <!-- Nom et Prénom côte à côte -->
@@ -40,6 +68,3 @@
         <p>* Champs obligatoires</p>
     </form>
 </body>
-
- 
-</html>
