@@ -1,0 +1,206 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color:  #dbdbdb;
+}
+
+.reservation-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #F7F7F7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.reservation-card {
+    display: flex;
+    gap: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.film-poster {
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover; /* L’image remplit tout le conteneur en gardant ses proportions, mais elle peut être coupée si ses dimensions dépassent celles du conteneur. */
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    
+}
+
+.reservation-details h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.reservation-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.reservation-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-control button {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: solid #8D8D8D 0.1rem;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    
+}
+
+.quantity-control button:hover {
+    background-color: red;
+    border: none;
+}
+
+.quantity-control input {
+    width: 35px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.total-container {
+    text-align: left;
+    margin-top: 20px;
+    font-size: 20px;
+    color: red;
+}
+.total-container p{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.total-price {
+    font-weight: bold;
+    color: black;
+}
+
+.button-submit {
+    display: flex;
+    justify-content: center;
+}
+
+.reserve-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;   
+    text-align: center;
+    border-radius: 15px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+
+.box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.reserve-button:hover {
+    background-color: rgb(216, 18, 18);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .reservation-card {
+        
+        align-items: flex-start;
+    }
+
+    .film-poster {
+        width: 20%;
+        height: 20%;
+    }
+
+    .details-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .reservation-price {
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .quantity-control button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .total-container {
+        text-align: center;
+    }
+    
+    .total-price {
+        display: inline-block;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .reserve-button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .reservation-details h2 {
+        font-size: 16px;
+    }
+
+    .reservation-details p {
+        font-size: 12px;
+    }
+}
