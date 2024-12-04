@@ -88,10 +88,9 @@ class Film
                     f.*,
                     g.name AS genre,
                     ROUND((
-                        SELECT AVG(sch.notation)
-                        FROM schedule AS sch
-                        JOIN seance AS s ON sch.seance_id = s.id
-                        WHERE s.film_id = f.id
+                        SELECT (AVG(c.notation))
+                        FROM comment AS c
+                        WHERE c.film_id = f.id
                     ), 0) AS average,
                     -- Réalisateur
                     (SELECT CONCAT(c.firstName, ' ', c.lastName)
@@ -134,12 +133,10 @@ class Film
     
     public function selectCommentByIdFilm($id_film)
     {
-        $query = "SELECT s.id AS comment_id, s.comment, s.notation, s.reactions, su.first_name, su.last_name, su.username
-            FROM schedule AS s 
-            JOIN seance AS se ON s.seance_id = se.id 
-            JOIN subscriber AS su ON su.id = s.subscriber_id 
-            WHERE s.comment IS NOT NULL AND se.film_id = :id
-            ORDER BY RAND()
+        $query = "SELECT s.first_name, s.last_name, s.username, c.comment, c.reactions, c.notation, c.id AS comment_id
+            FROM comment AS c
+            JOIN subscriber AS s ON s.id = c.subscriber_id
+            WHERE film_id = :id
             LIMIT 30";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id", $id_film);

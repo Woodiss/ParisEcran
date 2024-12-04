@@ -23,7 +23,7 @@
         </button>
         <div class="navlinks-container">
             <a href="../film/index-film.php">Films</a>
-            <a href="../cinema/cinemas.html.php">Cinémas</a>
+            <a href="../cinema/index-cinema.php">Cinémas</a>
             <a href="../actor/actor.html.php">Acteurs</a>
             <form action="#">
 

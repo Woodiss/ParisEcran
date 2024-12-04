@@ -14,7 +14,7 @@ class Actor
     public function getAllActors()
     {
         $query =
-            " SELECT DISTINCT 
+            "SELECT DISTINCT 
                 c.id AS casting_id,
                 c.firstName AS firstname,
                 c.lastName AS lastname,
@@ -34,22 +34,19 @@ class Actor
     public function getFavoriteActors()
     {
         // Requête 1 : Artistes préférés des spectateurs
-        $query =
-            " SELECT 
+        $query = "SELECT 
                 c.id AS id_artiste,
                 c.firstName AS firstname,
                 c.lastName AS lastname,
-                AVG(sch.notation) AS average_notation
+                AVG(com.notation) AS average_notation
             FROM casting c
             JOIN role r ON c.id = r.casting_id
             JOIN film f ON r.film_id = f.id
-            JOIN seance s ON f.id = s.film_id
-            JOIN schedule sch ON sch.seance_id = s.id
-            WHERE sch.notation IS NOT NULL
+            JOIN comment com ON com.film_id = f.id
+            WHERE com.notation IS NOT NULL
             GROUP BY c.id
             ORDER BY average_notation DESC
-            LIMIT 5;
-            ";
+            LIMIT 5";
         $stmt = $this->connector->prepare($query);
         $stmt->execute();
 
@@ -59,8 +56,7 @@ class Actor
     public function getActorCollabs($idActor)
     {
         // Requête 2 : Liste des artistes ayant participé avec un artiste donné à au moins deux films différents avec la moyenne de l'acteur concerné faites par rapport à tous les films et pas seulement les films en communs (COALESCE : Si aucune notation n'est disponible pour actor2, la valeur retournée sera 0 )
-        $query =
-            "   SELECT 
+        $query = "SELECT 
                     c1.firstName AS actor1_firstname,
                     c1.lastName AS actor1_lastname,
                     c2.id AS actor2_id,
@@ -68,12 +64,10 @@ class Actor
                     c2.lastName AS actor2_lastname,
                     COUNT(DISTINCT r1.film_id) AS films_ensemble,
                     COALESCE((
-                        SELECT AVG(sch.notation)
+                        SELECT AVG(com.notation)
                         FROM role r2_all
-                        JOIN film f_all ON r2_all.film_id = f_all.id
-                        JOIN seance s_all ON f_all.id = s_all.film_id
-                        JOIN schedule sch ON sch.seance_id = s_all.id
-                        WHERE r2_all.casting_id = c2.id AND sch.notation IS NOT NULL
+                        JOIN comment com ON com.film_id = r2_all.film_id
+                        WHERE r2_all.casting_id = c2.id AND com.notation IS NOT NULL
                     ), 0) AS average_notation
                 FROM casting c1
                 JOIN role r1 ON c1.id = r1.casting_id
@@ -82,9 +76,9 @@ class Actor
                 WHERE c1.id = :idActor
                 GROUP BY c1.id, c2.id
                 HAVING films_ensemble >= 2
-                ORDER BY average_notation DESC;
+                ORDER BY average_notation DESC";
 
-            -- Requêttes sans la moyenne de actor2
+            // -- Requêttes sans la moyenne de actor2
             // SELECT 
             // c1.firstName AS actor1_firstname,
             // c1.lastName AS actor1_lastname,
@@ -98,7 +92,6 @@ class Actor
             // WHERE c1.id = :idActor
             // GROUP BY c1.id, c2.id
             // HAVING films_ensemble >= 2;
-        ";
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":idActor", $idActor);
         $stmt->execute();

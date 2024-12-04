@@ -15,14 +15,14 @@ class Cinema
     {
         $query = "
             SELECT 
-                ci.name AS CinemaName,
-                ci.borough AS Borough,
-                ci.presentation AS Presentation,
-                ci.address AS Address,
-                ci.geolocation AS Geolocation,
-                ci.phone AS Phone,
-                ci.email AS Email,
-                GROUP_CONCAT(DISTINCT CONCAT(c.firstName, ' ', c.lastName) ORDER BY c.lastName ASC SEPARATOR ', ') AS Directors
+                ci.name AS cinemaName,
+                ci.borough AS borough,
+                ci.presentation AS presentation,
+                ci.address AS address,
+                ci.geolocation AS geolocation,
+                ci.phone AS phone,
+                ci.email AS email,
+                GROUP_CONCAT(DISTINCT CONCAT(c.firstName, ' ', c.lastName) ORDER BY c.lastName ASC SEPARATOR ', ') AS directors
             FROM 
                 cinema ci
             JOIN 
