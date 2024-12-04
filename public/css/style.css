@@ -816,6 +816,16 @@ section.actors h4 span {
   border-radius: 10px;
   object-fit: cover;
 }
+.actor h3 {
+  font-size: var(--fz18);
+}
+.actor .actor-ratting svg {
+  min-width: fit-content;
+}
+.actor ul {
+  margin-left: 20px;
+  text-transform: capitalize;
+}
 .actor a {
   text-decoration: none;
   color: var(--secondary-color);
