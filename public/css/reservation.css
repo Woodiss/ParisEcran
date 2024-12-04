@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color:  #dbdbdb;
 }
 
 .reservation-container {
@@ -34,7 +34,7 @@ h1 {
     width: 100px;
     height: 150px;
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: cover; /* L’image remplit tout le conteneur en gardant ses proportions, mais elle peut être coupée si ses dimensions dépassent celles du conteneur. */
 }
 
 .details-container {
@@ -148,16 +148,16 @@ h1 {
     background-color: rgb(216, 18, 18);
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media screen and (max-width: 768px) {
     .reservation-card {
-        flex-direction: column;
+        
         align-items: flex-start;
     }
 
     .film-poster {
-        width: 100%;
-        height: auto;
+        width: 20%;
+        height: 20%;
     }
 
     .details-container {
@@ -172,8 +172,8 @@ h1 {
     }
 
     .quantity-control button {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
 
     .total-container {

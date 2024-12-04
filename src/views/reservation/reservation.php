@@ -11,7 +11,7 @@
         <h1>Confirmer votre réservation</h1>
 
         <div class="box reservation-card">
-            <img src="image.png" alt="" class="film-poster">
+            <img src="https://s3-alpha-sig.figma.com/img/346b/59e4/903a3147006d5bbfa2300d5b7f585a1c?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=m5VzRROzosdZdbl3C8ZkImpVSH9J2oRlgtle82xHCyssGXjXDYGfU6dPSqVvzzr4xyMgXsA6QJUwQ9gVViDfICM3rx28kYg3VSrDmGIH2t7Q1MWQBwUiLfAAUyIlV4YAy3btDI3mdUArf2kMWoPk~aEEGIWYRBx933UPf1PYbyfLKoGjvCMRnlexM0NEUnKkOnh-Mr9ys8Wc3foabVDsGTbuknHfrIiMmJEevnbMvFxp4NN9Fwqlyj5kuNmLzXKArw~1tG81Q-MR4lZD3W3vOya6IzoJvYI94Rw5OpTM07XdaMvSCCDxpkewbzumKfWlwDLpdceWfRx8w9G3fkb5aA__" alt="" class="film-poster">
             <div class="details-container">
 
                 <div class="reservation-details">
@@ -49,7 +49,7 @@
                 </svg>
 
                 <span>Réserver</span>
-            </button>
+                </button>
             </form>
         </div>
     </div>
