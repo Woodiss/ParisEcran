@@ -5,14 +5,11 @@ use parisecran\DBAL\Connector;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-// Initialiser la connexion à la base de données
 $dbh = new Connector();
-
-// Créer une instance de la classe Cinema
 $cinema = new Cinema($dbh->dbConnector);
 
-// Récupérer les cinémas par arrondissement
-$cinemaByBorough = $cinema->getCinemaByBorough();
+// Récupérer les informations sur les cinémas et leurs réalisateurs
+$cinemaData = $cinema->getDirectorsByCinema();
 
 ?>
 <!DOCTYPE html>
@@ -20,32 +17,24 @@ $cinemaByBorough = $cinema->getCinemaByBorough();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinema By Borough</title>
+    <title>Cinémas</title>
 </head>
 <body>
 
-    <ul>
-        <?php foreach ($cinemaByBorough as $cinemas) { 
-            // Récupérer les détails du cinéma pour chaque cinéma
-            $cinemaData = $cinema->getCinemaDetails($cinemas['name']);
-        ?>
-            <li><strong>Cinema:</strong> <?= $cinemas['name'] ?></li>
-            <li><strong>Présentation:</strong> <?= $cinemas['presentation'] ?></li>
-            <li><strong>Adresse:</strong> <?= $cinemas['address'] ?></li>
-            <li><strong>Borough:</strong> <?= $cinemas['borough'] ?></li>
-            <li><strong>Téléphone:</strong> <?= $cinemas['phone'] ?></li>
-            <li><strong>Email:</strong> <?= $cinemas['email'] ?></li>
-            <hr>
-            
-            <ul>
-                <p>Afficher les realistaeur qui ont travailé dans un film donné :</p>
-                <?php foreach ($cinemaData as $data) { ?>
-                    <li><?= $data['Prenom'] ?> <?= $data['Nom'] ?> (<?= $data['Role'] ?>) - Film: <?= $data['Film'] ?></li>
-                <?php } ?>
-            </ul>
-            <hr>
-        <?php } ?>
-    </ul>
+<h1>Cinémas par arrondissement</h1>
+<ul>
+    <?php foreach ($cinemaData as $cinema): ?>
+        <li><strong>Cinéma:</strong> <?= htmlspecialchars($cinema['CinemaName']) ?></li>
+        <li><strong>Présentation:</strong> <?= htmlspecialchars($cinema['Presentation'] ?? 'N/A') ?></li>
+        <li><strong>Adresse:</strong> <?= htmlspecialchars($cinema['Address']) ?></li>
+        <li><strong>Borough:</strong> <?= htmlspecialchars($cinema['Borough']) ?></li>
+        <li><strong>Téléphone:</strong> <?= htmlspecialchars($cinema['Phone'] ?? 'N/A') ?></li>
+        <li><strong>Email:</strong> <?= htmlspecialchars($cinema['Email'] ?? 'N/A') ?></li>
+        <li><strong>Geolocation:</strong> <?= htmlspecialchars($cinema['Geolocation'] ?? 'N/A') ?></li>
+        <li><strong>Réalisateurs:</strong> <?= htmlspecialchars($cinema['Directors'] ?? 'Aucun réalisateur trouvé') ?></li>
+        <hr>
+    <?php endforeach; ?>
+</ul>
 
 </body>
 </html>

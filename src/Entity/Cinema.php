@@ -11,52 +11,39 @@ class Cinema
         $this->connector = $connector;      
     }
 
-    public function getCinemaByBorough()
+    public function getDirectorsByCinema(): array
     {
-        // Récupérer tous les cinémas sans filtre
-        $query = "SELECT * FROM cinema";
-        $stmt = $this->connector->prepare($query);
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Récupère les informations sur le personnel, le rôle, le film et le cinéma spécifié.
-     * 
-     * @param string $cinemaName Nom du cinéma pour filtrer les résultats
-     * @return array Résultat de la requête
-     */
-    public function getCinemaDetails(string $cinemaName): array
-    {
-        // Récupérer les informations sur les acteurs, films, et rôles pour un cinéma spécifique
         $query = "
             SELECT 
-                c.firstName AS Prenom,
-                c.lastName AS Nom,
-                r.role AS Role,
-                f.title AS Film,
-                ci.name AS Cinema
+                ci.name AS CinemaName,
+                ci.borough AS Borough,
+                ci.presentation AS Presentation,
+                ci.address AS Address,
+                ci.geolocation AS Geolocation,
+                ci.phone AS Phone,
+                ci.email AS Email,
+                GROUP_CONCAT(DISTINCT CONCAT(c.firstName, ' ', c.lastName) ORDER BY c.lastName ASC SEPARATOR ', ') AS Directors
             FROM 
                 cinema ci
             JOIN 
                 room ro ON ci.id = ro.cinema_id
             JOIN 
-                representation rep ON ro.id = rep.room_id
+                seance s ON ro.id = s.room_id
             JOIN 
-                film f ON rep.film_id = f.id
+                film f ON s.film_id = f.id
             JOIN 
                 role r ON f.id = r.film_id
             JOIN 
                 casting c ON r.casting_id = c.id
             WHERE 
-                ci.name = :cinemaName
+                r.role = 'Réalisateur'
+            GROUP BY 
+                ci.id
+            ORDER BY 
+                ci.borough ASC
         ";
-
-        $stmt = $this->connector->prepare($query);
-        $stmt->bindParam(':cinemaName', $cinemaName, \PDO::PARAM_STR);
-        $stmt->execute();
-
+    
+        $stmt = $this->connector->query($query);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
