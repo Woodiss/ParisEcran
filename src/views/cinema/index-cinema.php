@@ -7,12 +7,13 @@ require_once __DIR__ . "/../../../vendor/autoload.php";
 
 // Initialiser la connexion à la base de données
 $dbh = new Connector();
-
-// Créer une instance de la classe Cinema
 $cinema = new Cinema($dbh->dbConnector);
 
 // Récupérer les cinémas par arrondissement
-$cinemaByBorough = $cinema->getCinemaByBorough();
+$cinemaByBorough = $cinema->getCinemasByBorough(); 
+// Récupérer les cinémas par notation
+$filmsByRating = $cinema->getFilmsByCinemaRating();
+
 
 ?>
 <!DOCTYPE html>
@@ -20,32 +21,49 @@ $cinemaByBorough = $cinema->getCinemaByBorough();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinema By Borough</title>
+    <title>Cinémas</title>
 </head>
 <body>
 
-    <ul>
-        <?php foreach ($cinemaByBorough as $cinemas) { 
-            // Récupérer les détails du cinéma pour chaque cinéma
-            $cinemaData = $cinema->getCinemaDetails($cinemas['name']);
+<h1>Cinémas par arrondissement</h1>
+<ul>
+    <?php foreach ($cinemaByBorough as $cinemas): ?>
+        <?php 
+            // Récupérer les réalisateurs et films pour chaque cinéma
+            $directorsData = $cinema->getDirectorsByCinema($cinemas['name']); 
         ?>
-            <li><strong>Cinema:</strong> <?= $cinemas['name'] ?></li>
-            <li><strong>Présentation:</strong> <?= $cinemas['presentation'] ?></li>
-            <li><strong>Adresse:</strong> <?= $cinemas['address'] ?></li>
-            <li><strong>Borough:</strong> <?= $cinemas['borough'] ?></li>
-            <li><strong>Téléphone:</strong> <?= $cinemas['phone'] ?></li>
-            <li><strong>Email:</strong> <?= $cinemas['email'] ?></li>
-            <hr>
-            
-            <ul>
-                <p>Afficher les realistaeur qui ont travailé dans un film donné :</p>
-                <?php foreach ($cinemaData as $data) { ?>
-                    <li><?= $data['Prenom'] ?> <?= $data['Nom'] ?> (<?= $data['Role'] ?>) - Film: <?= $data['Film'] ?></li>
-                <?php } ?>
-            </ul>
-            <hr>
+        <li><strong>Cinéma:</strong> <?= htmlspecialchars($cinemas['name']) ?></li>
+        <li><strong>Présentation:</strong> <?= htmlspecialchars($cinemas['presentation'] ?? 'N/A') ?></li>
+        <li><strong>Adresse:</strong> <?= htmlspecialchars($cinemas['address']) ?></li>
+        <li><strong>Borough:</strong> <?= htmlspecialchars($cinemas['borough']) ?></li>
+        <li><strong>Téléphone:</strong> <?= htmlspecialchars($cinemas['phone'] ?? 'N/A') ?></li>
+        <li><strong>Email:</strong> <?= htmlspecialchars($cinemas['email'] ?? 'N/A') ?></li>
+        <hr>
+        <ul>
+            <p><strong>Réalisateurs dans ce cinéma :</strong> <?= htmlspecialchars($directorsData[0]['Directors'] ?? 'Aucun réalisateur trouvé') ?></p>
+            <p><strong>Films :</strong> <?= htmlspecialchars($directorsData[0]['Films'] ?? 'Aucun film trouvé') ?></p>
+        </ul>
+        <hr>
+    <?php endforeach; ?>
+</ul>
+
+<h1>Liste des films triée par la note moyenne des séances</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Film</th>
+            <th>Note Moyenne</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($filmsByRating as $filmRating) { ?>
+            <tr>
+                <td><?= htmlspecialchars($filmRating['Film']) ?></td>
+                <td><?= number_format($filmRating['NoteMoyenne'], 2) ?></td>
+            </tr>
         <?php } ?>
-    </ul>
+    </tbody>
+</table>
 
 </body>
 </html>
