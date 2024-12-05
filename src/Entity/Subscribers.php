@@ -10,6 +10,9 @@ class Subscribers
     public function __construct(\PDO $connector)
     {
         $this->connector = $connector;
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public function getSubscribers()
@@ -41,7 +44,7 @@ class Subscribers
         return $stmt->execute();
     }
 
-    public function connexionSubcriber($post)
+    public function loginSubcriber($post)
     {
         extract($post);
         $query = "SELECT * FROM subscriber WHERE email = :email";
@@ -60,6 +63,12 @@ class Subscribers
         } else {
             echo "Email et/ou mot de passe incorrect.";
         }
+    }
+
+    public function logoutSubcriber()
+    {
+        session_destroy();
+        $_SESSION = [];
     }
 
     public function updateSubscribers($post)

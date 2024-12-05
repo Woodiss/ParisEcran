@@ -1,7 +1,7 @@
 <?php 
 
-use parisecran\Entity\Film;
 use parisecran\DBAL\Connector;
+use parisecran\Entity\Film;
 
 session_start();
 

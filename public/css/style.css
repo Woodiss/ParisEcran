@@ -585,7 +585,6 @@ section.comments h2 {
   align-items: center;
   font-weight: var(--fwSemiBold);
   font-size: var(--fz16);
-  
 }
 .comment-reaction span {
   position: relative;

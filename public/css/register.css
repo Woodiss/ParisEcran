@@ -72,7 +72,7 @@ body {
     margin-right: 10px; /* Espacement entre la case et le texte */
 }
 
-.form input[type="button"] {
+.form input[type="submit"] {
     background-color: red;
     color: white;
     width: 144px;

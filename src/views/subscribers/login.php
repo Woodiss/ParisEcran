@@ -1,4 +1,5 @@
 <?php
+
 use parisecran\DBAL\Connector;
 use parisecran\Entity\Subscribers;
 
@@ -13,18 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (!empty($_POST['email']) && !empty($_POST['password'])) { 
 
-        $subscribersModel->connexionSubcriber($_POST);
+        $subscribersModel->loginSubcriber($_POST);
     } else {
         echo 'champs vides?';
     }
-} else {
-
-    // echo 'post vide';
 }
 
-if (isset($_SESSION['id'])) {
-    echo $_SESSION['first_name'];
-}
 ?>
 
 <!DOCTYPE html>
