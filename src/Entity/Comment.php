@@ -43,7 +43,7 @@ class Comment
         }
 
 
-        $react = json_decode($comment['reactions'], true);
+        $reactions = json_decode($comment['reactions'], true);
 
         if (($key = array_search($idUser, $reactions[$react_type])) !== false) {
             unset($reactions[$react_type][$key]);
@@ -51,12 +51,12 @@ class Comment
             $reactions[$react_type][] = $idUser;
         }
 
-        $$reactionsJson = json_encode($react);
+        $reactionsJson = json_encode($reactions);
 
         $queryUpdate = "UPDATE `comment` SET `reactions`= :reactions WHERE id = :id";
         $stmtUpdate = $this->connector->prepare($queryUpdate);
-        $stmt->bindParam(":id", $reactionsJson);
-        $stmt->bindParam(":id", $comm_id);
+        $stmtUpdate->bindParam(":reactions", $reactionsJson);
+        $stmtUpdate->bindParam(":id", $comm_id);
 
         $stmtUpdate->execute();
     }

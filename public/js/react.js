@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 fetchReact(ReactType, commId)
             }
-
         });
     });
 

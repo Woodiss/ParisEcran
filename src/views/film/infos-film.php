@@ -283,7 +283,7 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
                         </div>
                         <div class="comment-reaction">
                             <span><?= count($reactions['dislikes']) ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="dislike" data-comment-id="<?= $comment['comment_id'] ?>">
+                            <button type="submit" name="reaction" value="dislikes" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg class="react-svg-gray 
                                 <?php if (isset($isUser)) {
                                     if (in_array($isUser, $reactions['dislikes'])) {
@@ -296,7 +296,7 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
                         </div>
                         <div class="comment-reaction">
                             <span><?= count($reactions['surprised']) ?? 0 ?></span>
-                            <button type="submit" name="reaction" value="suprised" data-comment-id="<?= $comment['comment_id'] ?>">
+                            <button type="submit" name="reaction" value="surprised" data-comment-id="<?= $comment['comment_id'] ?>">
                                 <svg class="react-svg-gray 
                                 <?php if (isset($isUser)) {
                                     if (in_array($isUser, $reactions['surprised'])) {

@@ -9,7 +9,6 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 
 header('Content-Type: application/json');
 
-// Vérifie si les paramètres nécessaires sont présents
 if (isset($_GET['react_type']) && isset($_GET['comm_id']) && isset($_SESSION['id'])) {
     $dbh = new Connector();
     $commentModel = new Comment($dbh->dbConnector);
