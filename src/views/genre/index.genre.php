@@ -3,6 +3,8 @@
 use parisecran\DBAL\Connector;
 use parisecran\Entity\Genre;
 
+session_start();
+
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dbh = new Connector();

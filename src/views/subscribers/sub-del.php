@@ -3,6 +3,8 @@
 use Narut\parisecran\DBAL\Connector;
 use Narut\parisecran\Entity\Subscribers;
 
+session_start();
+
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dbh = new Connector();

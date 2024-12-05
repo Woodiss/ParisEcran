@@ -1,3 +1,9 @@
+<?php 
+if (isset($_SESSION['id'])) {
+    $userName = $_SESSION['first_name'] . " " . $_SESSION['last_name'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -11,7 +17,7 @@
     <script src="../../../public/js/cinemas.js" defer></script>
     <script src="../../../public/js/actor.js" defer></script>
     <script src="../../../public/js/schedule.js" defer></script>
-
+    <script src="../../../public/js/react.js" defer></script>
 </head>
 
 <body>
@@ -63,8 +69,12 @@
             </form>
 
             <div class="account">
-                <a href="#">Créer un compte</a>
-                <a href="#">
+                <?php if (isset($userName)) { ?>
+                    <span><?= $userName ?></span>
+                <?php } else { ?>
+                    <a href="../subscribers/register.php">Créer un compte</a>
+                <?php } ?>
+                <a href="../subscribers/profil.php">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 14.6667C18.9455 14.6667 21.3333 12.2789 21.3333 9.33333C21.3333 6.38781 18.9455 4 16 4C13.0544 4 10.6666 6.38781 10.6666 9.33333C10.6666 12.2789 13.0544 14.6667 16 14.6667Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M26.6666 26.6807V21.8667C26.6666 21.018 26.3295 20.204 25.7294 19.6039C25.1293 19.0038 24.3153 18.6667 23.4666 18.6667H8.53331C7.68462 18.6667 6.87069 19.0038 6.27057 19.6039C5.67046 20.204 5.33331 21.018 5.33331 21.8667V26.6807" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" />

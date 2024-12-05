@@ -3,6 +3,8 @@
 use parisecran\DBAL\Connector;
 use parisecran\Entity\Subscribers;
 
+session_start();
+
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dbh = new Connector();
@@ -19,23 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     !empty($_POST['last_name'])) {
     $updateSuccess->updateSubscribers($_POST);
     }
-    // $id_sub = $_POST['id'];
-    // $username = $_POST['username'];
-    // $email = $_POST['email'];
-    // $password = $_POST['password'];
-    // $birthdate = $_POST['birthdate'];
-    // $first_name = $_POST['first_name'];
-    // $last_name = $_POST['last_name'];
-
-    // $updateSuccess = $subscribers->updateSubscribers($id_sub, $username, $email, $password, $birthdate, $first_name, $last_name);
-
-//     if ($updateSuccess) {
-//         echo " Sub a modifé avec succès";
-//     } else {
-//         echo "Erreur 404";
-//     }
-// }     else {
-//     echo "ERROR 404";
 }
 
 ?>

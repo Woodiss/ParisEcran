@@ -94,7 +94,7 @@ nav {
     align-items: center;
     gap: 20px;
 
-    a {
+    a, span {
       color: var(--tertiary-color);
       font-size: var(--fz20);
       font-weight: var(--fwSemiBold);
@@ -105,7 +105,7 @@ nav {
       align-items: center;
     }
 
-    a:hover {
+    a:hover, span:hover {
       color: var(--secondary-color);
     }
 
@@ -556,6 +556,12 @@ section.comments h2 {
   background: none;
   border: none;
   cursor: pointer;
+}
+.react-svg-gray {
+  color: #8D8D8D;
+}
+.react-svg-red {
+  color: var(--secondary-color);
 }
 @media (max-width: 1500px) {
   .film img {

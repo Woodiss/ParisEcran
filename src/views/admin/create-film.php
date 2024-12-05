@@ -3,6 +3,8 @@
 use parisecran\Entity\Film;
 use parisecran\DBAL\Connector;
 
+session_start();
+
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dbh = new Connector();

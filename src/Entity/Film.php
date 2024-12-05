@@ -130,21 +130,6 @@ class Film
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-    
-    public function selectCommentByIdFilm($id_film)
-    {
-        $query = "SELECT s.first_name, s.last_name, s.username, c.comment, c.reactions, c.notation, c.id AS comment_id
-            FROM comment AS c
-            JOIN subscriber AS s ON s.id = c.subscriber_id
-            WHERE film_id = :id
-            LIMIT 30";
-        $stmt = $this->connector->prepare($query);
-        $stmt->bindParam(":id", $id_film);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
 
     // 2. Afficher les spectacles par arrondissement
     public function getFilmByBorough()
