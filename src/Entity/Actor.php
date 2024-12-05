@@ -76,12 +76,12 @@ class Actor
                 LEFT JOIN (
                     SELECT
                         r.casting_id AS actor_id,
-                        AVG(sch.notation) AS average_notation
+                        AVG(com.notation) AS average_notation
                     FROM role r
                     JOIN film f ON r.film_id = f.id
                     JOIN seance s ON f.id = s.film_id
-                    JOIN schedule sch ON sch.seance_id = s.id
-                    WHERE sch.notation IS NOT NULL
+                    JOIN comment com ON com.id = f.id
+                    WHERE com.notation IS NOT NULL
                     GROUP BY r.casting_id
                 ) an ON c2.id = an.actor_id
                 WHERE c1.id = :idActor
