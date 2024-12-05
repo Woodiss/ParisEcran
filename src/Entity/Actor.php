@@ -71,10 +71,21 @@ class Actor
                     ), 0) AS average_notation
                 FROM casting c1
                 JOIN role r1 ON c1.id = r1.casting_id
-                JOIN role r2 ON r1.film_id = r2.film_id AND r1.casting_id != r2.casting_id
+                JOIN role r2 ON r1.film_id = r2.film_id AND r2.casting_id != c1.id
                 JOIN casting c2 ON r2.casting_id = c2.id
+                LEFT JOIN (
+                    SELECT
+                        r.casting_id AS actor_id,
+                        AVG(com.notation) AS average_notation
+                    FROM role r
+                    JOIN film f ON r.film_id = f.id
+                    JOIN seance s ON f.id = s.film_id
+                    JOIN comment com ON com.id = f.id
+                    WHERE com.notation IS NOT NULL
+                    GROUP BY r.casting_id
+                ) an ON c2.id = an.actor_id
                 WHERE c1.id = :idActor
-                GROUP BY c1.id, c2.id
+                GROUP BY c1.firstName, c1.lastName, c2.id, c2.firstName, c2.lastName
                 HAVING films_ensemble >= 2
                 ORDER BY average_notation DESC";
 

@@ -81,7 +81,7 @@ class Film
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-
+    
     public function selectFilmById($id_film)
     {
         $query = "SELECT 

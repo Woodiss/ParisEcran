@@ -12,7 +12,6 @@ $dbh = new Connector();
 $actorModel = new Actor($dbh->dbConnector);
 $allActors = $actorModel->getAllActors();
 $favoriteActors = $actorModel->getFavoriteActors();
-$actorCollabs = $actorModel->getActorCollabs(4);
 $versatileActors = $actorModel->getVersatileActors();
 
 // Déclaration de la variable pour le titre de la page

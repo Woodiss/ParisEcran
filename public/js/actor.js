@@ -24,6 +24,7 @@ selectActor.addEventListener("change", async (e) => {
     const data = await response.json();
 
     if (data.length === 0) {
+      titleActorCollabs.textContent = `(0)`;
       containerActorCollabs.textContent = "Aucune collaboration trouvée pour cet acteur.";
       return;
     }
