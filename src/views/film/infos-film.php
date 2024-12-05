@@ -85,11 +85,7 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
                 <h3>Réalisé par :
                     <span id="realisator"><?= $film['realisateur'] ?></span>
                 </h3>
-                <h3>Avec : <span>
-                        <?php foreach ($listActors as $key => $actor) {
-                            echo $actor . ', ';
-                        } ?>
-                    </span></h3>
+                <h3>Avec : <span><?= $film['acteurs'] ?></span></h3>
                 <h3>Synopsis :</h3>
                 <div class="synopsis">
                     <p><?= $film["synopsis"] ?></p>
