@@ -66,21 +66,25 @@ class Actor
                     c2.id AS actor2_id,
                     c2.firstName AS actor2_firstname,
                     c2.lastName AS actor2_lastname,
-                    COUNT(DISTINCT r1.film_id) AS films_ensemble,
-                    COALESCE((
-                        SELECT AVG(sch.notation)
-                        FROM role r2_all
-                        JOIN film f_all ON r2_all.film_id = f_all.id
-                        JOIN seance s_all ON f_all.id = s_all.film_id
-                        JOIN schedule sch ON sch.seance_id = s_all.id
-                        WHERE r2_all.casting_id = c2.id AND sch.notation IS NOT NULL
-                    ), 0) AS average_notation
+                    COUNT(DISTINCT r2.film_id) AS films_ensemble,
+                    COALESCE(an.average_notation, 0) AS average_notation
                 FROM casting c1
                 JOIN role r1 ON c1.id = r1.casting_id
-                JOIN role r2 ON r1.film_id = r2.film_id AND r1.casting_id != r2.casting_id
+                JOIN role r2 ON r1.film_id = r2.film_id AND r2.casting_id != c1.id
                 JOIN casting c2 ON r2.casting_id = c2.id
+                LEFT JOIN (
+                    SELECT
+                        r.casting_id AS actor_id,
+                        AVG(sch.notation) AS average_notation
+                    FROM role r
+                    JOIN film f ON r.film_id = f.id
+                    JOIN seance s ON f.id = s.film_id
+                    JOIN schedule sch ON sch.seance_id = s.id
+                    WHERE sch.notation IS NOT NULL
+                    GROUP BY r.casting_id
+                ) an ON c2.id = an.actor_id
                 WHERE c1.id = :idActor
-                GROUP BY c1.id, c2.id
+                GROUP BY c1.firstName, c1.lastName, c2.id, c2.firstName, c2.lastName
                 HAVING films_ensemble >= 2
                 ORDER BY average_notation DESC;
 
