@@ -13,7 +13,7 @@ class Film
 
     public function getAllFilms()
     {
-        $query = "SELECT * FROM film";
+        $query = "SELECT f.*, g.name FROM film AS f JOIN genre AS g ON g.id = f.genre_id";
         $stmt = $this->connector->prepare($query);
         $stmt->execute();
 
@@ -63,6 +63,14 @@ class Film
     
             $stmt->execute();
         };
+    }
+
+    public function deleteFilmById($film_id)
+    {
+        $query = "DELETE FROM film WHERE id = :id";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":id", $film_id);
+        $stmt->execute();
     }
 
     // 5. Afficher le nombre de spectacles par catégorie

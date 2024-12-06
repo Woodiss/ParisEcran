@@ -10,6 +10,8 @@ class Subscribers
     public function __construct(\PDO $connector)
     {
         $this->connector = $connector;
+
+        // lancement de la session
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -57,6 +59,7 @@ class Subscribers
             $_SESSION['id'] = $user['id'];
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['last_name'] = $user['last_name'];
+            $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
 
             header("Location: ../film/index-film.php");

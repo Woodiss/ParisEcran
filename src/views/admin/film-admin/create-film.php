@@ -3,9 +3,7 @@
 use parisecran\DBAL\Connector;
 use parisecran\Entity\Film;
 
-session_start();
-
-require_once __DIR__ . "/../../../vendor/autoload.php";
+require_once __DIR__ . '/../auth.php';
 
 $dbh = new Connector();
 
@@ -28,9 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['image']['name'])) {
 } else {
     echo 'post vide';
 }
-var_dump($_POST);
-echo "<br>";
-var_dump($_FILES);
 ?>
 
 
