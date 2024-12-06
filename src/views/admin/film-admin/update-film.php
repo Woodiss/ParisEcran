@@ -9,9 +9,12 @@ require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dbh = new Connector();
 
+if($_GET['id_film']) {
+    $filmModel = new Film($dbh->dbConnector);
+    $film = $filmModel->selectFilmById($_GET['id_film']);
+}
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">

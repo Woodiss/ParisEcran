@@ -122,23 +122,6 @@ class Film
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function selectRoleByIdFilm($id_film)
-    {
-        $query = "SELECT f.id AS film_id,f.*, g.*,
-                 ROUND((SELECT AVG(notation) 
-                  FROM schedule 
-                  WHERE f.id = f.id)) AS average
-          FROM film AS f
-          JOIN genre AS g ON f.genre_id = g.id
-          WHERE f.id = :id";
-        $stmt = $this->connector->prepare($query);
-        $stmt->bindParam(":id", $id_film);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
     // 2. Afficher les spectacles par arrondissement
     public function getFilmByBorough()
     {
@@ -161,20 +144,6 @@ class Film
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    // 5. Afficher le nombre de spectacles par catégorie
-    public function getNumberFilmByGenre()
-    {
-        $query = "SELECT g.name AS genre, COUNT(f.id) AS nombre_de_films
-            FROM genre g
-            LEFT JOIN film f ON g.id = f.genre_id
-            GROUP BY g.id, g.name
-            ORDER BY nombre_de_films DESC";
-        $stmt = $this->connector->prepare($query);
-
-        $stmt->execute();
-
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
 }
 
 
