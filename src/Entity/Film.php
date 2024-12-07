@@ -81,7 +81,9 @@ class Film
                     g.name,
                     COUNT(f.id) AS film_count
                 FROM genre AS g
-                LEFT JOIN film AS f ON g.id = f.genre_id
+                LEFT JOIN film AS f 
+                    ON g.id = f.genre_id
+                    AND CURRENT_DATE BETWEEN f.first_date AND f.last_date
                 GROUP BY g.id, g.name";
         $stmt = $this->connector->prepare($query);
 

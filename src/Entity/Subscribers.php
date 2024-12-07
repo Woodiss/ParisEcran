@@ -61,6 +61,7 @@ class Subscribers
             $_SESSION['last_name'] = $user['last_name'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['birthdate'] = $user['birthdate'];
 
             header("Location: ../film/index-film.php");
         } else {
@@ -98,14 +99,46 @@ class Subscribers
     }
 
     public function deleteSubscribers($id_sub)
-{
-    $query = "DELETE FROM subscriber WHERE id = :id";
-    $stmt = $this->connector->prepare($query);
+    {
+        $query = "DELETE FROM subscriber WHERE id = :id";
+        $stmt = $this->connector->prepare($query);
 
-    $stmt->bindParam(":id", $id_sub, \PDO::PARAM_INT);
+        $stmt->bindParam(":id", $id_sub, \PDO::PARAM_INT);
 
-    return $stmt->execute(); 
-}
+        return $stmt->execute(); 
+    }
+
+    public function SelectSchedulePaid($id_sub)
+    {
+        $query = "SELECT 
+                    sc.*, 
+                    se.*, 
+                    f.title, 
+                    f.image, 
+                    ci.name AS cinema_name,
+                    r.name AS room_name,
+                    c.id AS comment_id,
+                    CASE 
+                        WHEN c.id IS NOT NULL THEN 1
+                        ELSE 0
+                    END AS has_commented
+                FROM schedule AS sc
+                JOIN seance AS se ON se.id = sc.seance_id
+                JOIN film AS f ON f.id = se.film_id
+                JOIN room AS r ON r.id = se.room_id
+                JOIN cinema AS ci ON ci.id = r.cinema_id
+                LEFT JOIN comment AS c 
+                    ON c.film_id = se.film_id AND c.subscriber_id = sc.subscriber_id
+                WHERE sc.subscriber_id = :id_sub
+                AND sc.paid = 1;";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":id_sub", $id_sub, \PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
 }
 
