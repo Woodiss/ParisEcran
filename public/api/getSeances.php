@@ -35,8 +35,8 @@ function fetchReservation($params)
         }
 
         if (empty($data)) {
-            http_response_code(404);
-            echo json_encode(["error" => $errorMsg]);
+            http_response_code(200);
+            echo json_encode([]);
             exit;
         }
 
