@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dataDate = await response.json();
                 // console.log("Données reçues :", dataDate);
     
+                if (dataDate.length === 0) {
+                    dateContainer.textContent = "Aucune séance trouvé pour ce film"              
+                    return
+                }
+
                 dateContainer.innerHTML = ""              
                 addTitleReservation(dateContainer, "date")
                 dateContainer.parentNode.querySelector("h3") ?? dateContainer.parentNode.querySelector("h3").remove()
