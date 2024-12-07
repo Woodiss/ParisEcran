@@ -1,7 +1,7 @@
 <?php 
 
 use parisecran\DBAL\Connector;
-use parisecran\Entity\Schedule;
+use parisecran\Entity\Reservation;
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
@@ -9,17 +9,17 @@ header('Content-Type: application/json');
 
 // Vérifie si les paramètres nécessaires sont présents
 if (isset($_GET['cinema_id']) && isset($_GET['id_film'])) {
-    fetchSchedule($_GET);
+    fetchReservation($_GET);
 } else {
     echo json_encode(["error" => "Paramètres manquants"]);
 }
 
-function fetchSchedule($params)
+function fetchReservation($params)
 {
     try {
         // Connexion à la base de données
         $dbh = new Connector();
-        $schedulenModel = new Schedule($dbh->dbConnector);
+        $schedulenModel = new Reservation($dbh->dbConnector);
 
         // Détermine la méthode à appeler en fonction des paramètres
         if (isset($params['date'])) {

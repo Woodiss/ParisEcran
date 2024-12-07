@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-$sheduleList = $subscribersModel->SelectSchedulePaid($_SESSION['id']);
+$reservationList = $subscribersModel->SelectReservationPaid($_SESSION['id']);
 
 $birthdate = new DateTime($_SESSION['birthdate']);
 ?>
@@ -74,17 +74,17 @@ $birthdate = new DateTime($_SESSION['birthdate']);
 
         <div class="historique">
             <div>
-                <h3>Vos réservations <span style="color: red;">(<?= count($sheduleList) ?>)</span></h3>
-                <?php foreach ($sheduleList as $shedule) { ?>
+                <h3>Vos réservations <span style="color: red;">(<?= count($reservationList) ?>)</span></h3>
+                <?php foreach ($reservationList as $reservation) { ?>
                     <div class="reserv">
-                        <img src="<?= "../../../public/images_film/" . $shedule['image'] ?>" alt="Film <?= $shedule['title'] ?>">
+                        <img src="<?= "../../../public/images_film/" . $reservation['image'] ?>" alt="Film <?= $reservation['title'] ?>">
                         <div>
-                            <h3><?= $shedule['title'] ?></h3>
-                            <p><?php echo date('d F Y', strtotime($shedule['time_slot'])); ?></p>
-                            <p>Cinema <?= $shedule['cinema_name'] ?></p>
-                            <p>Salle <?= $shedule['room_name'] ?></p>
+                            <h3><?= $reservation['title'] ?></h3>
+                            <p><?php echo date('d F Y', strtotime($reservation['time_slot'])); ?></p>
+                            <p>Cinema <?= $reservation['cinema_name'] ?></p>
+                            <p>Salle <?= $reservation['room_name'] ?></p>
                         </div>
-                        <?php if ($shedule['comment_id'] == null)  {?>
+                        <?php if ($reservation['comment_id'] == null)  {?>
                             <div class="notation">
                                 <p>Notez ce film <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_24_1239)">

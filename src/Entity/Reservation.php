@@ -2,7 +2,7 @@
 
 namespace parisecran\Entity;
 
-class Schedule
+class Reservation
 {
     private \PDO $connector;
 

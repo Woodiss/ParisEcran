@@ -2,7 +2,7 @@
 
 use parisecran\DBAL\Connector;
 use parisecran\Entity\Film;
-use parisecran\Entity\Schedule;
+use parisecran\Entity\Reservation;
 use parisecran\Entity\Comment;
 
 session_start();
@@ -19,7 +19,7 @@ if (!empty($_GET["id_film"])) {
     $film = $filmModel->selectFilmById($id_film);
     
     if ($film) {
-        $schedulenModel = new Schedule($dbh->dbConnector);
+        $schedulenModel = new Reservation($dbh->dbConnector);
         $commentModel = new Comment($dbh->dbConnector);
         
         $comments = $commentModel->selectCommentByIdFilm($id_film);

@@ -108,7 +108,7 @@ class Subscribers
         return $stmt->execute(); 
     }
 
-    public function SelectSchedulePaid($id_sub)
+    public function SelectReservationPaid($id_sub)
     {
         $query = "SELECT 
                     sc.*, 
