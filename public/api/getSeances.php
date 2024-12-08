@@ -19,17 +19,17 @@ function fetchReservation($params)
     try {
         // Connexion à la base de données
         $dbh = new Connector();
-        $schedulenModel = new Reservation($dbh->dbConnector);
+        $reservationnModel = new Reservation($dbh->dbConnector);
 
         // Détermine la méthode à appeler en fonction des paramètres
         if (isset($params['date'])) {
             // Récupération des heures
-            $data = $schedulenModel->getSeanceDateByCinemaAndFilmAndDate($params);
+            $data = $reservationnModel->getSeanceDateByCinemaAndFilmAndDate($params);
             $format = 'G\h i'; // Format pour les heures
             $errorMsg = "Aucune séance trouvée pour ce cinéma, ce film et cette date";
         } else {
             // Récupération des dates
-            $data = $schedulenModel->getSeanceDateByCinemaAndFilm($params);
+            $data = $reservationnModel->getSeanceDateByCinemaAndFilm($params);
             $format = 'd F'; // Format pour les dates
             $errorMsg = "Aucune séance trouvée pour ce cinéma et ce film";
         }

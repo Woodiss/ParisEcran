@@ -66,7 +66,7 @@ class Subscribers
             if (!empty($_SESSION['idReservation'])) {
                 echo "A une reservation en attente";
                 print_r($_SESSION);
-                if ($this->addSchedule($_SESSION['idReservation'], $user['id'])) {
+                if ($this->addReservation($_SESSION['idReservation'], $user['id'])) {
                     $_SESSION['idReservation'] = "";
                     return header("Location: ../reservation/reservation.php");
                 } else {
@@ -135,7 +135,7 @@ class Subscribers
                         WHEN c.id IS NOT NULL THEN 1
                         ELSE 0
                     END AS has_commented
-                FROM schedule AS sc
+                FROM reservation AS sc
                 JOIN seance AS se ON se.id = sc.seance_id
                 JOIN film AS f ON f.id = se.film_id
                 JOIN room AS r ON r.id = se.room_id
@@ -153,10 +153,10 @@ class Subscribers
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function addSchedule($idFilmSession, $idSubscriber)
+    public function addReservation($idFilmSession, $idSubscriber)
     {
-        // Combiner la sélection des données du film et l'insertion dans la table schedule
-        $query = "  INSERT INTO schedule 
+        // Combiner la sélection des données du film et l'insertion dans la table reservation
+        $query = "  INSERT INTO reservation 
                     (booked, paid, amount, seance_id, subscriber_id)
                 SELECT 
                     1 AS booked, 
@@ -173,5 +173,54 @@ class Subscribers
         $stmt->bindParam(':idFilmSession', $idFilmSession, \PDO::PARAM_INT);
         $stmt->bindParam(':subscriber_id', $idSubscriber, \PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+    public function recommendationFilms($idSubscriber)
+    {
+        // requête SQL de type pavé !!!
+        $query = "-- Étape 1 : Identifier les films déjà vus par l'utilisateur X
+            WITH FilmsVusParX AS (
+                SELECT DISTINCT s.film_id
+                FROM reservation r
+                JOIN seance s ON r.seance_id = s.id
+                WHERE r.subscriber_id = :idSubscriber
+            ),
+
+            -- Étape 2 : Trouver les utilisateurs ayant le plus de films en commun avec l'utilisateur X
+            UtilisateursSimilaires AS (
+                SELECT r.subscriber_id, COUNT(*) AS films_en_commun
+                FROM reservation r
+                JOIN seance s ON r.seance_id = s.id
+                JOIN FilmsVusParX fx ON s.film_id = fx.film_id
+                WHERE r.subscriber_id != :idSubscriber
+                GROUP BY r.subscriber_id
+                ORDER BY films_en_commun DESC
+                LIMIT 10
+            ),
+
+            -- Étape 3 : Identifier les films recommandés (vus par les utilisateurs similaires mais pas par X)
+            FilmsRecommandes AS (
+                SELECT s.film_id, COUNT(DISTINCT r.subscriber_id) AS nb_sub_reco
+                FROM reservation r
+                JOIN seance s ON r.seance_id = s.id
+                JOIN UtilisateursSimilaires us ON r.subscriber_id = us.subscriber_id
+                WHERE s.film_id NOT IN (SELECT film_id FROM FilmsVusParX)
+                GROUP BY s.film_id
+            )
+
+            -- Étape 4 : Récupérer les détails des films recommandés classés par nombre d'utilisateurs similaires les ayant vus
+            SELECT 
+                f.*,
+                fr.nb_sub_reco
+            FROM film f
+            JOIN FilmsRecommandes fr ON f.id = fr.film_id
+            ORDER BY fr.nb_sub_reco DESC
+            LIMIT 5";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

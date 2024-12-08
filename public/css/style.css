@@ -686,6 +686,10 @@ main#cinema {
   position: relative;
 }
 
+.leaflet-container a{
+  color: var(--secondary-color)!important;
+}
+
 .section-cinema {
   height: 100%;
   width: 50%;
@@ -696,7 +700,9 @@ main#cinema {
   display: flex;
   flex-direction: column;
   overflow-x: visible;
-  position: relative;
+
+  position: absolute;
+  z-index:1001;
 }
 
 .section-cinema h2 {

@@ -2,9 +2,9 @@
 
 use parisecran\Entity\Film;
 use parisecran\DBAL\Connector;
-use parisecran\Entity\Film;
 use parisecran\Entity\Reservation;
 use parisecran\Entity\Comment;
+use parisecran\Entity\Subscribers;
 
 session_start();
 
@@ -22,11 +22,11 @@ if (!empty($_GET["id_film"])) {
     $film = $filmModel->selectFilmById($id_film);
     
     if ($film) {
-        $schedulenModel = new Reservation($dbh->dbConnector);
+        $reservationnModel = new Reservation($dbh->dbConnector);
         $commentModel = new Comment($dbh->dbConnector);
         
         $comments = $commentModel->selectCommentByIdFilm($id_film);
-        $cinemas = $schedulenModel->getAllCinemas();
+        $cinemas = $reservationnModel->getAllCinemas();
 
         // Formatage de la durée du film
         $filmDuration = new DateTime($film["duration"]);
@@ -52,15 +52,11 @@ if (!empty($_POST)) {
         header("Location: ../subscribers/login.php");
 
     } else {
-        $subscribersModel->addSchedule($_POST['hour'], $_SESSION['id']);
+        $subscribersModel->addReservation($_POST['hour'], $_SESSION['id']);
         header("Location: ../reservation/reservation.php");
 
     }
 }
-print_r($_SESSION);
-
-
-
 
 
 require_once __DIR__ . "/../../../src/views/header.html.php";

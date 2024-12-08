@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 $reservationList = $subscribersModel->SelectReservationPaid($_SESSION['id']);
+$reco = $subscribersModel->recommendationFilms($_SESSION['id']);
 
 $birthdate = new DateTime($_SESSION['birthdate']);
 ?>
@@ -114,7 +115,12 @@ $birthdate = new DateTime($_SESSION['birthdate']);
             <div class="reco-top">
                 <h3>Film qui pourrait vous plaire</h3>
                 <div class="reco">
-                    <img src="../Image/Deva.jpg" alt="Deva"> <img src="../Image/Willex.jpg" alt="Willex">
+                    <?php foreach ($reco as $film) { ?>
+                        <div>
+                            <img src="<?= "../../../public/images_film/" . $film['image'] ?>" alt="film <?= $film['title'] ?>">
+                            <span>conseiller à <?= $film['nb_sub_reco'] ?> / 10</span>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
 
