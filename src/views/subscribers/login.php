@@ -20,27 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 // print_r($_SESSION);
-?>
+$titlePage = "Connexion";
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="../../../public/css/login.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Connexion</title>
-</head>
-<body>
-    <div class="container">
+require_once __DIR__ . "/../../../src/views/header.html.php";
+
+?>
+    <div class="pc-container">
         <h1>Connexion</h1>
-        <form class="form" action="" method="POST">
+        <form class="pc-form" action="" method="POST">
             <input type="email" placeholder="Email*" name="email" required><br>
             <input type="password" placeholder="Mot de passe*" name="password" required><br>
-            <a href="inscritpion.html" class="link">Créer un compte</a><br>
-            <button type="submit" class="btn">Connexion </button>
+            <a href="./register.php" class="pc-link">Créer un compte</a><br>
+            <button type="submit" class="pc-btn">Connexion </button>
             <p style="color: red;">*Champs obligatoires</p>
         </form>
         

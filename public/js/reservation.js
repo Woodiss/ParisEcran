@@ -1,38 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//     const reservationCard = document.querySelectorAll('.pr-reservation-card');
-//     console.log(reservationCard)
-//     reservationCard.forEach(async (card) => updateQuantityReservation(card))
-// })
-// const updateQuantityReservation = async (card) => {
-//     const reservationId = card.getAttribute('data-reservation-id')
-//     console.log(reservationId);
-    
-//     try {
-//         const response = await fetch(`../../../public/api/updateReservation.php?id_resevation=${reservationId}&action_type=${actionType}`);
-    
-//         if (!response.ok) {
-//           throw new Error(`Erreur avec la reservation ${reservationId}: ${response.status}`);
-//         }
-    
-//         const data = await response.json();
-    
-//         if (data.length === 0) {
-//             console.log("La Taille de la data est 0");
-            
-//           return;
-//         }
-//         console.log(data);
-        
-    
-//       } catch (error) {
-        
-//         console.error(
-//           `Erreur lors de la récupération des données pour la reservation ${reservationId}:`,
-//           error
-//         );
-//       }
-// }
-
 document.addEventListener("DOMContentLoaded", () => {
   const allReservationCard = document.querySelectorAll(".pr-reservation-card")
   // console.log(allReservationCard);

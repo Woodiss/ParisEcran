@@ -12,6 +12,8 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../public/css/style.css">
     <link rel="stylesheet" href="../../../public/css/reservation.css">
+    <link rel="stylesheet" href="../../../public/css/login.css">
+    <link rel="stylesheet" href="../../../public/css/register.css">
     <title><?= $titlePage ?></title>
     <script src="../../../public/js/navBar.js" defer></script>
     <script src="../../../public/js/scrollContainerFilm.js" defer></script>
