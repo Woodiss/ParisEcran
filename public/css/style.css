@@ -216,7 +216,7 @@ nav {
 }
 
 @media (max-width: 700px) {
-  .search-account-container a:first-of-type {
+  .search-account-container a#create-account,  .search-account-container span:first-of-type{
     display: none;
   }
 }

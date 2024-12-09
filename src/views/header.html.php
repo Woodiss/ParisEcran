@@ -11,6 +11,7 @@ if (isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../public/css/style.css">
+    <link rel="stylesheet" href="../../../public/css/reservation.css">
     <title><?= $titlePage ?></title>
     <script src="../../../public/js/navBar.js" defer></script>
     <script src="../../../public/js/scrollContainerFilm.js" defer></script>
@@ -18,6 +19,7 @@ if (isset($_SESSION['id'])) {
     <script src="../../../public/js/actor.js" defer></script>
     <script src="../../../public/js/schedule.js" defer></script>
     <script src="../../../public/js/react.js" defer></script>
+    <script src="../../../public/js/reservation.js" defer></script>
 </head>
 
 <body>
@@ -72,7 +74,7 @@ if (isset($_SESSION['id'])) {
                 <?php if (isset($userName)) { ?>
                     <span><?= $userName ?></span>
                 <?php } else { ?>
-                    <a href="../subscribers/register.php">Créer un compte</a>
+                    <a href="../subscribers/register.php" id="create-account">Créer un compte</a>
                 <?php } ?>
                 <a href="../subscribers/profil.php">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

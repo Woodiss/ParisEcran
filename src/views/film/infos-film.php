@@ -2,14 +2,13 @@
 
 use parisecran\Entity\Film;
 use parisecran\DBAL\Connector;
-use parisecran\Entity\Film;
+use parisecran\Entity\Subscribers;
 use parisecran\Entity\Reservation;
 use parisecran\Entity\Comment;
 
 session_start();
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
-// session_destroy();
 $dbh = new Connector();
 
 $filmModel = new Film($dbh->dbConnector);
@@ -46,22 +45,14 @@ if (isset($_SESSION['id'])) {
 
 
 if (!empty($_POST)) {
-    // print_r($_POST);
     if (empty($_SESSION['id'])) {
         $_SESSION['idReservation'] = $_POST['hour'];
         header("Location: ../subscribers/login.php");
-
     } else {
-        $subscribersModel->addSchedule($_POST['hour'], $_SESSION['id']);
+        $subscribersModel->addReservation($_POST['hour'], $_SESSION['id']);
         header("Location: ../reservation/reservation.php");
-
     }
 }
-print_r($_SESSION);
-
-
-
-
 
 require_once __DIR__ . "/../../../src/views/header.html.php";
 ?>

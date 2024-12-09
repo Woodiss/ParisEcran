@@ -1,206 +1,214 @@
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color:  #dbdbdb;
+.pr-reservation-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.reservation-container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #F7F7F7;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.pr-reservation-container h1 {
+  font-size: 22px;
+  font-weight: var(--fwSemiBold);
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-h1 {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+.pr-reservation-card {
+  display: flex;
+  gap: 20px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  align-items: center;
 }
 
-.reservation-card {
-    display: flex;
-    gap: 20px;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    align-items: center;
+.pr-film-poster {
+  width: 100px;
+  height: 150px;
+  border-radius: 10px;
+  object-fit: cover; /* L’image remplit tout le conteneur en gardant ses proportions, mais elle peut être coupée si ses dimensions dépassent celles du conteneur. */
 }
 
-.film-poster {
-    width: 100px;
-    height: 150px;
-    border-radius: 10px;
-    object-fit: cover; /* L’image remplit tout le conteneur en gardant ses proportions, mais elle peut être coupée si ses dimensions dépassent celles du conteneur. */
+.pr-details-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
-.details-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    
+.pr-reservation-details h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
-.reservation-details h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
+.pr-reservation-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+  text-transform: capitalize;
 }
 
-.reservation-details p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #666;
+.pr-reservation-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.reservation-price {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.pr-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
 }
 
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    color: red;
+.pr-quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.pr-quantity-control button {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: solid #8d8d8d 0.1rem;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "Roboto Flex", sans-serif;
 }
 
-.quantity-control button {
-    width: 30px;
-    height: 30px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border: solid #8D8D8D 0.1rem;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    
+.pr-quantity-control button:hover {
+  background-color: red;
+  border: none;
 }
 
-.quantity-control button:hover {
-    background-color: red;
-    border: none;
+.pr-quantity-control input {
+  width: 35px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: "Roboto Flex", sans-serif;
 }
 
-.quantity-control input {
-    width: 35px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.pr-total-container {
+  text-align: left;
+  margin-top: 20px;
+  font-size: 20px;
+  color: red;
+}
+.pr-total-container p {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.total-container {
-    text-align: left;
-    margin-top: 20px;
-    font-size: 20px;
-    color: red;
-}
-.total-container p{
-    margin-top: 5px;
-    margin-bottom: 5px;
+.pr-total-price {
+  font-weight: bold;
+  color: black;
 }
 
-.total-price {
-    font-weight: bold;
-    color: black;
+.pr-button-submit {
+  display: flex;
+  justify-content: center;
 }
 
-.button-submit {
-    display: flex;
-    justify-content: center;
+.pr-reserve-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 15px;
+  margin-top: 5px;
+  cursor: pointer;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: var(--fwSemiBold);
+}
+#link-no-reservation {
+  display: inline-block;
+  width: fit-content;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: var(--secondary-color);
+  border-radius: 15px;
+  color: var(--primary-color);
+  font-weight: var(--fwSemiBold);
+
 }
 
-.reserve-button {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 1rem;   
-    text-align: center;
-    border-radius: 15px;
-    margin-top: 5px;
-    cursor: pointer;
+.pr-box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-
-.box {
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.reserve-button:hover {
-    background-color: rgb(216, 18, 18);
+.pr-reserve-button:hover {
+  background-color: rgb(216, 18, 18);
 }
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-    .reservation-card {
-        
-        align-items: flex-start;
-    }
+  .pr-reservation-card {
+    align-items: flex-start;
+  }
 
-    .film-poster {
-        width: 20%;
-        height: 20%;
-    }
+  .pr-film-poster {
+    width: 20%;
+    height: 20%;
+  }
 
-    .details-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .pr-details-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .reservation-price {
-        justify-content: space-between;
-        width: 100%;
-        margin-top: 10px;
-    }
+  .pr-reservation-price {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
 
-    .quantity-control button {
-        width: 30px;
-        height: 30px;
-    }
+  .pr-quantity-control button {
+    width: 30px;
+    height: 30px;
+  }
 
-    .total-container {
-        text-align: center;
-    }
-    
-    .total-price {
-        display: inline-block;
-        margin-top: 10px;
-    }
+  .pr-total-container {
+    text-align: center;
+  }
+
+  .pr-total-price {
+    display: inline-block;
+    margin-top: 10px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .reserve-button {
-        font-size: 16px;
-        padding: 10px;
-    }
+  .pr-reserve-button {
+    font-size: 16px;
+    padding: 10px;
+  }
 
-    h1 {
-        font-size: 20px;
-    }
+  .pr-reservation-container h1 {
+    font-size: 20px;
+  }
 
-    .reservation-details h2 {
-        font-size: 16px;
-    }
+  .pr-reservation-details h2 {
+    font-size: 16px;
+  }
 
-    .reservation-details p {
-        font-size: 12px;
-    }
+  .pr-reservation-details p {
+    font-size: 12px;
+  }
 }

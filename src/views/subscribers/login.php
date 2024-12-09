@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'champs vides?';
     }
 }
-print_r($_SESSION);
+// print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
