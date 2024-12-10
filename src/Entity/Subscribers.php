@@ -2,6 +2,8 @@
 
 namespace parisecran\Entity;
 
+use InvalidArgumentException;
+
 
 class Subscribers
 {
@@ -71,8 +73,7 @@ class Subscribers
                     return header("Location: ../reservation/reservation.php");
                 } else {
                     echo "Une erreur avec la reservation c'est produite";
-                }
-                ;
+                };
             }
 
             header("Location: ../film/index-film.php");
@@ -152,6 +153,58 @@ class Subscribers
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function selectReservationNotPaid($idSubscriber)
+    {
+        $query = "  SELECT 
+                        r.id as reservation_id,
+                        r.booked as reservation_quantity,
+                        r.amount as reservation_price,
+                        s.time_slot as reservation_date,
+                        f.id as film_id,
+                        f.price as film_unit_price,
+                        f.title as film_title,
+                        f.first_date as film_first_date,
+                        f.last_date as film_last_date,
+                        f.image as film_image,
+                        f.language as film_language,
+                        ci.name AS cinema_name,
+                        ro.name AS room_name
+                    FROM reservation as r
+                    JOIN seance as s ON s.id = r.seance_id
+                    JOIN film as f ON f.id = s.film_id
+                    JOIN room AS ro ON ro.id = s.room_id
+                    JOIN cinema AS ci ON ci.id = ro.cinema_id
+                    WHERE r.subscriber_id = :subscriber_id
+                    AND r.paid = 0
+                    AND s.time_slot BETWEEN f.first_date AND f.last_date
+                    AND s.time_slot >= NOW();
+
+                    ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":subscriber_id", $idSubscriber, \PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function deleteReservationNotPaidAndNotValid($idSubscriber)
+    {
+        $query = "  DELETE r
+                    FROM reservation as r
+                    JOIN seance as s ON s.id = r.seance_id
+                    JOIN film as f ON f.id = s.film_id
+                    WHERE r.subscriber_id = :subscriber_id
+                    AND r.paid = 0
+                    AND s.time_slot < NOW()
+                    AND s.time_slot BETWEEN f.first_date AND f.last_date;
+                    ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":subscriber_id", $idSubscriber, \PDO::PARAM_INT);
+
+        $stmt->execute();
+    }
 
     public function addReservation($idFilmSession, $idSubscriber)
     {
@@ -222,5 +275,76 @@ class Subscribers
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    public function getReservationByID($idReservation)
+    {
+        $query = "  SELECT 
+                        -- r.subscriber_id as subscriber_id,
+                        r.booked as quantity_reservation,
+                        r.amount as amount_reservation,
+                        f.price as film_unit_price
+                    FROM `reservation` AS r
+                    JOIN seance AS se ON se.id = r.seance_id
+                    JOIN film AS f ON f.id = se.film_id 
+                    WHERE r.id = :idReservation
+        ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idReservation', $idReservation, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+
+    public function updateQuantityReservation($idReservation, $type)
+    {
+        $reservation = $this->getReservationByID($idReservation);
+
+        if ($type === "increment") {
+            $quantityReservation = $reservation['quantity_reservation'] + 1;
+            $amountReservation = $reservation['film_unit_price'] * $quantityReservation;
+        } elseif ($type === "decrement") {
+            $quantityReservation = $reservation['quantity_reservation'] - 1;
+
+            if ($quantityReservation <= 0) {
+                // Supprimer la réservation si la quantité est 0 ou moins
+                $query = "DELETE FROM `reservation` WHERE id = :idReservation";
+                $stmt = $this->connector->prepare($query);
+                $stmt->bindParam(':idReservation', $idReservation, \PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+
+            $amountReservation = $reservation['film_unit_price'] * $quantityReservation;
+        } else {
+            throw new InvalidArgumentException("Type must be either 'increment' or 'decrement'.");
+        }
+
+        $query = "  UPDATE `reservation` 
+                SET `booked`= :quantityReservation, `amount`= :amountReservation 
+                WHERE id = :idReservation
+    ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idReservation', $idReservation, \PDO::PARAM_INT);
+        $stmt->bindParam(':quantityReservation', $quantityReservation, \PDO::PARAM_INT);
+        $stmt->bindParam(':amountReservation', $amountReservation, \PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+    public function getAllNotPaidReservationTotal($idSubscriber)
+    {
+        $query = "  SELECT 
+                        COUNT(*) as number_of_reservation,
+                        SUM(r.amount) as total_amount_reservation
+                    FROM `reservation` AS r
+                    WHERE r.subscriber_id = :idSubscriber
+                    AND r.paid = 0
+                ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }
