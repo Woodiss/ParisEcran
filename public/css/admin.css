@@ -39,3 +39,7 @@ body {
 #actors-container, #soundDesigner-container {
     margin-top: 50px;
 }
+
+td.img {
+    width: 200px;
+}

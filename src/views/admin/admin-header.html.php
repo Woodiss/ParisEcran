@@ -21,12 +21,14 @@
                 <ul>
                     <li><a href="../film-admin/create-film.php">Ajouter film</a></li>
                     <li><a href="../film-admin/all-films.php">Liste films</a></li>
+                    <li><a href="../film-admin/films-revenue.php">Film par revenue</a></li>
                 </ul>
 
                 <span>Genres</span>
                 <ul>
                     <li><a href="../film-admin/create-film.php">Ajouter film</a></li>
                     <li><a href="../film-admin/create-film.php">Liste films</a></li>
+                    <li><a href="../genre-admin/best-genre.php">Liste films</a></li>
                 </ul>
 
                 <span>Cinemas</span>

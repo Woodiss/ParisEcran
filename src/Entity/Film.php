@@ -310,5 +310,18 @@ class Film
         }
     
     }
+
+    public function CalculTotalRevenue()
+    {
+        $query = "SELECT f.title, f.image, f.synopsis, SUM(r.amount) AS total_paid FROM reservation AS r
+                JOIN seance AS s ON s.id = r.seance_id
+                JOIN film AS f on f.id = s.film_id
+                GROUP BY f.id
+                ORDER BY total_paid DESC";
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
 ?>

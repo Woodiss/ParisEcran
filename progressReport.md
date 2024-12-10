@@ -30,11 +30,11 @@ Ici est répertorié tous les demandes concernant le projet et leurs état ainsi
     8. Afficher le taux de remplissage des salles par spectacle, trié par ordre décroissant : ❌
     9. Faire la liste des artistes qui ont participé avec un artiste donné à au moins deux spectacles différents : ✔️ ***Page :*** actor.html.php
     10. Afficher les liste de tous les metteurs en scène qui sont travaillé dans un théâtre donné : ✔️ ***Page :*** index-cinema.php
-    11. Afficher les trois catégories de spectacles pour lesquelles le plus de places ont été réservées : ❌
+    11. Afficher les trois catégories de spectacles pour lesquelles le plus de places ont été réservées : ✔️ ***Page :*** best-genre.php 
     12. Recommandation : proposer à un personne X des spectacles qu'elle pourrait aimer, proposition basée sur les spectacles vus par les gens qui ont vu des spectacles en commun avec X : 🚧 ***Page :*** profil.php
     13. Afficher la liste des théâtres, triée par la note moyenne obtenue par les spectacles qui s'y sont joués : 🚧 ***Page :*** index-cinema.php
     14. Existe-t-il des artistes ayant tenu au moins trois fonctions différentes (dans différents spectacles) ? : ✔️ ***Page :*** actor.html.php
-    15. Afficher la liste des recettes par spectacle et par ordre décroissant : ❌
+    15. Afficher la liste des recettes par spectacle et par ordre décroissant : ✔️ ***Page :*** films-revenue.php
     16. Y a-t-il des spectacles qui ont affiché complet parmi ceux qui ne se jouent plus ? : ❌
     17. Quels sont les artistes préférés des spectateurs, c'est-à-dire ceux ayant participé aux spectacles les mieux notés en moyenne ? : ✔️ ***Page :*** actor.html.php
 
