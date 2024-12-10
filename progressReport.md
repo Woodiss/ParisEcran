@@ -2,7 +2,7 @@
 
 Ici est répertorié tous les demandes concernant le projet et leurs état ainsi que l'emplacement ou il ce trouve dans le projet.
 
-✔️= Terminer  
+✔️ = Terminer  
 ❌ = Pas commencé  
 🚧 =  En cours  
 
@@ -21,8 +21,8 @@ Ici est répertorié tous les demandes concernant le projet et leurs état ainsi
 
 3. **Consultation :**
     1. Afficher la liste des lieux de spectacle : ✔️ ***Page :*** index-cinema.php
-    2. Afficher les spectacles par arrondissement : 🚧 ***Page :*** index-cinema.php
-    3. Afficher les salles par arrondissement (borough) : ❌
+    2. Afficher les spectacles par arrondissement : ✔️ ***Page :*** index-cinema.php
+    3. Afficher les salles par arrondissement (borough) : 🚧
     4. Afficher les spectacles en cours pour une catégorie donnée : ✔️ ***Page :*** index-film.php
     5. Afficher le nombre de spectacles par catégorie : ✔️ ***Page :*** index-film.php
     6. Afficher les nombre moyen de places réservées (au total) par les personnes inscrites : ❌

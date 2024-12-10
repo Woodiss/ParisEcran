@@ -33,5 +33,4 @@ require_once "../admin-header.html.php";
     </tbody>
 </table>
 
-
 <?php require_once "../admin-footer.html.php"; ?>
