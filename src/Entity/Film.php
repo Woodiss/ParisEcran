@@ -323,5 +323,27 @@ class Film
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function averageFillRoomByFilm()
+    {
+        $query = "SELECT 
+                    f.title AS title,
+                    f.last_date AS last_showing_date,
+                    r.gauge AS room_capacity,
+                    SUM(res.booked) AS total_booked,
+                    ROUND(SUM(res.booked) / (COUNT(DISTINCT s.id) * r.gauge) * 100, 2) AS average_fill_rate
+                FROM film AS f
+                JOIN seance AS s ON f.id = s.film_id
+                JOIN room AS r ON s.room_id = r.id
+                JOIN reservation AS res ON s.id = res.seance_id
+                WHERE f.last_date < CURDATE() 
+                GROUP BY f.id, f.title, f.last_date, r.gauge
+                ORDER BY average_fill_rate DESC";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
 ?>

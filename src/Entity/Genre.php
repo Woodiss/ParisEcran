@@ -69,7 +69,8 @@ public function getGenreByNumberBooked()
         JOIN film AS f ON f.id = s.film_id
         JOIN genre AS g ON g.id = f.genre_id
         GROUP BY g.name
-        ORDER BY total_reservations DESC";
+        ORDER BY total_reservations DESC
+        LIMIT 3";
     $stmt = $this->connector->prepare($query);
     $stmt->execute();
 

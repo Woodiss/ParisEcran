@@ -35,12 +35,12 @@ Ici est répertorié tous les demandes concernant le projet et leurs état ainsi
     13. Afficher la liste des théâtres, triée par la note moyenne obtenue par les spectacles qui s'y sont joués : 🚧 ***Page :*** index-cinema.php
     14. Existe-t-il des artistes ayant tenu au moins trois fonctions différentes (dans différents spectacles) ? : ✔️ ***Page :*** actor.html.php
     15. Afficher la liste des recettes par spectacle et par ordre décroissant : ✔️ ***Page :*** films-revenue.php
-    16. Y a-t-il des spectacles qui ont affiché complet parmi ceux qui ne se jouent plus ? : ❌
+    16. Y a-t-il des spectacles qui ont affiché complet parmi ceux qui ne se jouent plus ? : ✔️ ***Page :*** average-fill-room.php
     17. Quels sont les artistes préférés des spectateurs, c'est-à-dire ceux ayant participé aux spectacles les mieux notés en moyenne ? : ✔️ ***Page :*** actor.html.php
 
 4. **Suppression :**
     1. Supprimer une réservation connaissant le spectateur et le spectacle : ❌
-    2. Annuler un spectacle : ❌
+    2. Annuler un spectacle : ✔️ ***Page :*** all-film.php
 
 5. **Bonus**
     1. INSERT : Créer un spectacle avec les dates des représentations et y associer une salle. ❌

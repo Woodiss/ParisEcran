@@ -21,14 +21,14 @@
                 <ul>
                     <li><a href="../film-admin/create-film.php">Ajouter film</a></li>
                     <li><a href="../film-admin/all-films.php">Liste films</a></li>
-                    <li><a href="../film-admin/films-revenue.php">Film par revenue</a></li>
+                    <li><a href="../film-admin/films-revenue.php">Revenue par film</a></li>
                 </ul>
 
                 <span>Genres</span>
                 <ul>
                     <li><a href="../film-admin/create-film.php">Ajouter film</a></li>
                     <li><a href="../film-admin/create-film.php">Liste films</a></li>
-                    <li><a href="../genre-admin/best-genre.php">Liste films</a></li>
+                    <li><a href="../genre-admin/best-genre.php">Meilleur genre</a></li>
                 </ul>
 
                 <span>Cinemas</span>
@@ -39,8 +39,9 @@
 
                 <span>Infos</span>
                 <ul>
-                    <li><a href="../film-admin/inflation.php">Modifier les prix</a></li>
+                    <li><a href="../infos-admin/inflation.php">Modifier les prix</a></li>
                     <li><a href="../film-admin/create-film.php">Liste films</a></li>
+                    <li><a href="../infos-admin/average-fill-room.php">Remplisage des anciens films</a></li>
                 </ul>
             </nav>
         </aside>
