@@ -45,6 +45,11 @@ img {
     box-shadow: 0px 4px 4px 0px #00000040;
 }
 
+.reco div {
+    display: flex;
+    flex-direction: column;
+}
+
 .reco-top {
     border-top: 2px solid var(--Color-2, #8D8D8D)
 }

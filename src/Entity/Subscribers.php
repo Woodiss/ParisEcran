@@ -228,6 +228,55 @@ class Subscribers
         return $stmt->execute();
     }
 
+    public function recommendationFilms($idSubscriber)
+    {
+        // requête SQL de type pavé !!!
+        $query = "-- Étape 1 : Identifier les films déjà vus par l'utilisateur X
+            WITH FilmsVusParX AS (
+                SELECT DISTINCT s.film_id
+                FROM reservation r
+                JOIN seance s ON r.seance_id = s.id
+                WHERE r.subscriber_id = :idSubscriber
+            ),
+
+            -- Étape 2 : Trouver les utilisateurs ayant le plus de films en commun avec l'utilisateur X
+            UtilisateursSimilaires AS (
+                SELECT r.subscriber_id, COUNT(*) AS films_en_commun
+                FROM reservation r
+                JOIN seance s ON r.seance_id = s.id
+                JOIN FilmsVusParX fx ON s.film_id = fx.film_id
+                WHERE r.subscriber_id != :idSubscriber
+                GROUP BY r.subscriber_id
+                ORDER BY films_en_commun DESC
+                LIMIT 10
+            ),
+
+            -- Étape 3 : Identifier les films recommandés (vus par les utilisateurs similaires mais pas par X)
+            FilmsRecommandes AS (
+                SELECT s.film_id, COUNT(DISTINCT r.subscriber_id) AS nb_sub_reco
+                FROM reservation r
+                JOIN seance s ON r.seance_id = s.id
+                JOIN UtilisateursSimilaires us ON r.subscriber_id = us.subscriber_id
+                WHERE s.film_id NOT IN (SELECT film_id FROM FilmsVusParX)
+                GROUP BY s.film_id
+            )
+
+            -- Étape 4 : Récupérer les détails des films recommandés classés par nombre d'utilisateurs similaires les ayant vus
+            SELECT 
+                f.*,
+                fr.nb_sub_reco
+            FROM film f
+            JOIN FilmsRecommandes fr ON f.id = fr.film_id
+            ORDER BY fr.nb_sub_reco DESC
+            LIMIT 5";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 
     public function getReservationByID($idReservation)
     {

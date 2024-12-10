@@ -21,11 +21,11 @@ if (!empty($_GET["id_film"])) {
     $film = $filmModel->selectFilmById($id_film);
     
     if ($film) {
-        $schedulenModel = new Reservation($dbh->dbConnector);
+        $reservationnModel = new Reservation($dbh->dbConnector);
         $commentModel = new Comment($dbh->dbConnector);
         
         $comments = $commentModel->selectCommentByIdFilm($id_film);
-        $cinemas = $schedulenModel->getAllCinemas();
+        $cinemas = $reservationnModel->getAllCinemas();
 
         // Formatage de la durée du film
         $filmDuration = new DateTime($film["duration"]);

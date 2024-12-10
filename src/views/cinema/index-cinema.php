@@ -18,7 +18,7 @@ $titlePage = "Cinémas";
 require_once __DIR__ . "/../../../src/views/header.html.php";
 ?>
 <main id="cinema">
-    <div class="map">
+    <div class="map" id="map">
         <div class="section-cinema">
             <button id="collapse-cinema">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
             <h2>Nos Cinémas <span>(<?= count($cinemas) ?>)</span></h2>
             <div class="container-cinema">
             <?php foreach ($cinemas as $cinema) { ?>
-                <div class="cinema">
+                <div class="cinema" data-id="<?= $cinema['cinema_id'] ?>" data-lat="<?= $cinema['latitude'] ?>" data-long="<?= $cinema['longitude'] ?>">
                     <h3><?= htmlspecialchars($cinema['cinemaName']) ?></h3>
                     <p><?= htmlspecialchars($cinema['presentation']) ?></p>
                     <div class="cinema-address">
