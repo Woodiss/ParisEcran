@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: "Roboto Flex", sans-serif;
+}
+
+.admin-container {
+    display: flex;
+}
+
+.admin-container aside{
+    width: 13%;
+    padding: 0 15px;
+}
+
+.admin-container aside span {
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.admin-container .global-container {
+    width: 100%;
+    padding: 0 30px;
+}

@@ -16,15 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $films = $filmModel->getAllFilms();
 
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+$titlePage = "Ajouter un film";
+require_once "../admin-header.html.php";
+
+?>
 <body>
     <table>
         <thead>
@@ -55,6 +51,7 @@ $films = $filmModel->getAllFilms();
                     <td><?= $film['last_date'] ?></td>
                     <td>
                         <a href="update-film.php?id_film=<?= $film['id'] ?>">Modifier</a>
+                        <a href="update-casting.php?id_film=<?= $film['id'] ?>">Modifier casting</a>
                         <form action="" method="post">
                             <button type="submit" name="supp" value="<?= $film['id'] ?>">Supprimer</button>
                         </form>
@@ -63,5 +60,4 @@ $films = $filmModel->getAllFilms();
             <?php } ?>
         </tbody>
     </table>
-</body>
-</html>
+<?php require_once "../admin-footer.html.php"; ?>
