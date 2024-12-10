@@ -10,7 +10,7 @@ Ici est répertorié tous les demandes concernant le projet et leurs état ainsi
 
 1. **Création :**
     1. Créer un utilisateur (s'incrire) : ✔️ ***Page :*** inscription.php
-    2. Associer un artiste à un spectacle : ❌
+    2. Associer un artiste à un spectacle : ✔️
     3. Créer un spectacle : ✔️ ***Page :*** create-film.php
     4. Effectuer une réservation pour un spectacle donné : ✔️ ***Page :*** infos-film.php
 

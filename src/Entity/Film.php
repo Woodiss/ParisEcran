@@ -301,7 +301,7 @@ class Film
         }
 
         // ajouter des sound designer
-        foreach ($post['soundDesigner'] as $soundDesigner) {
+        foreach ($post['soundDesigners'] as $soundDesigner) {
             $queryAddSoundDesigner = "INSERT INTO `role`(`role`, `casting_id`, `film_id`) VALUES ('sound-designer', :id_soundDesigner, :id_film)";
             $stmtAddSoundDesigner = $this->connector->prepare($queryAddSoundDesigner);
             $stmtAddSoundDesigner->bindParam(":id_soundDesigner", $soundDesigner);

@@ -8,7 +8,8 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
         >
-        <link rel="stylesheet" href="../../../../public/css/admin.css">
+    <script src="../../../../public/js/admin-casting.js" defer></script>
+    <link rel="stylesheet" href="../../../../public/css/admin.css">
 </head>
 <body>
     <main class="admin-container">
