@@ -17,7 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['image']['name'])) {
         !empty($_POST['duration']) && 
         !empty($_POST['price']) && 
         !empty($_POST['language']) && 
-        !empty($_POST['genre_id'])) {
+        !empty($_POST['genre_id']) && 
+        !empty($_POST['firstDate']) && 
+        !empty($_POST['lastDate'])) {
             
             $filmModel->createFilm($_POST, $_FILES);
     } else {
@@ -26,50 +28,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['image']['name'])) {
 } else {
     echo 'post vide';
 }
+
+$titlePage = "Ajouter un film";
+require_once "../admin-header.html.php";
+
 ?>
 
+<form action="" method="POST" enctype="multipart/form-data">
+    <label for="title">title</label>
+    <input type="text" id="title" name="title">
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+    <label for="image">image</label>
+    <input type="file" id="image" name="image">
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        <label for="title">title</label>
-        <input type="text" id="title" name="title">
+    <label for="synopsis">synopsis</label>
+    <input type="text" id="synopsis" name="synopsis">
 
-        <label for="image">image</label>
-        <input type="file" id="image" name="image">
+    <label for="duration">duration</label>
+    <input type="time" id="duration" name="duration">
 
-        <label for="synopsis">synopsis</label>
-        <input type="text" id="synopsis" name="synopsis">
+    <label for="price">price</label>
+    <input type="number" id="price" name="price">
 
-        <label for="duration">duration</label>
-        <input type="time" id="duration" name="duration">
+    <label for="language">language</label>
+    <select name="language" id="language">
+        <option value="français">Français</option>
+        <option value="VO">VO</option>
+    </select>
 
-        <label for="price">price</label>
-        <input type="number" id="price" name="price">
+    <label for="firstDate">Première diffusion</label>
+    <input type="date" id="firstDate" name="firstDate">
 
-        <label for="language">language</label>
-        <select name="language" id="language">
-            <option value="français">Français</option>
-            <option value="VO">VO</option>
-        </select>
+    <label for="lastDate">Dernière diffusion</label>
+    <input type="date" id="lastDate" name="lastDate">
 
-        <label for="genre_id">Genre</label>
-        <select name="genre_id" id="genre_id">
-            <?php foreach ($genres as $genre) { ?>
-                <option value="<?= $genre['id'] ?>"><?= $genre['name'] ?></option>
-            <?php } ?>
-        </select>
+    <label for="genre_id">Genre</label>
+    <select name="genre_id" id="genre_id">
+        <?php foreach ($genres as $genre) { ?>
+            <option value="<?= $genre['id'] ?>"><?= $genre['name'] ?></option>
+        <?php } ?>
+    </select>
 
-        <button type="submit">Ajouter</button>
-    </form>
+    <button type="submit">Ajouter</button>
+</form>
 
-</body>
-</html>
+    <?php require_once "../admin-footer.html.php"; ?>

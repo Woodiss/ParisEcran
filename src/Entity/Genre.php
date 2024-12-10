@@ -60,6 +60,22 @@ class Genre
     return $stmt->execute();
     }
 
+
+public function getGenreByNumberBooked()
+{
+    $query = "SELECT g.name AS genre, SUM(r.booked) AS total_reservations
+        FROM reservation AS r
+        JOIN seance AS s ON r.seance_id = s.id
+        JOIN film AS f ON f.id = s.film_id
+        JOIN genre AS g ON g.id = f.genre_id
+        GROUP BY g.name
+        ORDER BY total_reservations DESC";
+    $stmt = $this->connector->prepare($query);
+    $stmt->execute();
+
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+
 }
 
 ?>

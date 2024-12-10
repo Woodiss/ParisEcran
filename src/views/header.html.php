@@ -11,13 +11,22 @@ if (isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../public/css/style.css">
+    <link rel="stylesheet" href="../../../public/css/reservation.css">
+    <link rel="stylesheet" href="../../../public/css/login.css">
+    <link rel="stylesheet" href="../../../public/css/register.css">
     <title><?= $titlePage ?></title>
     <script src="../../../public/js/navBar.js" defer></script>
     <script src="../../../public/js/scrollContainerFilm.js" defer></script>
     <script src="../../../public/js/cinemas.js" defer></script>
     <script src="../../../public/js/actor.js" defer></script>
-    <script src="../../../public/js/schedule.js" defer></script>
+    <script src="../../../public/js/reservation.js" defer></script>
     <script src="../../../public/js/react.js" defer></script>
+    <script src="../../../public/js/reservation.js" defer></script>
+    <script src="../../../public/js/cinema-map.js" defer></script>
+    <link
+		rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+		<!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 
 <body>
@@ -72,7 +81,7 @@ if (isset($_SESSION['id'])) {
                 <?php if (isset($userName)) { ?>
                     <span><?= $userName ?></span>
                 <?php } else { ?>
-                    <a href="../subscribers/register.php">Créer un compte</a>
+                    <a href="../subscribers/register.php" id="create-account">Créer un compte</a>
                 <?php } ?>
                 <a href="../subscribers/profil.php">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

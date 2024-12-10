@@ -216,7 +216,7 @@ nav {
 }
 
 @media (max-width: 700px) {
-  .search-account-container a:first-of-type {
+  .search-account-container a#create-account,  .search-account-container span:first-of-type{
     display: none;
   }
 }
@@ -686,6 +686,10 @@ main#cinema {
   position: relative;
 }
 
+.leaflet-container a{
+  color: var(--secondary-color)!important;
+}
+
 .section-cinema {
   height: 100%;
   width: 50%;
@@ -696,7 +700,9 @@ main#cinema {
   display: flex;
   flex-direction: column;
   overflow-x: visible;
-  position: relative;
+
+  position: absolute;
+  z-index:1001;
 }
 
 .section-cinema h2 {

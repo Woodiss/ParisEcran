@@ -13,8 +13,6 @@ $filmModel = new Film($dbh->dbConnector);
 $genres = $filmModel->selectAllGenre();
 $FilmsByBorough = $filmModel->getFilmByBorough();
 
-
-
 // Déclaration de la variable pour le titre de la page
 $titlePage = "Films";
 require_once __DIR__ . "/../../../src/views/header.html.php";
@@ -59,41 +57,41 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
             </div>
         </section>
 
-        <?php } ?>
-        
-        <section class="film-section">
-            <h2> <img src="../../../public/svgs/film.svg" alt="logo category"> Film par arondissement</h2>
-            <div class="container-card-film">
-                <button>
-                    <span>
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18.75 22.5L11.25 15L18.75 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                </button>
-                <div class="film-content">
-                    <?php foreach ($FilmsByBorough as $film) { ?>
-                        <a href="infos-film.php?id_film=<?= $film['id'] ?>">
-                            <figure class="card-film">
-                                <?php if ($film['image']) { ?>
-                                    <img src="<?= "../../../public/images_film/" . $film['image'] ?>" alt="Film <?= $film['title'] ?>">
-                                <?php } else { ?>
-                                    <img src="../../../public/images_film/no-film-image.webp" alt="Film <?= $film['title'] ?>">
-                                <?php } ?>
-                                <figcaption><?= $film['title'] ?></figcaption>
-                            </figure>
-                        </a>
-                    <?php } ?>
-                </div>
-                <button>
-                    <span>
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.25 22.5L18.75 15L11.25 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                </button>
+    <?php } ?>
 
+    <section class="film-section">
+        <h2> <img src="../../../public/svgs/film.svg" alt="logo category"> Film par arondissement</h2>
+        <div class="container-card-film">
+            <button>
+                <span>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.75 22.5L11.25 15L18.75 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </span>
+            </button>
+            <div class="film-content">
+                <?php foreach ($FilmsByBorough as $film) { ?>
+                    <a href="infos-film.php?id_film=<?= $film['id'] ?>">
+                        <figure class="card-film">
+                            <?php if ($film['image']) { ?>
+                                <img src="<?= "../../../public/images_film/" . $film['image'] ?>" alt="Film <?= $film['title'] ?>">
+                            <?php } else { ?>
+                                <img src="../../../public/images_film/no-film-image.webp" alt="Film <?= $film['title'] ?>">
+                            <?php } ?>
+                            <figcaption><?= $film['title'] ?></figcaption>
+                        </figure>
+                    </a>
+                <?php } ?>
             </div>
-        </section>
+            <button>
+                <span>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.25 22.5L18.75 15L11.25 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </span>
+            </button>
 
+        </div>
+    </section>
+</main>
 <?php require_once __DIR__ . "/../../../src/views/footer.html.php" ?>

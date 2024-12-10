@@ -1,32 +1,23 @@
-body {
-    background-color: lightgray;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    gap: 10px;
-    font-family: 'Roboto', flex;
-}
-
-.container {
+.pc-container {
     background-color: whitesmoke;
-    width: 650px;
+    max-width: 650px;
     border-radius: 15px;
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajout d'un léger effet de profondeur */
     gap: 20px;
+    margin: 20px auto;
 }
 
-.container h1 {
+.pc-container h1 {
     margin: 20px 0 30px; /* Plus d'espace au-dessus et en dessous */
     font-size: 28px; /* Taille ajustée pour le titre */
-    font-family: 'Roboto', flex; /* Utilisation d'une police élégante */
+    font-weight: var(fw-SemiBold);
+    /* font-family: 'Roboto', flex; Utilisation d'une police élégante */
     color: #333; /* Couleur du texte */
 }
 
-.container input {
+.pc-container input {
     width: calc(100% - 40px); /* S'adapte au padding du conteneur */
     height: 47px;
     border: none;
@@ -37,11 +28,11 @@ body {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.container input::placeholder {
+.pc-container input::placeholder {
     color: red;
 }
 
-.container .link {
+.pc-container .pc-link {
     display: inline-block; /* Alignement propre du lien */
     margin: 20px 0; /* Plus d'espace au-dessus et en dessous */
     color: red;
@@ -49,7 +40,7 @@ body {
     font-weight: bold;
 }
 
-.container .btn {
+.pc-container .pc-btn {
     background-color: red;
     color: white;
     width: 144px;
@@ -62,11 +53,11 @@ body {
     transition: background-color 0.3s;
 }
 
-.container .btn:hover {
+.pc-container .pc-btn:hover {
     background-color: darkred;
 }
 
-.container p {
+.pc-container p {
     color: red;
     font-size: 14px;
     margin-top: 10px;
