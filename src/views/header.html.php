@@ -14,15 +14,17 @@ if (isset($_SESSION['id'])) {
     <link rel="stylesheet" href="../../../public/css/reservation.css">
     <link rel="stylesheet" href="../../../public/css/login.css">
     <link rel="stylesheet" href="../../../public/css/register.css">
+    <link rel="stylesheet" href="../../../public/css/profil.css">
     <title><?= $titlePage ?></title>
     <script src="../../../public/js/navBar.js" defer></script>
     <script src="../../../public/js/scrollContainerFilm.js" defer></script>
     <script src="../../../public/js/cinemas.js" defer></script>
     <script src="../../../public/js/actor.js" defer></script>
-    <script src="../../../public/js/reservation.js" defer></script>
+    <script src="../../../public/js/infos-film.js" defer></script>
     <script src="../../../public/js/react.js" defer></script>
     <script src="../../../public/js/reservation.js" defer></script>
     <script src="../../../public/js/cinema-map.js" defer></script>
+    <script src="../../../public/js/profil.js" defer></script>
     <link
 		rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 		<!-- Make sure you put this AFTER Leaflet's CSS -->

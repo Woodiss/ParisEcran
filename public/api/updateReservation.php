@@ -15,6 +15,13 @@ if (isset($_GET['id_reservation']) && isset($_GET['action_type']) && isset($_SES
     
     if ($subscribersModel->updateQuantityReservation($_GET['id_reservation'], $_GET['action_type'])) {
         $reservation = $subscribersModel->getReservationByID($_GET['id_reservation']);
+
+
+        if (!$reservation || $reservation['subscriber_id'] !== $_SESSION['id']) {
+            http_response_code(403); 
+            echo json_encode(["error" => "Accès interdit ou réservation introuvable"]);
+            exit;
+        }
         $totalReservation = $subscribersModel->getAllNotPaidReservationTotal($_SESSION['id']);
 
         $response = [

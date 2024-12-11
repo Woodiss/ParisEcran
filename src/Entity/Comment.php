@@ -27,7 +27,8 @@ class Comment
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function updateReact($get, $idUser) {
+    public function updateReact($get, $idUser)
+    {
         extract($get);
 
         $query = "SELECT * FROM comment WHERE id = :id";
@@ -59,5 +60,29 @@ class Comment
         $stmtUpdate->bindParam(":id", $comm_id);
 
         $stmtUpdate->execute();
+    }
+    public function updateCommentRating($idComment, $rating)
+    {
+        $query = "  UPDATE `comment` 
+                    SET `notation`= :rating 
+                    WHERE id = :id_comment
+                ";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":id_comment", $idComment);
+        $stmt->bindParam(":rating", $rating);
+
+        return $stmt->execute();
+    }
+
+    public function getCommentById($idComment)
+    {
+        $query = "  SELECT * 
+                    FROM comment 
+                    WHERE id = :id_comment";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":id_comment", $idComment, \PDO::PARAM_INT);  
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC); 
     }
 }
