@@ -1,12 +1,14 @@
 <?php 
 
 use parisecran\Entity\Subscribers;
+use parisecran\Entity\Reservation;
 use parisecran\DBAL\Connector;
 
 require_once __DIR__ . '/../auth.php';
 
 $dbh = new Connector();
 $subscribersModel = new Subscribers($dbh->dbConnector);
+$reservationModel = new Reservation($dbh->dbConnector);
 
 
 if($_GET['id_sub']) {
