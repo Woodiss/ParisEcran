@@ -690,6 +690,23 @@ main#cinema {
   color: var(--secondary-color)!important;
 }
 
+.btn-container {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.btn-container a {
+  padding: 10px 15px;
+  color: var(--tertiary-color);
+  text-decoration: none;
+  border-radius: 9999px;
+  z-index: 1001;
+  background-color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
 .section-cinema {
   height: 100%;
   width: 50%;

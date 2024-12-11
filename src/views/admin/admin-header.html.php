@@ -24,6 +24,11 @@
                     <li><a href="../film-admin/films-revenue.php">Revenue par film</a></li>
                 </ul>
 
+                <span>Utilisateurs</span>
+                <ul>
+                    <li><a href="../subscriber-admin/all-sub.php">Liste des utilisateurs</a></li>
+                </ul>
+
                 <span>Genres</span>
                 <ul>
                     <li><a href="../film-admin/create-film.php">Ajouter film</a></li>

@@ -25,6 +25,10 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
 ?>
 <main id="cinema">
     <div class="map" id="map">
+        <div class="btn-container">
+            <a href="index-cinema.php">Afficher par arrondisement</a>
+            <a href="index-cinema.php?order_by=notation">Afficher par Note</a>
+        </div>
         <div class="section-cinema">
             <button id="collapse-cinema">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
