@@ -8,14 +8,19 @@ require_once __DIR__ . '/../auth.php';
 $dbh = new Connector();
 $filmModel = new Film($dbh->dbConnector);
 
-$filmList = $filmModel->averageFillRoomByFilm();
+
+if (isset($_GET['old'])) {
+    $filmList = $filmModel->averageFillRoomByOldFilm();
+} else {
+    $filmList = $filmModel->averageFillRoomByFilm();
+}
 
 $titlePage = "Remplisage des salles";
 require_once "../admin-header.html.php";
 ?>
 
 
-<h2>Pourcentage de remplissage de salle pour les anciens films</h2>
+<h2>Pourcentage de remplissage de salle pour les <?=  isset($_GET['old']) ? 'anciens' : '' ?> films</h2>
 <table>
     <thead>
         <tr>

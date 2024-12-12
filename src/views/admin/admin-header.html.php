@@ -45,8 +45,10 @@
                 <span>Infos</span>
                 <ul>
                     <li><a href="../infos-admin/inflation.php">Modifier les prix</a></li>
+                    <li><a href="../infos-admin/static-reservation.php">Statistiques par nombre de place reserver</a></li>
                     <li><a href="../film-admin/create-film.php">Liste films</a></li>
-                    <li><a href="../infos-admin/average-fill-room.php">Remplisage des anciens films</a></li>
+                    <li><a href="../infos-admin/average-fill-room.php">Remplisage des films</a></li>
+                    <li><a href="../infos-admin/average-fill-room.php?old=true">Remplisage des anciens films</a></li>
                 </ul>
             </nav>
         </aside>

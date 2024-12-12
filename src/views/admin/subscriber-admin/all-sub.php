@@ -44,11 +44,12 @@ require_once "../admin-header.html.php";
                 <td><?= $subscriber['role'] ?></td>
                 <td><?= $subscriber['moyenne_reservations'] ?></td>
                 <td>
-                        <a href="update-subscriber.php?id_sub=<?= $subscriber['id'] ?>">Modifier</a>
-                        <form action="" method="post">
-                            <button type="submit" name="supp" value="<?= $subscriber['id'] ?>">Supprimer</button>
-                        </form>
-                    </td>
+                    <a href="update-subscriber.php?id_sub=<?= $subscriber['id'] ?>">Modifier</a><br>
+                    <a href="reservation-sub-list.php?id_sub=<?= $subscriber['id'] ?>">Voir les reservations</a>
+                    <form action="" method="post">
+                        <button type="submit" name="supp" value="<?= $subscriber['id'] ?>">Supprimer</button>
+                    </form>
+                </td>
             </tr>
         <?php } ?>
     </tbody>

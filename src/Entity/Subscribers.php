@@ -224,20 +224,32 @@ class Subscribers
     }
     public function deleteReservationNotPaidAndNotValid($idSubscriber)
     {
-        $query = "  DELETE r
-                    FROM reservation as r
-                    JOIN seance as s ON s.id = r.seance_id
-                    JOIN film as f ON f.id = s.film_id
-                    WHERE r.subscriber_id = :subscriber_id
-                    AND r.paid = 0
-                    AND s.time_slot < NOW()
-                    AND s.time_slot BETWEEN f.first_date AND f.last_date;
-                    ";
+        $query = "DELETE r
+                FROM reservation as r
+                JOIN seance as s ON s.id = r.seance_id
+                JOIN film as f ON f.id = s.film_id
+                WHERE r.subscriber_id = :subscriber_id
+                AND r.paid = 0
+                AND s.time_slot < NOW()
+                AND s.time_slot BETWEEN f.first_date AND f.last_date;";
 
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":subscriber_id", $idSubscriber, \PDO::PARAM_INT);
 
         $stmt->execute();
+    }
+
+    public function reservationByIdSub($idSubscriber)
+    {
+        $query = "SELECT r.id, r.booked, r.paid, r.amount, s.time_slot, f.title 
+            FROM reservation AS r 
+            JOIN seance AS s ON s.id = r.seance_id
+            JOIN film AS f ON f.id = s.film_id
+            WHERE r.subscriber_id = :idSubscriber;";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":idSubscriber", $idSubscriber, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function addReservation($idFilmSession, $idSubscriber)

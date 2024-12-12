@@ -27,7 +27,7 @@ Ici est répertorié toutes les demandes concernant le projet et leurs avancemen
     5. Afficher le nombre de spectacles par catégorie : ✔️ ***Page :*** index-film.php
     6. Afficher les nombre moyen de places réservées (au total) par les personnes inscrites : ✔️ ***Page :*** all-sub.php
     7. Afficher la distribution statistique des réservations de places (c'est-à-dire le nombre de personnes ayant réservé au total un certain nombre de places) : ❌
-    8. Afficher le taux de remplissage des salles par spectacle, trié par ordre décroissant : ❌
+    8. Afficher le taux de remplissage des salles par spectacle, trié par ordre décroissant : ✔️ ***Page :*** average-fill-room.php
     9. Faire la liste des artistes qui ont participé avec un artiste donné à au moins deux spectacles différents : ✔️ ***Page :*** actor.html.php
     10. Afficher les liste de tous les metteurs en scène qui sont travaillé dans un théâtre donné : ✔️ ***Page :*** index-cinema.php
     11. Afficher les trois catégories de spectacles pour lesquelles le plus de places ont été réservées : ✔️ ***Page :*** best-genre.php 
@@ -39,7 +39,7 @@ Ici est répertorié toutes les demandes concernant le projet et leurs avancemen
     17. Quels sont les artistes préférés des spectateurs, c'est-à-dire ceux ayant participé aux spectacles les mieux notés en moyenne ? : ✔️ ***Page :*** actor.html.php
 
 4. **Suppression :**
-    1. Supprimer une réservation connaissant le spectateur et le spectacle : ❌
+    1. Supprimer une réservation connaissant le spectateur et le spectacle : ✔️ ***Page :*** reservation-sub-list.php?id_sub=5
     2. Annuler un spectacle : ✔️ ***Page :*** all-film.php
 
 5. **Bonus**

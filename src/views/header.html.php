@@ -40,6 +40,10 @@ if (isset($_SESSION['id'])) {
             <a href="../film/index-film.php">Films</a>
             <a href="../cinema/index-cinema.php">Cinémas</a>
             <a href="../actor/actor.html.php">Acteurs</a>
+            <?php 
+            if (isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
+                <a class="admin-link" href="../admin/film-admin/all-films.php">Admin</a>
+            <?php } ?>
             <form action="#">
 
                 <label for="search" class="search">

@@ -8,7 +8,6 @@ require_once __DIR__ . '/../auth.php';
 $dbh = new Connector();
 $subscribersModel = new Subscribers($dbh->dbConnector);
 
-
 if($_GET['id_sub']) {
     $sub = $subscribersModel->getSubsById($_GET['id_sub']);
     if ($sub) {

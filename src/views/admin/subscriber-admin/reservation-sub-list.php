@@ -10,22 +10,16 @@ $dbh = new Connector();
 $subscribersModel = new Subscribers($dbh->dbConnector);
 $reservationModel = new Reservation($dbh->dbConnector);
 
-
 if($_GET['id_sub']) {
     $sub = $subscribersModel->getSubsById($_GET['id_sub']);
+    $reservations = $subscribersModel->reservationByIdSub($_GET['id_sub']);
     if ($sub) {
-        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($_POST['username']) && 
-            !empty($_POST['email']) && 
-            !empty($_POST['birthdate']) && 
-            !empty($_POST['first_name']) && 
-            !empty($_POST['last_name']) && 
-            isset($_POST['role']) && $_POST['role'] !== '') {
-                $subscribersModel->updateSubscribersByAdmin($_POST, $sub);
-                $sub = $subscribersModel->getSubsById($_GET['id_sub']);
+            if (!empty($_POST['supp'])) {
+                $reservationModel->suppReservation($_POST['supp']);
             }
         }
+        
     } else {
         header("Location: all-sub.php");
     }
@@ -34,34 +28,50 @@ if($_GET['id_sub']) {
 }
 
 
-$titlePage = "Modifier un utilisateur";
+$titlePage = "Les des réservations";
 require_once "../admin-header.html.php";
 
 ?>
 
-<form action="" method="POST">
-    <label for="username">Pseudo</label>
-    <input type="text" id="username" name="username" value="<?= $sub['username'] ?>">
+<h3>reserversation pour :</h3>
+<table>
+    <tbody>
+        <tr>
+            <td><?= $sub['username'] ?></td>
+            <td><?= $sub['email'] ?></td>
+            <td><?= $sub['first_name'] ?></td>
+            <td><?= $sub['last_name'] ?></td>
+        </tr>
+    </tbody>
+</table>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" value="<?= $sub['email'] ?>">
-
-    <label for="password">Mot de passe</label>
-    <input type="text" id="password" name="password" placeholder="Laissez vide pour ne pas modifier">
-
-    <label for="birthdate">Date de naissance</label>
-    <input type="date" id="birthdate" name="birthdate" value="<?= $sub['birthdate'] ?>">
-
-    <label for="first_name">Prénom</label>
-    <input type="text" id="first_name" name="first_name" value="<?= $sub['first_name'] ?>">
-
-    <label for="last_name">Nom</label>
-    <input type="text" id="last_name" name="last_name" value="<?= $sub['last_name'] ?>">
-
-    <label for="role">Role</label>
-    <input type="number" id="role" name="role" value="<?= $sub['role'] ?>">
-        
-    <button type="submit">Modifier</button>
-</form>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre de place</th>
+            <th>Payer</th>
+            <th>Total</th>
+            <th>Date et heure</th>
+            <th>Titre du film</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($reservations as $reservation) { ?>
+            <tr>
+                <td><?= $reservation['booked'] ?></td>
+                <td><?php if ($reservation['paid'] == 1) { echo "oui"; } else { echo "non"; } ?></td>
+                <td><?= $reservation['amount'] ?> €</td>
+                <td><?= $reservation['time_slot'] ?></td>
+                <td><?= $reservation['title'] ?></td>
+                <td>
+                    <form action="" method="post">
+                        <button type="submit" name="supp" value="<?= $reservation['id'] ?>">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
 
 <?php require_once "../admin-footer.html.php"; ?>

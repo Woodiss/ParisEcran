@@ -113,6 +113,14 @@ nav {
       color: var(--secondary-color);
     }
 
+    .admin-link {
+      color: var(--secondary-color);
+    }
+
+    .admin-link:hover {
+      color: var(--tertiary-color);
+    }
+
     .account {
       display: flex;
       gap: 20px;

@@ -56,4 +56,28 @@ class Reservation
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function suppReservation($idReservation)
+    {
+        $query = "DELETE FROM `reservation` WHERE id = :idReservation";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idReservation', $idReservation, \PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function staticReservationNumber()
+    {
+        $query = "SELECT total_places AS number_of_seats_reserved, 
+                    COUNT(*) AS number_sub 
+                FROM ( SELECT subscriber_id, 
+                        SUM(booked) AS total_places 
+                    FROM reservation 
+                    GROUP BY reservation.subscriber_id ) AS user_totals 
+                    GROUP BY total_places 
+                    ORDER BY total_places ASC;";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
