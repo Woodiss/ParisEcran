@@ -16,8 +16,14 @@ if (isset($_GET['order_by'])) {
     if ($_GET['order_by'] === 'notation') {
         $orderBy = "AverageRating DESC";
     }
-}
+} 
 $cinemas = $cinemaModel->getDirectorsByCinema($orderBy);
+
+if (isset($_GET['geo_loc'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $cinemas = $cinemaModel->getCinemaGeoLocation($_POST);
+    }
+}
 
 // Déclaration de la variable pour le titre de la page
 $titlePage = "Cinémas";
@@ -26,10 +32,26 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
 <main id="cinema">
     <div class="map" id="map">
         <div class="btn-container">
-            <a href="index-cinema.php">Afficher par arrondisement</a>
-            <a href="index-cinema.php?order_by=notation">Afficher par Note</a>
+            <a href="index-cinema.php"><span>afficher</span> par arrondisement</a>
+            <a href="index-cinema.php?order_by=notation"><span>afficher</span> par note</a>
+            <a href="index-cinema.php?geo_loc=true">plus proche <span>de</span></a>
         </div>
         <div class="section-cinema">
+            <?php if (isset($_GET['geo_loc'])) { ?>
+                <form action="" method="post">
+                    <div class="form-map">
+                        <div class="input-container-map">
+                            <label for="longitude">longitude</label>
+                            <input type="text" id="longitude" name="longitude" placeholder="48.3">
+                        </div>
+                        <div class="input-container-map">
+                            <label for="latitude">latitude</label>
+                            <input type="text" id="latitude" name="latitude" placeholder="2.21">
+                        </div>
+                    </div>
+                    <button>Recherche</button>
+                </form>
+            <?php } ?>
             <button id="collapse-cinema">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.25 7.5L18.75 15L11.25 22.5" stroke="#ff0020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

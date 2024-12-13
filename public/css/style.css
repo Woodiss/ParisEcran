@@ -109,6 +109,12 @@ nav {
       align-items: center;
     }
 
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
     a:hover, span:hover {
       color: var(--secondary-color);
     }
@@ -730,6 +736,47 @@ main#cinema {
   z-index:1001;
 }
 
+.section-cinema form {
+  display: flex;
+  align-items: end;
+  padding: 20px 20px 0 20px;
+  width: 100%;
+  gap: 20px;
+
+  .form-map {
+    display: flex;
+    gap: 10px;
+    
+    .input-container-map {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+      
+      label {
+        font-size: var(--fz16);
+        outline: none;
+      }
+      
+      input {
+        width: 100%;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: 2px solid var(--secondary-color);
+      }
+    }
+  }
+
+  button {
+    border-radius: 20px;
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    padding: 10px 20px;
+    font-size: var(--fz16);
+    height: 38.86px;
+  }
+}
+
 .section-cinema h2 {
   font-size: var(--fz24);
   font-weight: var(--fwSemiBold);
@@ -806,6 +853,14 @@ cinema p {
 @media (max-width: 700px) {
   .map {
     padding: 0;
+  }
+
+  .btn-container {
+    padding: 20px;
+
+    span {
+      display: none;
+    }
   }
 
   .section-cinema {
@@ -932,6 +987,11 @@ section.actors h4 span {
   }
 }
 @media (max-width: 550px) {
+  .btn-container {
+    flex-direction: column;
+    width: fit-content;
+  }
+
   main#actors {
     padding: 10px;
   }

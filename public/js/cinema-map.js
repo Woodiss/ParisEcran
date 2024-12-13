@@ -17,7 +17,7 @@ let mapLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z
 
 // Récupération de l'élément contenant les informations des cinémas
 const cinemaInfoDiv = document.querySelector('.section-cinema');
-
+let mapInteractionEnabled = true; // Suivi de l'état de la carte
 // Quand la souris entre dans la div des cinémas
 cinemaInfoDiv.addEventListener('mouseenter', () => {
     map.dragging.disable(); // Désactive le déplacement de la carte
@@ -30,6 +30,20 @@ cinemaInfoDiv.addEventListener('mouseleave', () => {
     map.dragging.enable(); // Réactive le déplacement
     map.scrollWheelZoom.enable(); // Réactive le zoom à la molette
     map.doubleClickZoom.enable(); // Réactive le zoom au double-clic
+});
+// Gestionnaire pour basculer l'état de la carte au clic
+cinemaInfoDiv.addEventListener('click', () => {
+    if (mapInteractionEnabled) {
+        map.dragging.disable(); // Désactive le déplacement
+        map.scrollWheelZoom.disable(); // Désactive le zoom à la molette
+        map.doubleClickZoom.disable(); // Désactive le zoom au double-clic
+        mapInteractionEnabled = false;
+    } else {
+        map.dragging.enable(); // Réactive le déplacement
+        map.scrollWheelZoom.enable(); // Réactive le zoom à la molette
+        map.doubleClickZoom.enable(); // Réactive le zoom au double-clic
+        mapInteractionEnabled = true;
+    }
 });
 
 mapLayer.addTo(map);

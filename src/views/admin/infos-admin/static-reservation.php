@@ -9,7 +9,6 @@ $dbh = new Connector();
 $reservationModel = new Reservation($dbh->dbConnector);
 
 
-
 $reservationList = $reservationModel->staticReservationNumber();
 
 

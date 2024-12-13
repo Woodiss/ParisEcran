@@ -292,7 +292,8 @@ class Film
         $stmtAddReal->execute();
 
         // ajouter des acteurs
-        foreach ($post['actors'] as $actor) {
+        $actors = array_unique($post['actors']);
+        foreach ($actors as $actor) {
             $queryAddActor = "INSERT INTO `role`(`role`, `casting_id`, `film_id`) VALUES ('acteur', :id_actor, :id_film)";
             $stmtAddActor = $this->connector->prepare($queryAddActor);
             $stmtAddActor->bindParam(":id_actor", $actor);
@@ -301,7 +302,8 @@ class Film
         }
 
         // ajouter des sound designer
-        foreach ($post['soundDesigners'] as $soundDesigner) {
+        $soundDesigners = array_unique($post['soundDesigners']);
+        foreach ($soundDesigners as $soundDesigner) {
             $queryAddSoundDesigner = "INSERT INTO `role`(`role`, `casting_id`, `film_id`) VALUES ('sound-designer', :id_soundDesigner, :id_film)";
             $stmtAddSoundDesigner = $this->connector->prepare($queryAddSoundDesigner);
             $stmtAddSoundDesigner->bindParam(":id_soundDesigner", $soundDesigner);
@@ -362,6 +364,19 @@ class Film
 
         $stmt = $this->connector->prepare($query);
         $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function searchFilm($post)
+    {
+        $query = "SELECT * 
+                FROM film
+                WHERE title LIKE CONCAT('%', :search, '%') 
+                OR synopsis LIKE CONCAT('%', :search, '%');";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute([':search' => $post['search']]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
