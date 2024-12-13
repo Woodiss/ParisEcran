@@ -73,6 +73,8 @@
     cursor: pointer;
     margin: 10px 0;
     transition: background-color 0.3s;
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: var(--fwSemiBold);
 }
 
 .pi-form input[type="button"]:hover {

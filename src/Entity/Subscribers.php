@@ -126,7 +126,8 @@ class Subscribers
     {
         $query = "SELECT 
                     sc.*, 
-                    se.*, 
+                    se.*,
+                    f.id,
                     f.title, 
                     f.image,
                     f.language,
@@ -182,7 +183,8 @@ class Subscribers
                     WHERE r.subscriber_id = :subscriber_id
                     AND r.paid = 0
                     AND s.time_slot BETWEEN f.first_date AND f.last_date
-                    AND s.time_slot >= NOW();
+                    AND s.time_slot >= NOW()
+                    ORDER BY r.id DESC;
 
                     ";
 
@@ -351,5 +353,37 @@ class Subscribers
         $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    public function isReservationForFilmAndPaid($idSubscriber, $idFilm)
+    {
+        $query = "  SELECT *
+                    FROM `reservation` AS r
+                    JOIN `seance` AS se ON se.id = r.seance_id
+                    JOIN `film` AS f ON f.id = se.film_id
+                    WHERE r.subscriber_id = :idSubscriber
+                    AND se.film_id = :idFilm
+                    AND se.time_slot < CURRENT_DATE()
+                    AND r.paid = 1;
+
+                ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
+        $stmt->bindParam(':idFilm', $idFilm, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    
+    }
+    public function updatePassword($hashedPassword, $idSubscriber)
+    {
+        $query = "UPDATE subscriber
+              SET password = :hashedPassword
+              WHERE id = :idSubscriber";
+        $stmt = $this->connector->prepare($query);
+
+        $stmt->bindParam(":idSubscriber", $idSubscriber);
+        $stmt->bindParam(":hashedPassword", $hashedPassword);
+
+        return $stmt->execute();
     }
 }

@@ -4,7 +4,7 @@ use parisecran\DBAL\Connector;
 use parisecran\Entity\Subscribers;
 
 session_start();
-print_r($_SESSION);
+// print_r($_SESSION);
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
