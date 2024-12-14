@@ -20,16 +20,18 @@
                 <h3><a href="../../film/index-film.php">ParisEcran</a></h3>
                 
                 <span>Utilisateurs</span>
+                <ul></ul>
                 <ul>
                     <li><a href="../subscriber-admin/all-sub.php">Liste des utilisateurs</a></li>
                 </ul>
+
                 <span>Films</span>
                 <ul>
                     <li><a href="../film-admin/create-film.php">Ajouter film</a></li>
                     <li><a href="../film-admin/all-films.php">Liste films</a></li>
                     <li><a href="../film-admin/films-revenue.php">Revenue par film</a></li>
                 </ul>
-
+                
                 <span>Genres</span>
                 <ul>
                     <li><a href="../genre-admin/best-genre.php">Meilleur genre</a></li>
