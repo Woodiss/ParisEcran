@@ -22,11 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['image']['name'])) {
         !empty($_POST['lastDate'])) {
             
             $filmModel->createFilm($_POST, $_FILES);
-    } else {
-        echo 'champs vides?';
     }
-} else {
-    echo 'post vide';
 }
 
 $titlePage = "Ajouter un film";

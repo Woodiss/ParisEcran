@@ -292,7 +292,8 @@ class Film
         $stmtAddReal->execute();
 
         // ajouter des acteurs
-        foreach ($post['actors'] as $actor) {
+        $actors = array_unique($post['actors']);
+        foreach ($actors as $actor) {
             $queryAddActor = "INSERT INTO `role`(`role`, `casting_id`, `film_id`) VALUES ('acteur', :id_actor, :id_film)";
             $stmtAddActor = $this->connector->prepare($queryAddActor);
             $stmtAddActor->bindParam(":id_actor", $actor);
@@ -301,7 +302,8 @@ class Film
         }
 
         // ajouter des sound designer
-        foreach ($post['soundDesigner'] as $soundDesigner) {
+        $soundDesigners = array_unique($post['soundDesigners']);
+        foreach ($soundDesigners as $soundDesigner) {
             $queryAddSoundDesigner = "INSERT INTO `role`(`role`, `casting_id`, `film_id`) VALUES ('sound-designer', :id_soundDesigner, :id_film)";
             $stmtAddSoundDesigner = $this->connector->prepare($queryAddSoundDesigner);
             $stmtAddSoundDesigner->bindParam(":id_soundDesigner", $soundDesigner);
@@ -309,6 +311,74 @@ class Film
             $stmtAddSoundDesigner->execute();
         }
     
+    }
+
+    public function CalculTotalRevenue()
+    {
+        $query = "SELECT f.title, f.image, f.synopsis, SUM(r.amount) AS total_paid FROM reservation AS r
+                JOIN seance AS s ON s.id = r.seance_id
+                JOIN film AS f on f.id = s.film_id
+                GROUP BY f.id
+                ORDER BY total_paid DESC";
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function averageFillRoomByOldFilm()
+    {
+        $query = "SELECT 
+                    f.title AS title,
+                    f.last_date AS last_showing_date,
+                    r.gauge AS room_capacity,
+                    SUM(res.booked) AS total_booked,
+                    ROUND(SUM(res.booked) / (COUNT(DISTINCT s.id) * r.gauge) * 100, 2) AS average_fill_rate
+                FROM film AS f
+                JOIN seance AS s ON f.id = s.film_id
+                JOIN room AS r ON s.room_id = r.id
+                JOIN reservation AS res ON s.id = res.seance_id
+                WHERE f.last_date < CURDATE() 
+                GROUP BY f.id, f.title, f.last_date, r.gauge
+                ORDER BY average_fill_rate DESC";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function averageFillRoomByFilm()
+    {
+        $query = "SELECT 
+                    f.title AS title,
+                    f.last_date AS last_showing_date,
+                    r.gauge AS room_capacity,
+                    SUM(res.booked) AS total_booked,
+                    ROUND(SUM(res.booked) / (COUNT(DISTINCT s.id) * r.gauge) * 100, 2) AS average_fill_rate
+                FROM film AS f
+                JOIN seance AS s ON f.id = s.film_id
+                JOIN room AS r ON s.room_id = r.id
+                JOIN reservation AS res ON s.id = res.seance_id
+                GROUP BY f.id, f.title, f.last_date, r.gauge
+                ORDER BY average_fill_rate DESC;";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function searchFilm($post)
+    {
+        $query = "SELECT * 
+                FROM film
+                WHERE title LIKE CONCAT('%', :search, '%') 
+                OR synopsis LIKE CONCAT('%', :search, '%');";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->execute([':search' => $post['search']]);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
 ?>

@@ -19,6 +19,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="../../../public/css/register.css">
     <link rel="stylesheet" href="../../../public/css/profil.css">
     <title><?= $titlePage ?></title>
+    <link rel="icon" type="image/x-icon" href="../../../public/svgs/ParisEcran-Mobile-While.svg">
     <script src="../../../public/js/navBar.js" defer></script>
 
     <?php if ($currentPage === 'index-film.php'): ?>
@@ -58,13 +59,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <a href="../film/index-film.php">Films</a>
             <a href="../cinema/index-cinema.php">Cinémas</a>
             <a href="../actor/actor.html.php">Acteurs</a>
-            <form action="#">
-
+            <?php 
+            if (isset($_SESSION['role']) && $_SESSION['role'] === 1) { ?>
+                <a class="admin-link" href="../admin/film-admin/all-films.php">Admin</a>
+            <?php } ?>
+            <form action="../film/index-film.php" method="post">
                 <label for="search" class="search">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <input type="text" placeholder="Rechercher" id="search">
+                    <input type="text" placeholder="Rechercher" id="search" name="search">
                 </label>
                 <button>Rechercher</button>
             </form>
@@ -85,13 +89,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </svg>
         </a>
         <div class="search-account-container">
-            <form action="#">
+            <form action="../film/index-film.php" method="post">
 
                 <label for="search" class="search">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <input type="text" placeholder="Rechercher" id="search">
+                    <button class="btn-nav">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <input type="text" placeholder="Rechercher" id="search" name="search">
                 </label>
             </form>
 

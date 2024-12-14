@@ -14,10 +14,9 @@ if($_GET['id_film']) {
     if ($film) {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            print_r($_POST);
             if (!empty($_POST['realisateur']) && 
             !empty($_POST['actors']) && 
-            !empty($_POST['soundDesigner'])) {
+            !empty($_POST['soundDesigners'])) {
                 $filmModel->upddateCastings($_POST, $_GET['id_film']);
             }
         }
@@ -33,7 +32,6 @@ if($_GET['id_film']) {
     header("Location: all-films.php");
 }
 
-// print_r($rolesList);
 
 $titlePage = "Modifier le casting";
 require_once "../admin-header.html.php";
@@ -49,33 +47,45 @@ require_once "../admin-header.html.php";
         <?php } ?>
     </select>
 
-    <?php foreach ($rolesList['acteurs'] as $index => $actor) { ?>
-        <div>
-            <label for="actor_<?= $index ?>">Acteur <?= $index + 1 ?> :</label>
-            <select name="actors[]" id="actor_<?= $index ?>">
-                <?php foreach ($allCastings as $option) { ?>
-                    <option value="<?= $option['id'] ?>" 
-                        <?= $option['id'] == $actor['id'] ? 'selected' : '' ?>>
-                        <?= $option['firstName'] . ' ' . $option['lastName'] ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-    <?php } ?>
+    <div id="actors-container">
+        <?php foreach ($rolesList['acteurs'] as $index => $actor) { ?>
+            <div class="actor-select">
+                <label for="actor_<?= $index ?>">Acteur <?= $index + 1 ?> :</label>
+                <div class="select-button">
+                    <select name="actors[]" id="actor_<?= $index ?>">
+                        <?php foreach ($allCastings as $option) { ?>
+                            <option value="<?= $option['id'] ?>" 
+                            <?= $option['id'] == $actor['id'] ? 'selected' : '' ?>>
+                            <?= $option['firstName'] . ' ' . $option['lastName'] ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                    <button type="button" class="remove-actor">Supprimer</button>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <button type="button" id="add-actor">Ajouter un acteur</button>
 
-    <?php foreach ($rolesList['sound-designer'] as $index => $soundDesigner) { ?>
-        <div>
-            <label for="soundDesigner_<?= $index ?>">Sound-designer <?= $index + 1 ?> :</label>
-            <select name="soundDesigner[]" id="soundDesigner_<?= $index ?>">
-                <?php foreach ($allCastings as $option) { ?>
-                    <option value="<?= $option['id'] ?>" 
-                        <?= $option['id'] == $soundDesigner['id'] ? 'selected' : '' ?>>
-                        <?= $option['firstName'] . ' ' . $option['lastName'] ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-    <?php } ?>
+    <div id="soundDesigner-container">
+        <?php foreach ($rolesList['sound-designer'] as $index => $soundDesigner) { ?>
+            <div class="soundDesigner-select">
+                <label for="soundDesigner_<?= $index ?>">Sound-designer <?= $index + 1 ?> :</label>
+                <div class="select-button">
+                    <select name="soundDesigners[]" id="soundDesigner_<?= $index ?>">
+                        <?php foreach ($allCastings as $option) { ?>
+                            <option value="<?= $option['id'] ?>" 
+                            <?= $option['id'] == $soundDesigner['id'] ? 'selected' : '' ?>>
+                            <?= $option['firstName'] . ' ' . $option['lastName'] ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                    <button type="button" class="remove-soundDesigner">Supprimer</button>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <button type="button" id="add-soundDesigner">Ajouter un sound-designer</button>
 
         
     <button type="submit">Modifier</button>

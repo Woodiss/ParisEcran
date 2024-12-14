@@ -19,13 +19,14 @@ class Subscribers
         }
     }
 
-    public function getSubscribers()
+    public function getSubsById($id_sub)
     {
-        $query = "SELECT * FROM subscriber";
+        $query = "SELECT s.id, s.username, s.email, s.birthdate, s.first_name, s.last_name, s.role FROM subscriber AS s WHERE id = :id_sub";
         $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":id_sub", $id_sub, \PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     function registerUser($post): bool
@@ -112,6 +113,39 @@ class Subscribers
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function updateSubscribersByAdmin($post, $sub)
+    {
+        extract($post);
+        $query = "UPDATE subscriber
+                SET email = :email, username = :username, birthdate = :birthdate, first_name = :first_name, last_name = :last_name, role = :role";
+
+        if (!empty($post['password'])) {
+            $query .= ", password = :password";
+        }
+
+        $query .= " WHERE id = :id";
+
+        $stmt = $this->connector->prepare($query);
+
+        $stmt->bindParam(":id", $sub['id']);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":birthdate", $birthdate);
+        $stmt->bindParam(":first_name", $first_name);
+        $stmt->bindParam(":last_name", $last_name);
+        $stmt->bindParam(":role", $role);
+
+        if (!empty($password)) {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->bindParam(":password", $password);
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
     public function deleteSubscribers($id_sub)
     {
         $query = "DELETE FROM subscriber WHERE id = :id";
@@ -197,20 +231,32 @@ class Subscribers
     }
     public function deleteReservationNotPaidAndNotValid($idSubscriber)
     {
-        $query = "  DELETE r
-                    FROM reservation as r
-                    JOIN seance as s ON s.id = r.seance_id
-                    JOIN film as f ON f.id = s.film_id
-                    WHERE r.subscriber_id = :subscriber_id
-                    AND r.paid = 0
-                    AND s.time_slot < NOW()
-                    AND s.time_slot BETWEEN f.first_date AND f.last_date;
-                    ";
+        $query = "DELETE r
+                FROM reservation as r
+                JOIN seance as s ON s.id = r.seance_id
+                JOIN film as f ON f.id = s.film_id
+                WHERE r.subscriber_id = :subscriber_id
+                AND r.paid = 0
+                AND s.time_slot < NOW()
+                AND s.time_slot BETWEEN f.first_date AND f.last_date;";
 
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":subscriber_id", $idSubscriber, \PDO::PARAM_INT);
 
         $stmt->execute();
+    }
+
+    public function reservationByIdSub($idSubscriber)
+    {
+        $query = "SELECT r.id, r.booked, r.paid, r.amount, s.time_slot, f.title 
+            FROM reservation AS r 
+            JOIN seance AS s ON s.id = r.seance_id
+            JOIN film AS f ON f.id = s.film_id
+            WHERE r.subscriber_id = :idSubscriber;";
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(":idSubscriber", $idSubscriber, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function addReservation($idFilmSession, $idSubscriber)
@@ -353,6 +399,19 @@ class Subscribers
         $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getSubscribersAvgReservation()
+    {
+        $query = "SELECT s.id, s.username, s.email, s.birthdate, s.first_name, s.last_name, s.role, AVG(booked) AS moyenne_reservations 
+            FROM reservation AS r
+            JOIN subscriber AS s ON s.id = r.subscriber_id
+            GROUP BY subscriber_id
+            ORDER BY s.id";
+        $stmt = $this->connector->prepare($query);        
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function isReservationForFilmAndPaid($idSubscriber, $idFilm)
     {

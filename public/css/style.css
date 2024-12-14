@@ -113,9 +113,28 @@ nav {
       align-items: center;
     }
 
-    a:hover,
-    span:hover {
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    a:hover, span:hover {
       color: var(--secondary-color);
+    }
+
+    .admin-link {
+      color: var(--secondary-color);
+    }
+
+    .admin-link:hover {
+      color: var(--tertiary-color);
     }
 
     .account {
@@ -690,7 +709,24 @@ main#cinema {
 }
 
 .leaflet-container a {
-  color: var(--secondary-color) !important;
+  color: var(--secondary-color)!important;
+}
+
+.btn-container {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.btn-container a {
+  padding: 10px 15px;
+  color: var(--tertiary-color);
+  text-decoration: none;
+  border-radius: 9999px;
+  z-index: 1001;
+  background-color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .section-cinema {
@@ -703,7 +739,6 @@ main#cinema {
   display: flex;
   flex-direction: column;
   overflow-x: visible;
-
   position: absolute;
   z-index: 1001;
 }
@@ -787,6 +822,14 @@ cinema p {
 @media (max-width: 700px) {
   .map {
     padding: 0;
+  }
+
+  .btn-container {
+    padding: 20px;
+
+    span {
+      display: none;
+    }
   }
 
   .section-cinema {
@@ -913,6 +956,11 @@ section.actors h4 span {
   }
 }
 @media (max-width: 550px) {
+  .btn-container {
+    flex-direction: column;
+    width: fit-content;
+  }
+
   main#actors {
     padding: 10px;
   }

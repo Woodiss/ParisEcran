@@ -25,6 +25,7 @@ if($_GET['id_film']) {
             !empty($_POST['lastDate'])) {
                 
                 $filmModel->updateFilm($_POST, $_FILES, $film);
+                $film = $filmModel->selectFilmById($_GET['id_film']);
             }
         }
         $genreModel = new Genre($dbh->dbConnector);
