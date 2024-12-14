@@ -52,7 +52,6 @@ require_once "../admin-header.html.php";
                     <td>
                         <a href="update-film.php?id_film=<?= $film['id'] ?>">Modifier</a>
                         <a href="update-casting.php?id_film=<?= $film['id'] ?>">Modifier casting</a>
-                        <a href="add-seance.php?id_film=<?= $film['id'] ?>">Ajouter Seance</a>
                         <form action="" method="post">
                             <button type="submit" name="supp" value="<?= $film['id'] ?>">Supprimer</button>
                         </form>

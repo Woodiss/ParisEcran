@@ -43,7 +43,6 @@ Ici est répertorié toutes les demandes concernant le projet et leurs avancemen
     2. Annuler un spectacle : ✔️ ***Page :*** all-film.php
 
 5. **Bonus**
-    1. INSERT : Créer un spectacle avec les dates des représentations et y associer une salle. ❌
     2. DELETE : Supprimer un compte utilisateur (subscriber). Quels problèmes cela pose-t-il ? ✔️ ***Page :*** all-sub.php
     3. UPDATE : Ajouter une réaction au commentaire d'un utilisateur. ✔️
     4. SELECT : Trouver les trois théâtres les plus proches du point de géolocalisation (48.3 2.21). ✔️ ***Page :*** index-cinema.php?geo_loc=true
