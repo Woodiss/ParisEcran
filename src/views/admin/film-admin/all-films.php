@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use parisecran\DBAL\Connector;
 use parisecran\Entity\Film;
@@ -21,7 +21,8 @@ $titlePage = "Ajouter un film";
 require_once "../admin-header.html.php";
 
 ?>
-<body>
+
+    <h2>Liste des films</h2>
     <table>
         <thead>
             <tr>
@@ -32,24 +33,25 @@ require_once "../admin-header.html.php";
                 <th>Prix</th>
                 <th>Langue</th>
                 <th>Genre</th>
-                <th>premiere diffusion</th>
-                <th>dernière diffusion</th>
+                <th>Premiere diffusion</th>
+                <th>Dernière diffusion</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($films as $film) { ?>
                 <tr>
-                    <td><?= $film['title'] ?></td>
-                    <td><?= $film['image'] ?></td>
-                    <td><?= $film['synopsis'] ?></td>
-                    <td><?= $film['duration'] ?></td>
-                    <td><?= $film['price'] ?></td>
-                    <td><?= $film['language'] ?></td>
-                    <td><?= $film['name'] ?></td>
-                    <td><?= $film['first_date'] ?></td>
-                    <td><?= $film['last_date'] ?></td>
-                    <td>
+                    <td data-column-name="Titre"><?= $film['title'] ?></td>
+                    <td data-column-name="Image" class="img"><img src="../../../../public/images_film/<?= $film['image'] ?>" alt=""></td>
+                    <!-- <td data-column-name="Image"><?= $film['image'] ?></td> -->
+                    <td data-column-name="Synopsis" data-content="<?= $film['synopsis'] ?>" class="text-collapse"><?= tronquerTexte($film['synopsis'], 100) ?></td>
+                    <td data-column-name="Durée"><?= $film['duration'] ?></td>
+                    <td data-column-name="Prix"><?= $film['price'] ?></td>
+                    <td data-column-name="Langue"><?= $film['language'] ?></td>
+                    <td data-column-name="Genre"><?= $film['name'] ?></td>
+                    <td data-column-name="Premiere diffusion"><?= $film['first_date'] ?></td>
+                    <td data-column-name="Dernière diffusion"><?= $film['last_date'] ?></td>
+                    <td data-column-name="Action">
                         <a href="update-film.php?id_film=<?= $film['id'] ?>">Modifier</a>
                         <a href="update-casting.php?id_film=<?= $film['id'] ?>">Modifier casting</a>
                         <form action="" method="post">
@@ -60,4 +62,4 @@ require_once "../admin-header.html.php";
             <?php } ?>
         </tbody>
     </table>
-<?php require_once "../admin-footer.html.php"; ?>
+    <?php require_once "../admin-footer.html.php"; ?>

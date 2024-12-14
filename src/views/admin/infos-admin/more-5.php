@@ -15,22 +15,23 @@ $titlePage = "Commentaire like";
 require_once "../admin-header.html.php";
 
 ?>
+<h2>Commentaire avec plus de 5 likes</h2>
 <table>
     <thead>
         <tr>
             <th>Auteur</th>
             <th>Note</th>
             <th>Commentaire</th>
-            <th>Like</th>
+            <th>Likes</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($comments as $comment) { ?>
             <tr>
-                <td><?= $comment['first_name'] . " " . $comment['last_name'] ?></td>
-                <td><?= $comment['notation'] ?></td>
-                <td><?= $comment['comment'] ?></td>
-                <td><?= $comment['like_count'] ?></td>
+                <td data-column-name="Auteur"><?= $comment['first_name'] . " " . $comment['last_name'] ?></td>
+                <td data-column-name="Note"><?= $comment['notation'] ?></td>
+                <td data-column-name="Commentaire" data-content="<?= $comment['comment'] ?>" class="text-collapse"><?= tronquerTexte($comment['comment'], 200) ?></td>
+                <td data-column-name="Likes"><?= $comment['like_count'] ?></td>
             </tr>
         <?php } ?>
 </table>

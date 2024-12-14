@@ -28,10 +28,10 @@ require_once "../admin-header.html.php";
     <tbody>
         <?php foreach ($filmList as $film) { ?>
             <tr>
-                <td><?= $film['title'] ?></td>
-                <td><?= $film['synopsis'] ?></td>
-                <td class="img"><img src="../../../../public/images_film/<?= $film['image'] ?>" alt=""></td>
-                <td><?= $film['total_paid'] ?> €</td>
+                <td data-column-name="Titre"><?= $film['title'] ?></td>
+                <td data-column-name="Synopsis" data-content="<?= $film['synopsis'] ?>" class="text-collapse"><?= tronquerTexte($film['synopsis'], 200) ?></td>
+                <td data-column-name="Affiche" class="img"><img src="../../../../public/images_film/<?= $film['image'] ?>" alt=""></td>
+                <td data-column-name="Revenue" class="price"><?= $film['total_paid'] ?> €</td>
             </tr>
         <?php } ?>
     </tbody>
