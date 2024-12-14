@@ -7,6 +7,35 @@
   margin: 0;
   padding: 0;
 }
+/* Thème par défaut (clair) */
+:root {
+  --background-color: #13171f;
+  --shadow-color: #202632;
+}
+
+/* Thème sombre */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #fff;
+    --shadow-color: #0171ad70;
+
+  }
+  body, td {
+    background: #f7f7f7;
+  }
+   td {
+    background: #f0f0f0;
+    box-shadow: inset 0 -2px var(--shadow-color);
+  }
+  header #logo-paris-ecran path, header #logo-paris-ecran path g path, header #toggle-nav svg path, aside svg path{
+    fill: #13171f;
+  }
+  header #toggle-nav svg path {
+    fill: #13171f;
+    stroke: #13171f;
+  }
+}
+
 .hide {
   display: none;
 }
@@ -28,8 +57,8 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  background: #13171f;
-  box-shadow: inset 0 -2px 0 #202632;
+  background: var(--background-color);
+  box-shadow: inset 0 -2px 0 var(--shadow-color);
   z-index: 999;
 }
 header button#toggle-nav {
@@ -58,8 +87,8 @@ header #logo-paris-ecran {
   position: fixed;
   left: -400px;
   top: 0;
-  background: #13171f;
-  box-shadow: inset -2px 0 0 #202632;
+  background: var(--background-color);
+  box-shadow: inset -2px 0 0 var(--shadow-color);
   transition: transform 0.3s ease-out;
   z-index: 80;
 }
@@ -101,7 +130,6 @@ td form button {
 .admin-container .global-container {
   width: 100%;
   padding: 0 20px;
-  /* display: flex; */
   overflow-x: scroll;
 }
 .admin-container .global-container textarea {
@@ -129,7 +157,7 @@ td form button {
     display: none;
   }
   tr {
-    border: 2px solid #202632;
+    border: 2px solid var(--shadow-color);
     margin-bottom: 20px;
   }
   td {
@@ -145,7 +173,6 @@ td form button {
     font-weight: 500;
     left: 0;
     overflow: hidden;
-    /* padding: 8px; */
     padding: calc(var(--pico-spacing)/ 2) var(--pico-spacing);
     position: absolute;
     text-align: left;
