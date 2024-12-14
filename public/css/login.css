@@ -41,7 +41,7 @@
 }
 
 .pc-container .pc-btn {
-    background-color: red;
+    background-color: var(--secondary-color);
     color: white;
     width: 144px;
     height: 50px;
@@ -51,6 +51,9 @@
     cursor: pointer;
     margin: 10px 0;
     transition: background-color 0.3s;
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: var(--fwSemiBold);
+
 }
 
 .pc-container .pc-btn:hover {

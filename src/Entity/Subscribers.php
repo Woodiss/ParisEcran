@@ -160,12 +160,16 @@ class Subscribers
     {
         $query = "SELECT 
                     sc.*, 
-                    se.*, 
+                    se.*,
+                    f.id,
                     f.title, 
-                    f.image, 
+                    f.image,
+                    f.language,
                     ci.name AS cinema_name,
                     r.name AS room_name,
                     c.id AS comment_id,
+                    c.comment AS comment_text,
+                    c.notation AS comment_notation,
                     CASE 
                         WHEN c.id IS NOT NULL THEN 1
                         ELSE 0
@@ -178,7 +182,9 @@ class Subscribers
                 LEFT JOIN comment AS c 
                     ON c.film_id = se.film_id AND c.subscriber_id = sc.subscriber_id
                 WHERE sc.subscriber_id = :id_sub
-                AND sc.paid = 1;";
+                AND sc.paid = 1
+                ORDER BY se.time_slot DESC;
+                ";
 
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(":id_sub", $id_sub, \PDO::PARAM_INT);
@@ -211,7 +217,8 @@ class Subscribers
                     WHERE r.subscriber_id = :subscriber_id
                     AND r.paid = 0
                     AND s.time_slot BETWEEN f.first_date AND f.last_date
-                    AND s.time_slot >= NOW();
+                    AND s.time_slot >= NOW()
+                    ORDER BY r.id DESC;
 
                     ";
 
@@ -327,7 +334,7 @@ class Subscribers
     public function getReservationByID($idReservation)
     {
         $query = "  SELECT 
-                        -- r.subscriber_id as subscriber_id,
+                        r.subscriber_id as subscriber_id,
                         r.booked as quantity_reservation,
                         r.amount as amount_reservation,
                         f.price as film_unit_price
@@ -405,5 +412,37 @@ class Subscribers
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function isReservationForFilmAndPaid($idSubscriber, $idFilm)
+    {
+        $query = "  SELECT *
+                    FROM `reservation` AS r
+                    JOIN `seance` AS se ON se.id = r.seance_id
+                    JOIN `film` AS f ON f.id = se.film_id
+                    WHERE r.subscriber_id = :idSubscriber
+                    AND se.film_id = :idFilm
+                    AND se.time_slot < CURRENT_DATE()
+                    AND r.paid = 1;
+
+                ";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
+        $stmt->bindParam(':idFilm', $idFilm, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    
+    }
+    public function updatePassword($hashedPassword, $idSubscriber)
+    {
+        $query = "UPDATE subscriber
+              SET password = :hashedPassword
+              WHERE id = :idSubscriber";
+        $stmt = $this->connector->prepare($query);
+
+        $stmt->bindParam(":idSubscriber", $idSubscriber);
+        $stmt->bindParam(":hashedPassword", $hashedPassword);
+
+        return $stmt->execute();
     }
 }

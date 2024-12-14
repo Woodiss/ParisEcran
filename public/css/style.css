@@ -38,7 +38,10 @@ body {
   padding-top: 80px;
 }
 .hide {
-  display: none!important;
+  display: none !important;
+}
+.scroll-none {
+  overflow: hidden;
 }
 /* NAVBAR */
 nav {
@@ -89,16 +92,17 @@ nav {
       }
     }
   }
-.navlinks-container form {
+  .navlinks-container form {
     display: none;
-}
+  }
   .navlinks-container,
   .search-account-container {
     display: flex;
     align-items: center;
     gap: 20px;
 
-    a, span {
+    a,
+    span {
       color: var(--tertiary-color);
       font-size: var(--fz20);
       font-weight: var(--fwSemiBold);
@@ -107,6 +111,12 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
     }
 
     button {
@@ -132,7 +142,6 @@ nav {
       gap: 20px;
       align-items: center;
     }
-
 
     .search {
       display: flex;
@@ -230,7 +239,8 @@ nav {
 }
 
 @media (max-width: 700px) {
-  .search-account-container a#create-account,  .search-account-container span:first-of-type{
+  .search-account-container a#create-account,
+  .search-account-container span:first-of-type {
     display: none;
   }
 }
@@ -285,7 +295,6 @@ section.film-section {
       display: flex;
       align-items: center;
       gap: 10px;
-      /* width: 100%; */
       overflow-x: scroll;
       scroll-behavior: smooth;
     }
@@ -358,6 +367,7 @@ section.film-section {
   }
 
   figcaption {
+    text-transform: capitalize;
     text-decoration: none;
     font-size: var(--fz16);
     font-weight: var(--fwSemiBold);
@@ -561,7 +571,6 @@ main#single-film {
   font-size: var(--fz14);
   font-weight: var(--fwSemiBold);
   text-transform: capitalize;
-
 }
 
 section.comments {
@@ -615,7 +624,7 @@ section.comments h2 {
   cursor: pointer;
 }
 .react-svg-gray {
-  color: #8D8D8D;
+  color: #8d8d8d;
 }
 .react-svg-red {
   color: var(--secondary-color);
@@ -673,9 +682,9 @@ section.comments h2 {
   .film-reservation .reservation-invitation h5 {
     text-align: center;
   }
- .reservation-invitation svg:first-of-type {
+  .reservation-invitation svg:first-of-type {
     width: 150px;
- }
+  }
 }
 
 /* END SINGLE FILM */
@@ -689,7 +698,6 @@ main#cinema {
   height: 100vh;
   display: flex;
   padding-top: 80px;
-  /* border: 2px solid blue; */
 }
 
 .map {
@@ -700,7 +708,7 @@ main#cinema {
   position: relative;
 }
 
-.leaflet-container a{
+.leaflet-container a {
   color: var(--secondary-color)!important;
 }
 
@@ -731,57 +739,15 @@ main#cinema {
   display: flex;
   flex-direction: column;
   overflow-x: visible;
-
   position: absolute;
-  z-index:1001;
-}
-
-.section-cinema form {
-  display: flex;
-  align-items: end;
-  padding: 20px 20px 0 20px;
-  width: 100%;
-  gap: 20px;
-
-  .form-map {
-    display: flex;
-    gap: 10px;
-    
-    .input-container-map {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50%;
-      
-      label {
-        font-size: var(--fz16);
-        outline: none;
-      }
-      
-      input {
-        width: 100%;
-        padding: 10px 20px;
-        border-radius: 20px;
-        border: 2px solid var(--secondary-color);
-      }
-    }
-  }
-
-  button {
-    border-radius: 20px;
-    background-color: transparent;
-    border: 2px solid var(--secondary-color);
-    padding: 10px 20px;
-    font-size: var(--fz16);
-    height: 38.86px;
-  }
+  z-index: 1001;
 }
 
 .section-cinema h2 {
   font-size: var(--fz24);
   font-weight: var(--fwSemiBold);
   margin: 20px 20px 0 20px;
-
+  font-family: "Roboto Flex", sans-serif;
   span {
     color: var(--secondary-color);
   }
@@ -816,6 +782,9 @@ main#cinema {
   flex-direction: column;
   gap: 20px;
   box-shadow: 0 4px 4px #00000025;
+  font-family: "Roboto Flex", sans-serif;
+  line-height: normal;
+  font-size: var(--fz16);
 }
 
 .cinema:last-of-type {
@@ -1016,6 +985,469 @@ section.actors h4 span {
   }
 }
 /* END ACTORS */
+/* PROFIL */
+aside#user-information {
+  background: var(--primary-color);
+  width: fit-content;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 0 4px 4px #00000025;
+}
+aside#user-information h2 {
+  font-size: var(--fz20);
+  font-weight: var(--fwSemiBold);
+}
+aside#user-information h2 span {
+  color: var(--secondary-color);
+}
+aside#user-information h3 {
+  font-size: var(--fz16);
+  font-weight: var(--fwSemiBold);
+  margin-bottom: 10px;
+}
+aside#user-information button#toggle-user-information {
+  position: absolute;
+  right: -42px;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-color);
+  border-radius: 0 10px 10px 0;
+  padding: 4px;
+  cursor: pointer;
+  border: 2px solid var(--secondary-color);
+  border-left: none;
+}
+aside#user-information button#password-change {
+  display: inline;
+  color: var(--secondary-color);
+  font-size: var(--fz16);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: "Roboto Flex", sans-serif;
+  width: fit-content;
+}
+aside#user-information a#user-logout {
+  width: fit-content;
+  background: var(--secondary-color);
+  padding: 10px 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 10px;
+  color: var(--primary-color);
+  font-size: var(--fz16);
+  font-weight: var(--fwSemiBold);
+  font-family: "Roboto Flex", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profil-modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000000cc;
+  z-index: 999;
+}
+.profil-modal #modal-close {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+.profil-modal .modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  background: var(--background-color2);
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  gap: 20px;
+}
+.profil-modal .modal-content.reset-password {
+  width: fit-content;
+}
+.profil-modal .modal-content.reset-password .modal-info {
+  justify-content: flex-start;
+  width: fit-content;
+}
+.profil-modal .modal-content.reset-password .modal-info h6.message {
+  position: static;
+  text-align: center;
+  transform: none;
+}
+.profil-modal .modal-content.reset-password input {
+  min-width: 280px;
+  padding: 10px;
+  background: var(--primary-color);
+  border: none;
+  box-shadow: 0 4px 4px #00000025;
+  font-family: "Roboto Flex", sans-serif;
+  border-radius: 6px;
+}
+.profil-modal .modal-content.reset-password input:focus {
+  outline: 2px solid var(--secondary-color);
+}
+.profil-modal .modal-content img {
+  width: 200px;
+  border-radius: 10px;
+}
+.modal-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  gap: 20px;
+}
+.modal-info h3 {
+  text-align: center;
+}
+.modal-info textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border-radius: 15px;
+  border: none;
+  font-family: "Roboto Flex", sans-serif;
+  padding: 10px;
+  min-height: 150px;
+  box-shadow: 0 4px 4px #00000025;
+  border: 2px solid var(--secondary-color);
+}
+.modal-info textarea:focus {
+  outline: 1px solid var(--secondary-color);
+}
+.modal-info .message {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, 0);
+  font-size: var(--fz18);
+  font-weight: var(--fwSemiBold);
+}
+.modal-info .message#review {
+  left: 10px;
+  transform: translate(-10px, 0);
+}
+.modal-stars button {
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.modal-stars .star g path {
+  fill: #8d8d8d;
+}
+
+.modal-stars .star.hovered g path {
+  fill: red;
+}
+#submit-note,
+#submit-review {
+  background: var(--secondary-color);
+  padding: 10px 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 15px;
+  border: none;
+  color: var(--primary-color);
+  font-size: var(--fz16);
+  font-weight: var(--fwSemiBold);
+  font-family: "Roboto Flex", sans-serif;
+  cursor: pointer;
+}
+
+main#profil {
+  max-width: 1340px;
+  margin: 20px auto;
+  background: var(--background-color2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-left: 280px;
+  margin-right: 20px;
+}
+main#profil h2 {
+  font-size: var(--fz24);
+  font-weight: var(--fwSemiBold);
+  margin-left: 20px;
+}
+main#profil h2 span {
+  color: var(--secondary-color);
+}
+.container-profil-reservation {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.container-profil-reservation .reservation {
+  display: flex;
+  background: var(--primary-color);
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 4px #00000025;
+  gap: 20px;
+}
+.container-profil-reservation .reservation img {
+  width: 100px;
+  border-radius: 10px;
+}
+.container-profil-reservation .reservation .reservation-description {
+  display: flex;
+  gap: 20px;
+}
+.container-profil-reservation .reservation .reservation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.container-profil-reservation .reservation .reservation-info h3 {
+  font-size: var(--fz20);
+  font-weight: var(--fwSemiBold);
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+.container-profil-reservation .reservation .reservation-info h4 {
+  font-size: var(--fz16);
+  font-weight: var(--fwSemiBold);
+}
+.container-profil-reservation .reservation .reservation-info p {
+  font-size: var(--fz16);
+  color: var(--fourth-color);
+  font-weight: var(--fwSemiBold);
+  text-transform: capitalize;
+  span {
+    margin-left: 6px;
+    text-transform: capitalize;
+  }
+}
+.container-profil-reservation .reservation .reservation-actions {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  flex-direction: column;
+  margin-left: auto;
+  padding: 20px;
+}
+.container-profil-reservation .reservation .reservation-actions p {
+  font-size: var(--fz20);
+  font-weight: var(--fwSemiBold);
+  margin-right: 10px;
+}
+.container-profil-reservation .reservation .reservation-actions button {
+  font-size: var(--fz16);
+  font-weight: var(--fwSemiBold);
+  font-family: "Roboto Flex", sans-serif;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 10px;
+  gap: 10px;
+  border: none;
+  background: none;
+}
+.container-profil-reservation
+  .reservation
+  .reservation-actions
+  button.btn-review {
+  color: var(--secondary-color);
+}
+.container-recomendation-film {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.container-recomendation-film a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--tertiary-color);
+  background: var(--primary-color);
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 4px #00000025;
+  font-weight: var(--fwSemiBold);
+  gap: 8px;
+  text-align: center;
+  line-height: 1.4rem;
+  transition: background-color 0.1s ease-out, color 0.1s ease-out;
+}
+.container-recomendation-film a:hover {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+}
+.container-recomendation-film a:hover span {
+  color: var(--primary-color);
+  transition: color 0.1s ease-out;
+}
+.container-recomendation-film a img {
+  width: 150px;
+  border-radius: 10px;
+}
+.container-recomendation-film a span {
+  display: block;
+  color: var(--secondary-color);
+  font-weight: var(--fwBold);
+}
+@media (max-width: 1100px) {
+  aside#user-information {
+    left: -258px;
+    transition: transform 0.1s ease-out;
+    border-radius: 0 0 15px 0;
+  }
+  aside#user-information.open {
+    transform: translateX(258px);
+  }
+  aside#user-information button#toggle-user-information {
+    display: flex;
+  }
+  main#profil {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+@media (max-width: 850px) {
+  .profil-modal .modal-content {
+    width: fit-content;
+    flex-direction: column;
+    padding-bottom: 60px;
+    min-width: 300px;
+  }
+  .profil-modal .modal-content img {
+    width: 100%;
+  }
+  .modal-info {
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  .modal-info .message {
+    bottom: -40px;
+    text-wrap: nowrap;
+  }
+  .modal-info .message#review {
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
+@media (max-width: 750px) {
+  aside#user-information {
+    border-radius: 0 15px 15px 0;
+  }
+  aside#user-information button#toggle-user-information {
+    top: 50px;
+  }
+  main#profil {
+    padding: 20px 0;
+    margin: 0;
+    border-radius: 0;
+  }
+  main#profil h2 {
+    margin-left: 20px;
+  }
+  .container-profil-reservation .reservation {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .container-profil-reservation .reservation .reservation-actions {
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-direction: row;
+  }
+}
+@media (max-width: 600px) {
+  .container-profil-reservation .reservation .reservation-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+  }
+}
+@media (max-width: 500px) {
+  aside#user-information {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    top: 80px;
+    left: -100%;
+  }
+  aside#user-information.open {
+    transform: translateX(100%);
+  }
+  aside#user-information.open button#toggle-user-information {
+    top: 10px;
+    right: 10px;
+    border: none;
+    border-radius: 10px;
+  }
+  .profil-modal #modal-close {
+    right: 10px;
+    top: 10px;
+  }
+  .profil-modal .modal-content {
+    align-items: center;
+    top: 54%;
+  }
+  .profil-modal .modal-content img {
+    width: 160px;
+  }
+  .modal-info {
+    gap: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .profil-modal .modal-content.reset-password {
+    width: 100%;
+  }
+  .profil-modal .modal-content.reset-password .modal-info {
+    gap: 20px;
+  }
+  .container-profil-reservation .reservation-description {
+    flex-direction: column;
+  }
+  .container-profil-reservation .reservation img {
+    width: 100%;
+  }
+  .profil-modal #modal-close svg path {
+    fill: var(--secondary-color);
+  }
+  .profil-modal .modal-content {
+    align-items: center;
+    top: 50%;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    justify-content: center;
+  }
+}
+/* END PROFIL */
 /* FOOTER */
 footer {
   display: flex;
