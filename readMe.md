@@ -1,11 +1,11 @@
-# Paris Ecran
+# Paris Ecran 🎭🎥
 
-## Description
+## Description  📖
 
 Paris Ecran est une application web développée dans le cadre d'un projet scolaire. Ce projet met en avant la gestion back-end d'un projet PHP basé sur une base de données MySQL.
-Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématographique, allant de l'inscription des utilisateurs à la gestion des films (CRUD), des réservations, des commentaires, et bien plus encore. Il propose également des outils avancés pour l'administration et les statistiques.
+Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématographique, allant de l'inscription des utilisateurs à la gestion des films, des réservations, des commentaires, et bien plus encore. Il propose également des outils avancés pour l'administration et les statistiques.
 
-# Fonctionnalités
+# Fonctionnalités ✅
 
 ## Front-End
 ### 1. Pages publiques :
@@ -16,11 +16,11 @@ Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématograph
 - Recherche asynchrone des séances : ✔️ Page : infos-film.php?id_film=4
 - Gestion des réactions sur les commentaires : ✔️ Page : infos-film.php?id_film=4
 - Modification des commentaires ou de la note : ✔️ Page : profil.php
-- Visuel et accessibilité :
+### 4. Visuel et accessibilité :
 - Design responsive : ✔️ Disponible sur toutes les pages
 - Carte affichant l'emplacement des cinémas : ✔️ Page : index-cinema.php
 
-### 3. Statistiques pour les utilisateurs :
+### 4. Statistiques pour les utilisateurs :
 - Taux de remplissage des salles trié par ordre décroissant : ✔️ Page : average-fill-room.php
 - Distribution statistique des réservations : ✔️ Page : static-reservation.php
 
@@ -49,8 +49,7 @@ Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématograph
 
 ## Base de données
 ### 1. Structures de la base de données :
-- Script SQL initial : ✔️ Fichier : parisecran.sql
-- Mise à jour (V3.1) : ✔️ Fichier : parisecran_V3.1.sql
+- Fichier d'import : ✔️ parisecran.sql
 
 ### 2. Requêtes SQL avancées :
 - Films par arrondissement : ✔️ Page : index-cinema.php
@@ -59,9 +58,25 @@ Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématograph
 - Recettes par film : ✔️ Page : films-revenue.php
 - Artistes préférés des spectateurs : ✔️ Page : actor.html.php
 
----
+## Bonus et autres fonctionnalités
+- Génération de données avec FakerPHP : ✔️
+- Ajout de réactions asynchrones : ✔️ Page : infos-film.php
+- Recherche avancée dans les synopsis : ✔️ Page : index-film.php
+- Intégration d'affiches générées par IA : ✔️
+- Back-office complet pour les administrateurs : ✔️
 
-## Installation
+
+
+---
+## Technologies utilisées 💻
+- ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+- ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+- ![phpMyAdmin](https://img.shields.io/badge/phpMyAdmin-6C78AF?style=for-the-badge&logo=phpmyadmin&logoColor=white)
+- ![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=composer&logoColor=white)
+- ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+- ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+## Installation 🛠️
 
 ### Prérequis
 
@@ -92,7 +107,7 @@ Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématograph
 5. Lancez votre serveur web et accédez au projet via votre navigateur.
 
 ### Structure du projet
-```yaml
+```bash
 ParisEcran/
 ├── composer.json           # Dépendances PHP
 ├── composer.lock           # Verrouillage des dépendances
@@ -110,11 +125,23 @@ ParisEcran/
 └── README.md               # Documentation du projet
 ```
 
-### Auteurs 👨‍💻👩‍💻
-| Nom                | Prénom             | Poste                 |
-|--------------------|--------------------|-----------------------|
-|DESCARPENTRIES      | Stéphane           | Développeur Full Stack|
-|DE PASQUAL Eddy Jean       | Christopher           | Développeur Full Stack|
-|   ALLARD   | Adrien           | Développeur Full Stack| 
-|   SANCHEZ   | Amaury           | Développeur Full Stack| 
-|CODANDABANY      | Devanandhan           | Développeur Back End| 
+### Auteurs 👨‍💻
+
+| Profil Github                                                   | Poste                  |
+|-----------------------------------------------------------------|------------------------|
+| [The-Leyn](https://github.com/The-Leyn)                         | Développeur Full Stack |
+| [Woodiss](https://github.com/Woodiss)                           | Développeur Full Stack |
+| [MrDevaa](https://github.com/MrDevaa)                           | Développeur Back End   |
+| [christopherDEPASQUAL](https://github.com/christopherDEPASQUAL) | Développeur Full Stack |
+| [Amaury057](https://github.com/Amaury057)                       | Développeur Full Stack |
+
+
+## Remerciements 💬
+
+- Un grand merci à Michel CADENNES, notre professeur BACK de PHP/SQL, pour son accompagnement, ses conseils précieux tout au long de ce projet. Grâce à son expertise, nous avons pu approfondir nos compétences techniques et mener à bien ce travail.
+Nous remercions également l'école HETIC pour nous avoir offert cette opportunité d'apprentissage et les moyens nécessaires pour réaliser ce projet ambitieux.
+
+
+## Licence 📜
+
+Ce projet est protégé par des droits. Il ne peut pas être utilisé, modifié ou distribué à des fins lucratives sans autorisation préalable.
