@@ -46,7 +46,6 @@ require_once "../admin-header.html.php";
                     <td data-column-name="Synopsis" data-content="<?= $film['synopsis'] ?>" class="text-collapse"><?= tronquerTexte($film['synopsis'], 100) ?></td>
                     <td data-column-name="Durée"><?= $film['duration'] ?></td>
                     <td data-column-name="Prix"><?= $film['price'] ?></td>
-                    <td data-column-name="Langue"><?= $film['language'] ?></td>
                     <td data-column-name="Genre"><?= $film['name'] ?></td>
                     <td data-column-name="Premiere diffusion"><?= $film['first_date'] ?></td>
                     <td data-column-name="Dernière diffusion"><?= $film['last_date'] ?></td>
