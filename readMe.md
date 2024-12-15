@@ -107,7 +107,7 @@ Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématograph
 5. Lancez votre serveur web et accédez au projet via votre navigateur.
 
 ### Structure du projet
-```bash
+```yaml
 ParisEcran/
 ├── composer.json           # Dépendances PHP
 ├── composer.lock           # Verrouillage des dépendances
