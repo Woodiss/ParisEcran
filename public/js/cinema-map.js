@@ -1,6 +1,6 @@
 let map = L.map('map', {
     zoomControl: false
-}).setView([48.86055605437785, 2.3446300176453168], 13);
+}).setView([48.86055605437785, 2.2846300176453168], 13);
 
 // Ajout manuel du contrôle de zoom en bas à droite
 L.control.zoom({
