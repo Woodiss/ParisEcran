@@ -32,20 +32,20 @@ require_once __DIR__ . "/../../../src/views/header.html.php";
 <main id="cinema">
     <div class="map" id="map">
         <div class="btn-container">
-            <a href="index-cinema.php"><span>afficher</span> par arrondisement</a>
-            <a href="index-cinema.php?order_by=notation"><span>afficher</span> par note</a>
-            <a href="index-cinema.php?geo_loc=true">plus proche <span>de</span></a>
+            <a href="index-cinema.php">Afficher par arrondisement</a>
+            <a href="index-cinema.php?order_by=notation">Afficher par note</a>
+            <a href="index-cinema.php?geo_loc=true">Plus proche de</a>
         </div>
         <div class="section-cinema">
             <?php if (isset($_GET['geo_loc'])) { ?>
                 <form action="" method="post">
                     <div class="form-map">
                         <div class="input-container-map">
-                            <label for="longitude">longitude</label>
+                            <label for="longitude">Longitude</label>
                             <input type="text" id="longitude" name="longitude" placeholder="48.3">
                         </div>
                         <div class="input-container-map">
-                            <label for="latitude">latitude</label>
+                            <label for="latitude">Latitude</label>
                             <input type="text" id="latitude" name="latitude" placeholder="2.21">
                         </div>
                     </div>

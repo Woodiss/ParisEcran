@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     !empty($_POST['cinema']) && 
     !empty($_POST['room']) && 
     !empty($_POST['date']) && 
+    !empty($_POST['language']) && 
     !empty($_POST['heure'])) {
         $cinemaModel->createSeance($_POST);
     }
@@ -31,17 +32,27 @@ require_once "../admin-header.html.php";
 
 <form action="" method="POST">
     <h1>Ajouter une seance</h1>
+
+    <label for="film">Films</label>
     <select name="film" id="film">
         <?php foreach ($films as $film) { ?>
             <option value="<?= $film['id'] ?>"><?= $film['title'] ?></option>
         <?php } ?>
     </select>
   
+    <label for="cinema">Cinémas</label>
     <select name="cinema" id="cinema">
         <option value="#">Sélectionner un cinéma</option>
         <?php foreach ($cinemas as $cinema) { ?>
             <option value="<?= $cinema['id'] ?>"><?= $cinema['name'] ?></option>
         <?php } ?>
+    </select>
+
+    <label for="language">Choix de la version</label>
+    <select name="language" id="language">
+        <option value="VF">Français</option>
+        <option value="VOSTFR">Sous-Titrée en Français</option>
+        <option value="VO">Version original</option>
     </select>
 
     <p id="erreur"></p>

@@ -34,6 +34,7 @@
                 
                 <span>Genres</span>
                 <ul>
+                    <li><a href="../genre-admin/all-genre.php">Liste des genre</a></li>
                     <li><a href="../genre-admin/best-genre.php">Meilleur genre</a></li>
                 </ul>
 

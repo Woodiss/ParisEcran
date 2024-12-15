@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['image']['name'])) {
         !empty($_POST['synopsis']) && 
         !empty($_POST['duration']) && 
         !empty($_POST['price']) && 
-        !empty($_POST['language']) && 
         !empty($_POST['genre_id']) && 
         !empty($_POST['firstDate']) && 
         !empty($_POST['lastDate'])) {
@@ -31,32 +30,26 @@ require_once "../admin-header.html.php";
 ?>
 
 <form action="" method="POST" enctype="multipart/form-data">
-    <label for="title">title</label>
+    <label for="title">Titre</label>
     <input type="text" id="title" name="title">
 
-    <label for="image">image</label>
+    <label for="image">Image</label>
     <input type="file" id="image" name="image">
 
-    <label for="synopsis">synopsis</label>
-    <input type="text" id="synopsis" name="synopsis">
+    <label for="synopsis">Synopsis</label>
+    <textarea name="synopsis" id="synopsis"></textarea>
 
-    <label for="duration">duration</label>
-    <input type="time" id="duration" name="duration">
+    <label for="duration">Durée</label>
+    <input type="time" id="duration" name="duration" value="02:00">
 
-    <label for="price">price</label>
-    <input type="number" id="price" name="price">
-
-    <label for="language">language</label>
-    <select name="language" id="language">
-        <option value="français">Français</option>
-        <option value="VO">VO</option>
-    </select>
+    <label for="price">Prix</label>
+    <input type="number" id="price" name="price" value="20">
 
     <label for="firstDate">Première diffusion</label>
-    <input type="date" id="firstDate" name="firstDate">
+    <input type="date" id="firstDate" name="firstDate" value="<?= date('Y-m-d') ?>">
 
     <label for="lastDate">Dernière diffusion</label>
-    <input type="date" id="lastDate" name="lastDate">
+    <input type="date" id="lastDate" name="lastDate" value="<?= date('Y-m-d', strtotime('+2 months')) ?>">
 
     <label for="genre_id">Genre</label>
     <select name="genre_id" id="genre_id">

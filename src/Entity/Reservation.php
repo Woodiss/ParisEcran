@@ -42,7 +42,7 @@ class Reservation
     public function getSeanceDateByCinemaAndFilmAndDate($get)
     {
         extract($get);
-        $query = "SELECT se.*, r.cinema_id, c.id AS cinema_id, c.name, TIME(se.time_slot) AS time_slot, f.language, r.name
+        $query = "SELECT se.*, r.cinema_id, c.id AS cinema_id, c.name, TIME(se.time_slot) AS time_slot, r.name
             FROM seance AS se
             JOIN room AS r ON r.id = se.room_id
             JOIN cinema AS c ON r.cinema_id = c.id

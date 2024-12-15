@@ -10,17 +10,15 @@ $genreModel = new Genre($dbh->dbConnector);
 
 $genreList = $genreModel->getGenreByNumberBooked();
 
-$titlePage = "Classement meilleur genre";
-require_once "../admin-header.html.php";
-
-
 if (isset($_GET['order_by'])) {
     $orderBy = $_GET['order_by'];
 } else {
     $orderBy = 'AverageRating DESC';
 }
-?>
 
+$titlePage = "Classement meilleur genre";
+require_once "../admin-header.html.php";
+?>
 
 <h2>Classement des genres de films pupulaire</h2>
 <table>

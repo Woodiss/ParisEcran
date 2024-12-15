@@ -52,17 +52,16 @@ class Film
             extract($post);
             $image = $files['image']['name'];
 
-            $query = "INSERT INTO `film`(`title`, `image`, `synopsis`, `duration`, `price`, `language`, `genre_id`) 
-            VALUES (:title, :image, :synopsis, :duration, :price, :language, :genre_id)";
-            $query = "INSERT INTO `film`(`title`, `image`, `synopsis`, `duration`, `price`, `language`, `genre_id`, `first_date`, `last_date`) 
-            VALUES (:title, :image, :synopsis, :duration, :price, :language, :genre_id, :firstDate, :lastDate)";
+            $query = "INSERT INTO `film`(`title`, `image`, `synopsis`, `duration`, `price`, `genre_id`) 
+            VALUES (:title, :image, :synopsis, :duration, :price, :genre_id)";
+            $query = "INSERT INTO `film`(`title`, `image`, `synopsis`, `duration`, `price`,  `genre_id`, `first_date`, `last_date`) 
+            VALUES (:title, :image, :synopsis, :duration, :price, :genre_id, :firstDate, :lastDate)";
             $stmt = $this->connector->prepare($query);
             $stmt->bindParam(":title", $title);
             $stmt->bindParam(":image", $image);
             $stmt->bindParam(":synopsis", $synopsis);
             $stmt->bindParam(":duration", $duration);
             $stmt->bindParam(":price", $price);
-            $stmt->bindParam(":language", $language);
             $stmt->bindParam(":genre_id", $genre_id);
             $stmt->bindParam(":firstDate", $firstDate);
             $stmt->bindParam(":lastDate", $lastDate);
@@ -116,7 +115,6 @@ class Film
                         `synopsis` = :synopsis, 
                         `duration` = :duration, 
                         `price` = :price, 
-                        `language` = :language, 
                         `genre_id` = :genre_id,
                         `first_date` = :firstDate, 
                         `last_date` = :lastDate
@@ -131,7 +129,6 @@ class Film
         $stmt->bindParam(":synopsis", $synopsis);
         $stmt->bindParam(":duration", $duration);
         $stmt->bindParam(":price", $price);
-        $stmt->bindParam(":language", $language);
         $stmt->bindParam(":genre_id", $genre_id);
         $stmt->bindParam(":firstDate", $firstDate);
         $stmt->bindParam(":lastDate", $lastDate);

@@ -30,7 +30,6 @@ require_once "../admin-header.html.php";
                 <th>Synopsis</th>
                 <th>Durée</th>
                 <th>Prix</th>
-                <th>Langue</th>
                 <th>Genre</th>
                 <th>premiere diffusion</th>
                 <th>dernière diffusion</th>
@@ -45,7 +44,6 @@ require_once "../admin-header.html.php";
                     <td><?= $film['synopsis'] ?></td>
                     <td><?= $film['duration'] ?></td>
                     <td><?= $film['price'] ?></td>
-                    <td><?= $film['language'] ?></td>
                     <td><?= $film['name'] ?></td>
                     <td><?= $film['first_date'] ?></td>
                     <td><?= $film['last_date'] ?></td>

@@ -104,14 +104,14 @@ class Cinema
     {
         extract($post);
         $datetime = $date . ' ' . $heure . ':00';
-        $query = "INSERT INTO seance (time_slot, film_id, room_id) VALUES (:time_slot, :film_id, :room_id)";
+        $query = "INSERT INTO seance (time_slot, language, film_id, room_id) VALUES (:time_slot, :language, :film_id, :room_id)";
 
         $stmt = $this->connector->prepare($query);
         $stmt->bindParam(':time_slot', $datetime);
+        $stmt->bindParam(':language', $language);
         $stmt->bindParam(':film_id', $film);
         $stmt->bindParam(':room_id', $room);
         $stmt->execute();
     }
-
 }
 ?>

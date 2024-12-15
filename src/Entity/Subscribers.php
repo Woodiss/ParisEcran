@@ -164,7 +164,7 @@ class Subscribers
                     f.id,
                     f.title, 
                     f.image,
-                    f.language,
+                    se.language,
                     ci.name AS cinema_name,
                     r.name AS room_name,
                     c.id AS comment_id,
@@ -206,7 +206,7 @@ class Subscribers
                         f.first_date as film_first_date,
                         f.last_date as film_last_date,
                         f.image as film_image,
-                        f.language as film_language,
+                        s.language as film_language,
                         ci.name AS cinema_name,
                         ro.name AS room_name
                     FROM reservation as r
