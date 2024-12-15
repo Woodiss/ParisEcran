@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use parisecran\Entity\Cinema;
 use parisecran\DBAL\Connector;
@@ -16,34 +16,31 @@ $titlePage = "Salles des cinémas par arrondisement";
 require_once "../admin-header.html.php";
 ?>
 
-<h2>Salles des cinémas par arrondisement</h2>
+<h2>Salles de cinéma par arrondissement</h2>
 
 <!-- Afin d'avoir un affichage propre je récupère les cinema et utilise GROUP_CONCAT pour les salles -->
-<?php foreach ($cinemaRoomList as $cinema) { ?>
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>Nom du cinéma</th>
+            <th>Arrondissement</th>
+            <th>Adresse</th>
+            <th>Email</th>
+            <th>Salles</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($cinemaRoomList as $cinema) { ?>
             <tr>
-                <th>Nom du cinéma</th>
-                <th>Arrondissement</th>
-                <th>addresse</th>
-                <th>Email</th>
+                <td data-column-name="Nom du cinéma"><?= $cinema['name'] ?></td>
+                <td data-column-name="Arrondissement"><?= $cinema['borough'] ?></td>
+                <td data-column-name="Adresse"><?= $cinema['address'] ?></td>
+                <td data-column-name="Email"><?= $cinema['email'] ?></td>
+                <td data-column-name="Salles"><?= $cinema['rooms'] ?></td>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><?= $cinema['name'] ?></td>
-                <td><?= $cinema['borough'] ?></td>
-                <td><?= $cinema['address'] ?></td>
-                <td><?= $cinema['email'] ?></td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th colspan="4"><?= $cinema['rooms'] ?></th>
-            </tr>
-        </tfoot>
-    </table>
-<?php } ?>
+        <?php } ?>
+    </tbody>
+</table>
 
 
 <?php require_once "../admin-footer.html.php"; ?>

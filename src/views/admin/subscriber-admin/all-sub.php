@@ -20,15 +20,17 @@ $titlePage = "Liste des utilisateurs";
 require_once "../admin-header.html.php";
 
 ?>
+    <h2>Liste des utilisateurs</h2>
+
 <table>
     <thead>
         <tr>
             <th>Nom</th>
-            <th>Prenom</th>
+            <th>Prénom</th>
             <th>Username</th>
             <th>Email</th>
             <th>Date de naissance</th>
-            <th>Role</th>
+            <th>Rôle</th>
             <th>Reservation moyenne</th>
             <th>Action</th>
         </tr>
@@ -36,14 +38,14 @@ require_once "../admin-header.html.php";
     <tbody>
         <?php foreach ($subscribers as $subscriber) { ?>
             <tr>
-                <td><?= $subscriber['last_name'] ?></td>
-                <td><?= $subscriber['first_name'] ?></td>
-                <td><?= $subscriber['username'] ?></td>
-                <td><?= $subscriber['email'] ?></td>
-                <td><?= $subscriber['birthdate'] ?></td>
-                <td><?= $subscriber['role'] ?></td>
-                <td><?= $subscriber['moyenne_reservations'] ?></td>
-                <td>
+                <td data-column-name="Nom"><?= $subscriber['last_name'] ?></td>
+                <td data-column-name="Prénom"><?= $subscriber['first_name'] ?></td>
+                <td data-column-name="Username"><?= $subscriber['username'] ?></td>
+                <td data-column-name="Email"><?= $subscriber['email'] ?></td>
+                <td data-column-name="Date de naissance"><?= $subscriber['birthdate'] ?></td>
+                <td data-column-name="Rôle"><?= $subscriber['role'] ?></td>
+                <td data-column-name="Reservation moyenne"><?= $subscriber['moyenne_reservations'] ?></td>
+                <td data-column-name="Action">
                     <a href="update-subscriber.php?id_sub=<?= $subscriber['id'] ?>">Modifier</a><br>
                     <a href="reservation-sub-list.php?id_sub=<?= $subscriber['id'] ?>">Voir les reservations</a>
                     <form action="" method="post">

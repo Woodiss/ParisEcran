@@ -8,5 +8,10 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== 1) {
 }
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
-
+function tronquerTexte($texte, $limite) {
+    if (strlen($texte) > $limite) {
+        return substr($texte, 0, $limite) . '...';
+    }
+    return $texte;
+}
 ?>

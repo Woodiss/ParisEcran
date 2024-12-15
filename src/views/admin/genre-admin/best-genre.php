@@ -20,19 +20,21 @@ $titlePage = "Classement meilleur genre";
 require_once "../admin-header.html.php";
 ?>
 
-<h2>Classement des genres de films pupulaire</h2>
+<h2>Genre les plus populaires</h2>
 <table>
     <thead>
         <tr>
+            <th>Position</th>
             <th>Genre</th>
             <th>Nombre de reservations</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($genreList as $genre) { ?>
+        <?php foreach ($genreList as $key => $genre) { ?>
             <tr>
-                <td><?= $genre['genre'] ?></td>
-                <td><?= $genre['total_reservations'] ?></td>
+                <td data-column-name="Position"><?= $key +1 ?></td>
+                <td data-column-name="Genre"><?= $genre['genre'] ?></td>
+                <td data-column-name="Nombre de reservations"><?= $genre['total_reservations'] ?></td>
             </tr>
         <?php } ?>
     </tbody>

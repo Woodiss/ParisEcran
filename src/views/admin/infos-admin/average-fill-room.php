@@ -20,23 +20,23 @@ require_once "../admin-header.html.php";
 ?>
 
 
-<h2>Pourcentage de remplissage de salle pour les <?=  isset($_GET['old']) ? 'anciens' : '' ?> films</h2>
+<h2>Taux de remplissage des salles pour les <?=  isset($_GET['old']) ? 'anciens' : '' ?> films</h2>
 <table>
     <thead>
         <tr>
             <th>Titre</th>
             <th>Dernière date de diffusion</th>
             <th>Capacité des salles</th>
-            <th>Pourcentage de remplissage</th>
+            <th>Taux de remplissage</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($filmList as $film) { ?>
             <tr>
-                <td><?= $film['title'] ?></td>
-                <td><?= $film['last_showing_date'] ?></td>
-                <td><?= $film['room_capacity'] ?></td>
-                <td><?= $film['average_fill_rate'] ?> %</td>
+                <td data-column-name="Titre"><?= $film['title'] ?></td>
+                <td data-column-name="Dernière date de diffusion"><?= $film['last_showing_date'] ?></td>
+                <td data-column-name="Capacité des salles"><?= $film['room_capacity'] ?></td>
+                <td data-column-name="Taux de remplissage"><?= $film['average_fill_rate'] ?> %</td>
             </tr>
         <?php } ?>
     </tbody>
