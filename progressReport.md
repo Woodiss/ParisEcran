@@ -61,3 +61,18 @@ Ici est répertoriée toutes les demandes concernant le projet et leur avancemen
     9. Modification des commentaire ou de la note pour un film donnée en asynchrone ***Page :*** profil.php
     10. Création d'un back office complet pour les admins.
     11. Mise en place d'un CRUD pour les films, des genres et des utilisateurs.
+
+
+## Liste du groupe
+| Nom                  | Prénom         |
+|----------------------|----------------|
+| DESCARPENTRIES       | Stéphane       |
+| DE PASQUAL Eddy Jean | Christopher    |
+| ALLARD               | Adrien         |
+| SANCHEZ              | Amaury         | 
+| CODANDABANY          | Devanandhan    |
+
+## Lien git vers le projet
+```bash
+    https://github.com/Woodiss/ParisEcran
+```

@@ -66,7 +66,6 @@ Paris Ecran permet de gérer l'ensemble des étapes de la gestion cinématograph
 - Back-office complet pour les administrateurs : ✔️
 
 
-
 ---
 ## Technologies utilisées 💻
 - ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
