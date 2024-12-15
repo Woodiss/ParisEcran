@@ -26,8 +26,10 @@ const updateQuantityReservation = async (card, actionType) => {
     card.remove();
   }
   try {
+    console.log("ttt");
     const response = await fetch(
       `../../../public/api/updateReservation.php?id_reservation=${reservationId}&action_type=${actionType}`
+      
     );
 
     if (!response.ok) {

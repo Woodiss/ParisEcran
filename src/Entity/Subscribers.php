@@ -401,6 +401,17 @@ class Subscribers
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function confirmReservation($idSubscriber)
+    {
+        $query = "UPDATE `reservation` 
+                  SET `paid`= 1
+                  WHERE subscriber_id = :idSubscriber";
+
+        $stmt = $this->connector->prepare($query);
+        $stmt->bindParam(':idSubscriber', $idSubscriber, \PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
     public function getSubscribersAvgReservation()
     {
         $query = "SELECT s.id, s.username, s.email, s.birthdate, s.first_name, s.last_name, s.role, AVG(booked) AS moyenne_reservations 

@@ -11,7 +11,7 @@ $dbh = new Connector();
 $subscribersModel = new Subscribers($dbh->dbConnector);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    print_r($_POST);
+    // print_r($_POST);
 
     if (!empty($_POST['first_name']) &&
         !empty($_POST['last_name']) && 
