@@ -7,39 +7,225 @@
   margin: 0;
   padding: 0;
 }
+/* Thème par défaut (clair) */
+:root {
+  --background-color: #13171f;
+  --shadow-color: #202632;
+}
 
+/* Thème sombre */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #fff;
+    --shadow-color: #0171ad70;
+
+  }
+  body, td {
+    background: #f7f7f7;
+  }
+   td {
+    background: #f0f0f0;
+    box-shadow: inset 0 -2px var(--shadow-color);
+  }
+  header #logo-paris-ecran path, header #logo-paris-ecran path g path, header #toggle-nav svg path, aside svg path{
+    fill: #13171f;
+  }
+  header #toggle-nav svg path {
+    fill: #13171f;
+    stroke: #13171f;
+  }
+}
+
+.hide {
+  display: none;
+}
+.no-scroll {
+  overflow-y: hidden;
+}
 body {
-    font-family: "Roboto Flex", sans-serif;
+  font-family: "Roboto Flex", sans-serif;
+  padding-top: 70px;
 }
-
+h2 {
+  margin-left: 20px;
+}
+header {
+  padding-block: 0 !important;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--background-color);
+  box-shadow: inset 0 -2px 0 var(--shadow-color);
+  z-index: 999;
+}
+header button#toggle-nav {
+  background: none;
+  border: none;
+}
+header button#toggle-nav:focus {
+  box-shadow: none;
+}
+header #logo-paris-ecran {
+  width: 140px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 .admin-container {
-    display: flex;
+  display: flex;
 }
 
-.admin-container aside{
-    width: 13%;
-    padding: 0 15px;
+.admin-container aside {
+  width: 400px;
+  height: 100vh;
+  padding: 20px;
+  padding-top: 70px;
+  position: fixed;
+  left: -400px;
+  top: 0;
+  background: var(--background-color);
+  box-shadow: inset -2px 0 0 var(--shadow-color);
+  transition: transform 0.3s ease-out;
+  z-index: 80;
 }
-
+.admin-container aside.open {
+  transform: translateX(100%);
+}
+.admin-container nav {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  scrollbar-width: none;
+}
 .admin-container aside span {
-    margin-top: 30px;
-    margin-bottom: 0px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
+td {
+  font-size: 18px;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+td.price {
+  text-wrap: nowrap;
+}
+td.text-collapse {
+  max-height: 20%;
+}
+td a {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+td form button {
+  font-size: 16px!important;
+  padding: 5px 10px!important;
+}
 .admin-container .global-container {
+  width: 100%;
+  padding: 0 20px;
+  overflow-x: scroll;
+}
+.admin-container .global-container textarea {
+  min-height: 30%;
+}
+@media (max-width: 1300px) {
+  .admin-container .global-container {
+    padding: 0 10px;
+  }
+  .global-container table {
     width: 100%;
-    padding: 0 30px;
-}
-
-.select-button {
+    display: block;
+  }
+  .global-container table thead,
+  .global-container table tbody {
+    width: 100%;
+    display: block;
+  }
+  th,
+  tr,
+  td {
+    display: block;
+  }
+  th {
+    display: none;
+  }
+  tr {
+    border: 2px solid var(--shadow-color);
+    margin-bottom: 20px;
+  }
+  td {
+    padding-left: 35%;
+    position: relative;
     display: flex;
-    gap: 25px; 
+    align-items: center;
+    gap: 10px;
+  }
+  td::before {
+    bottom: 0;
+    content: attr(data-column-name);
+    font-weight: 500;
+    left: 0;
+    overflow: hidden;
+    padding: calc(var(--pico-spacing)/ 2) var(--pico-spacing);
+    position: absolute;
+    text-align: left;
+    text-overflow: ellipsis;
+    top: 0;
+    white-space: nowrap;
+    width: 35%;
+  }
+  td img {
+    max-width: 100px;
+    min-width: 50px;
+  }
+  td a {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  td form button {
+    width: fit-content!important;
+    font-size: 18px!important;
+    padding: 5px 10px!important;
+    margin-bottom: 0!important;
+  }
+}
+.select-button {
+  display: flex;
+  gap: 25px;
+}
+@media (max-width: 600px) {
+  .admin-container aside {
+    width: 100%;
+    left: -100%;
+  }
+  td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 500px) {
+  .admin-container aside {
+    width: 100%;
+    left: -100%;
+  }
+  td {
+    font-size: 16px;
+  }
+}
+#actors-container,
+#soundDesigner-container {
+  margin-top: 50px;
 }
 
-#actors-container, #soundDesigner-container {
-    margin-top: 50px;
-}
-
-td.img {
-    width: 200px;
+td img {
+  max-width: 100px;
+  min-width: 50px;
 }

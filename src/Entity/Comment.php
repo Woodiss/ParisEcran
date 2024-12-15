@@ -70,10 +70,10 @@ class Comment
                     s.last_name, 
                     s.first_name, 
                     c.*, 
-                    JSON_LENGTH(reactions->'$.like') AS like_count
+                    JSON_LENGTH(JSON_EXTRACT(reactions, '$.like')) AS like_count
                 FROM comment AS c
                 JOIN subscriber AS s ON s.id = c.subscriber_id
-                WHERE JSON_LENGTH(reactions->'$.like') > 5
+                WHERE JSON_LENGTH(JSON_EXTRACT(reactions, '$.like')) > 5
                 ORDER BY like_count DESC";
         $stmt = $this->connector->prepare($query);
         $stmt->execute();

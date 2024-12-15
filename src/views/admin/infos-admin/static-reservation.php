@@ -21,15 +21,15 @@ require_once "../admin-header.html.php";
 <table>
     <thead>
         <tr>
-            <th>Nombre de place</th>
-            <th>Nombre d'utilisateur ayant reserver</th>
+            <th>Nombre de places</th>
+            <th>Nombre d'utilisateurs ayant reservé</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($reservationList as $reservation) { ?>
             <tr>
-                <td><?= $reservation['number_of_seats_reserved'] ?></td>
-                <td><?= $reservation['number_sub'] ?></td>
+                <td data-column-name="Nb de places"><?= $reservation['number_of_seats_reserved'] ?></td>
+                <td data-column-name="Nb d'utilisateurs ayant reservé"><?= $reservation['number_sub'] ?></td>
             </tr>
         <?php } ?>
     </tbody>
